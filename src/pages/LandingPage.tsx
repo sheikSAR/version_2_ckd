@@ -12,8 +12,10 @@ const LandingPage = () => {
     { id: 4, title: 'Meta Graph', route: '/configurator/meta-graph' },
   ]
 
-  const handleCardClick = (route: string) => {
-    navigate(route)
+  const handleCardClick = (route: string, isDataGraph: boolean) => {
+    if (isDataGraph) {
+      navigate(route)
+    }
   }
 
   return (
@@ -23,15 +25,18 @@ const LandingPage = () => {
         <p className="landing-subtitle">Select a module to explore the configuration graph</p>
 
         <div className="cards-grid">
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className="card"
-              onClick={() => handleCardClick(card.route)}
-            >
-              <p className="card-title">{card.title}</p>
-            </div>
-          ))}
+          {cards.map((card) => {
+            const isDataGraph = card.id === 1
+            return (
+              <div
+                key={card.id}
+                className={`card ${!isDataGraph ? 'disabled' : ''}`}
+                onClick={() => handleCardClick(card.route, isDataGraph)}
+              >
+                <p className="card-title">{card.title}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
