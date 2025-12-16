@@ -1,146 +1,180 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import nodeData from '../data/node.json'
 import '../styles/DataGraphVisualization.css'
 
+interface ContainerData {
+  name: string
+  nodes: string[]
+  color: string
+  bgColor: string
+  headerColor: string
+  nodeColor: string
+}
+
 const DataGraphVisualization: React.FC = () => {
-  const containerColors = [
-    '#FF6B6B',
-    '#4ECDC4',
-    '#45B7D1',
-    '#FFA07A',
-    '#98D8C8',
-    '#F7DC6F',
-    '#BB8FCE',
-    '#85C1E9',
-    '#F8B88B',
-    '#A3E4D7',
-    '#D7BCCB',
-    '#B4E7FF',
-    '#FFD4A3',
-    '#C8E6A0',
-    '#F4A6D3',
+  const [hoveredNode, setHoveredNode] = useState<{ container: string; node: string } | null>(null)
+
+  const colorPalettes = [
+    {
+      name: 'Coral',
+      color: '#FF6B6B',
+      bgColor: '#FFE5E5',
+      headerColor: '#FF5252',
+      nodeColor: '#FF6B6B',
+    },
+    {
+      name: 'Teal',
+      color: '#4ECDC4',
+      bgColor: '#E0F7F6',
+      headerColor: '#1BA8A0',
+      nodeColor: '#4ECDC4',
+    },
+    {
+      name: 'Sky',
+      color: '#45B7D1',
+      bgColor: '#E3F7FF',
+      headerColor: '#0D8FB9',
+      nodeColor: '#45B7D1',
+    },
+    {
+      name: 'Salmon',
+      color: '#FFA07A',
+      bgColor: '#FFE8DC',
+      headerColor: '#FF7F50',
+      nodeColor: '#FFA07A',
+    },
+    {
+      name: 'Mint',
+      color: '#98D8C8',
+      bgColor: '#E8F8F3',
+      headerColor: '#52B8A0',
+      nodeColor: '#98D8C8',
+    },
+    {
+      name: 'Gold',
+      color: '#F7DC6F',
+      bgColor: '#FFFACD',
+      headerColor: '#F4C430',
+      nodeColor: '#F7DC6F',
+    },
+    {
+      name: 'Purple',
+      color: '#BB8FCE',
+      bgColor: '#F5E6FA',
+      headerColor: '#9B59B6',
+      nodeColor: '#BB8FCE',
+    },
+    {
+      name: 'Blue',
+      color: '#85C1E9',
+      bgColor: '#E8F4FB',
+      headerColor: '#3498DB',
+      nodeColor: '#85C1E9',
+    },
+    {
+      name: 'Orange',
+      color: '#F8B88B',
+      bgColor: '#FFF0E6',
+      headerColor: '#E67E22',
+      nodeColor: '#F8B88B',
+    },
+    {
+      name: 'Green',
+      color: '#A3E4D7',
+      bgColor: '#E8FFF7',
+      headerColor: '#27AE60',
+      nodeColor: '#A3E4D7',
+    },
+    {
+      name: 'Rose',
+      color: '#D7BCCB',
+      bgColor: '#FBF2F7',
+      headerColor: '#C2185B',
+      nodeColor: '#D7BCCB',
+    },
+    {
+      name: 'Cyan',
+      color: '#B4E7FF',
+      bgColor: '#E0F7FF',
+      headerColor: '#0084FF',
+      nodeColor: '#B4E7FF',
+    },
+    {
+      name: 'Peach',
+      color: '#FFD4A3',
+      bgColor: '#FFF5EB',
+      headerColor: '#FF8C42',
+      nodeColor: '#FFD4A3',
+    },
+    {
+      name: 'Lime',
+      color: '#C8E6A0',
+      bgColor: '#F8FFF0',
+      headerColor: '#8BC34A',
+      nodeColor: '#C8E6A0',
+    },
+    {
+      name: 'Pink',
+      color: '#F4A6D3',
+      bgColor: '#FFF0F8',
+      headerColor: '#E91E63',
+      nodeColor: '#F4A6D3',
+    },
   ]
 
-  const containerConfig = useMemo(() => {
-    const entries = Object.entries(nodeData)
-    const containerHeight = 180
-    const containerWidth = 200
-    const containerGapX = 40
-    const containerGapY = 30
-    const nodeRadius = 20
-    const nodeGapY = 40
-
-    let currentY = 20
-    let currentX = 20
-
-    return entries.map((entry, containerIndex) => {
+  const containerConfig: ContainerData[] = useMemo(() => {
+    return Object.entries(nodeData).map((entry, index) => {
       const [containerName, nodes] = entry as [string, string[]]
-      const color = containerColors[containerIndex % containerColors.length]
+      const palette = colorPalettes[index % colorPalettes.length]
 
-      const adjustedHeight = Math.max(containerHeight, nodes.length * nodeGapY + 20)
-
-      const containerData = {
+      return {
         name: containerName,
         nodes: nodes,
-        color,
-        x: currentX,
-        y: currentY,
-        width: containerWidth,
-        height: adjustedHeight,
-        nodeRadius,
+        color: palette.color,
+        bgColor: palette.bgColor,
+        headerColor: palette.headerColor,
+        nodeColor: palette.nodeColor,
       }
-
-      currentX += containerWidth + containerGapX
-
-      // Reset to next row if too many containers
-      if (currentX > 1200) {
-        currentX = 20
-        currentY += adjustedHeight + containerGapY
-      }
-
-      return containerData
     })
   }, [])
 
-  const svgWidth = 1400
-  const svgHeight = useMemo(() => {
-    if (containerConfig.length === 0) return 400
-    const maxY = Math.max(...containerConfig.map(c => c.y + c.height)) + 20
-    return maxY
-  }, [containerConfig])
-
   return (
-    <div className="data-graph-visualization-container">
-      <svg
-        width={svgWidth}
-        height={svgHeight}
-        className="data-graph-svg"
-        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      >
-        {containerConfig.map((container, containerIndex) => (
-          <g key={containerIndex}>
-            {/* Container background */}
-            <rect
-              x={container.x}
-              y={container.y}
-              width={container.width}
-              height={container.height}
-              fill={container.color}
-              opacity={0.15}
-              stroke={container.color}
-              strokeWidth={2}
-              rx={8}
-            />
+    <div className="data-graph-container">
+      <div className="containers-grid">
+        {containerConfig.map((container) => (
+          <div key={container.name} className="entity-container" style={{ borderColor: container.headerColor }}>
+            <div className="container-header" style={{ backgroundColor: container.headerColor }}>
+              <h2 className="container-title">{container.name}</h2>
+            </div>
 
-            {/* Container label */}
-            <text
-              x={container.x + container.width / 2}
-              y={container.y + 25}
-              textAnchor="middle"
-              className="container-label"
-              fill={container.color}
-              fontSize="14"
-              fontWeight="bold"
+            <div
+              className="container-body"
+              style={{ backgroundColor: container.bgColor }}
             >
-              {container.name}
-            </text>
-
-            {/* Nodes */}
-            {container.nodes.map((node, nodeIndex) => {
-              const nodeY = container.y + 50 + nodeIndex * 40
-              const nodeX = container.x + container.width / 2
-
-              return (
-                <g key={nodeIndex}>
-                  {/* Node circle */}
-                  <circle
-                    cx={nodeX}
-                    cy={nodeY}
-                    r={container.nodeRadius}
-                    fill={container.color}
-                    opacity={0.3}
-                    stroke={container.color}
-                    strokeWidth={2}
-                  />
-
-                  {/* Node text */}
-                  <text
-                    x={nodeX}
-                    y={nodeY}
-                    textAnchor="middle"
-                    dy="0.3em"
-                    className="node-label"
-                    fontSize="11"
-                    fontWeight="500"
+              <div className="nodes-list">
+                {container.nodes.map((node, nodeIndex) => (
+                  <div
+                    key={nodeIndex}
+                    className="node-wrapper"
+                    onMouseEnter={() => setHoveredNode({ container: container.name, node })}
+                    onMouseLeave={() => setHoveredNode(null)}
                   >
-                    {node.length > 15 ? node.substring(0, 12) + '...' : node}
-                  </text>
-                </g>
-              )
-            })}
-          </g>
+                    <div
+                      className={`node-circle ${hoveredNode?.container === container.name && hoveredNode?.node === node ? 'hovered' : ''}`}
+                      style={{
+                        borderColor: container.nodeColor,
+                        backgroundColor: container.nodeColor,
+                      }}
+                    >
+                      <span className="node-text">{node}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         ))}
-      </svg>
+      </div>
     </div>
   )
 }
