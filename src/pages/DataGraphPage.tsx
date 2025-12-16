@@ -1,21 +1,22 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import DataGraphVisualization from '../components/DataGraphVisualization'
-import '../styles/ConfiguratorDemoPage.css'
+import '../styles/DataGraphPage.css'
 
 const DataGraphPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="demo-page-container">
-      <div className="demo-page-content">
-        <button className="back-button" onClick={() => navigate('/configurator/landing')}>
+    <div className="data-graph-page">
+      <ConfiguratorNavbar />
+      <div className="data-graph-main">
+        <button className="data-graph-back-button" onClick={() => navigate('/configurator/landing')}>
           ← Back to Configuration Landing
         </button>
-
-        <h1 className="demo-page-title">Data Graph (ER Diagram)</h1>
-
-        <DataGraphVisualization />
+        <div className="data-graph-content-wrapper">
+          <DataGraphVisualization />
+        </div>
       </div>
     </div>
   )
