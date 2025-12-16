@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import DataGraphVisualization from '../components/DataGraphVisualization'
 import '../styles/ConfiguratorDemoPage.css'
 
 const DataGraphPage = () => {
@@ -11,12 +12,10 @@ const DataGraphPage = () => {
         <button className="back-button" onClick={() => navigate('/configurator/landing')}>
           ← Back to Configuration Landing
         </button>
-        
+
         <h1 className="demo-page-title">Data Graph (ER Diagram)</h1>
-        
-        <div className="demo-page-card">
-          <p className="demo-page-text">This is a demo page. Graph rendering will be implemented here.</p>
-        </div>
+
+        <DataGraphVisualization />
       </div>
     </div>
   )
