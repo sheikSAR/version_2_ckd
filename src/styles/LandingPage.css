@@ -56,11 +56,17 @@
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
 }
 
-.card:hover {
+.card:hover:not(.disabled) {
   transform: scale(1.05) translateY(-5px);
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(102, 126, 234, 0.3);
+}
+
+.card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .card-title {

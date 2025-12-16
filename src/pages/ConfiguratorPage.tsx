@@ -37,6 +37,11 @@ const ConfiguratorPage = () => {
       return
     }
 
+    if (!operationMode) {
+      setError('Please select an operation mode before submitting.')
+      return
+    }
+
     setLoading(true)
     setError('')
 
@@ -140,7 +145,7 @@ const ConfiguratorPage = () => {
           ref={submitRef.ref}
           className={`submit-button-wrapper ${submitRef.isVisible ? 'animate-in' : ''}`}
         >
-          <button onClick={handleSubmit} disabled={loading} className="submit-button">
+          <button onClick={handleSubmit} disabled={loading || !operationMode} className="submit-button">
             {loading ? 'Submitting...' : 'Continue'}
           </button>
         </div>
