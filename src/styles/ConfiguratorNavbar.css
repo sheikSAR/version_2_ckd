@@ -1,0 +1,238 @@
+.configurator-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 100;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.configurator-navbar.scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  height: 70px;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 250px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 10px 0;
+  animation: fadeInLeft 0.8s ease-out 0.1s both;
+}
+
+.navbar-logo {
+  height: 50px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+
+.configurator-navbar.scrolled .navbar-logo {
+  height: 45px;
+}
+
+.navbar-logo.efsd-logo {
+  padding-right: 15px;
+}
+
+.navbar-logo.mdrf-logo {
+  padding-left: 15px;
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0) 0%, rgba(102, 126, 234, 0.4) 50%, rgba(102, 126, 234, 0) 100%);
+  animation: fadeInLeft 0.8s ease-out 0.2s both;
+}
+
+.navbar-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInDown 0.8s ease-out 0.3s both;
+}
+
+.navbar-title h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  animation: fadeInRight 0.8s ease-out 0.4s both;
+}
+
+.logout-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .configurator-navbar {
+    height: 70px;
+  }
+
+  .configurator-navbar.scrolled {
+    height: 65px;
+  }
+
+  .navbar-container {
+    padding: 0 15px;
+    flex-wrap: wrap;
+    height: auto;
+    gap: 10px;
+  }
+
+  .navbar-logos {
+    gap: 12px;
+    min-width: auto;
+  }
+
+  .navbar-logo {
+    height: 40px;
+  }
+
+  .configurator-navbar.scrolled .navbar-logo {
+    height: 38px;
+  }
+
+  .navbar-title h1 {
+    font-size: 18px;
+  }
+
+  .navbar-divider {
+    height: 40px;
+  }
+
+  .logout-button {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .configurator-navbar {
+    height: 60px;
+  }
+
+  .navbar-container {
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .navbar-logos {
+    gap: 8px;
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar-title {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .navbar-title h1 {
+    font-size: 14px;
+  }
+
+  .navbar-logo {
+    height: 30px;
+  }
+
+  .navbar-divider {
+    height: 30px;
+  }
+
+  .logout-button {
+    padding: 6px 12px;
+    font-size: 11px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+  }
+}

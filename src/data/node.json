@@ -1,0 +1,82 @@
+{
+  "Patient_ID": ["ID"],
+
+  "Gender": [
+    "Female",
+    "Male"
+  ],
+
+  "Age_Group": [
+    "Age < 40",
+    "Age == 40",
+    "40 < Age <= 45",
+    "45 < Age <= 50",
+    "50 < Age <= 55",
+    "55 < Age <= 60",
+    "60 < Age <= 65",
+    "65 < Age <= 70",
+    "70 < Age <= 75",
+    "75 < Age <= 78",
+    "Age > 78"
+  ],
+
+  "DR": [
+    "DR_OD",
+    "Non_DR_OD",
+    "DR_OS",
+    "Non_DR_OS"
+  ],
+
+  "HTN": [
+    "HTN",
+    "No_HTN"
+  ],
+
+  "Duration_of_Diabetes": [
+    "DD <= 5",
+    "5 < DD <= 10",
+    "10 < DD <= 15",
+    "15 < DD <= 20",
+    "20 < DD <= 25",
+    "25 < DD <= 30",
+    "30 < DD <= 35",
+    "35 < DD <= 40",
+    "DD > 40"
+  ],
+
+  "HB": [
+    "HB <= 9",
+    "9 < HB <= 12",
+    "12 < HB <= 15",
+    "15 < HB <= 18",
+    "HB > 18"
+  ],
+
+  "HBA": [
+    "HBA <= 5",
+    "5 < HBA <= 10",
+    "10 < HBA <= 15",
+    "HBA > 15"
+  ],
+
+  "DR_Severity_OD": [
+    "Stage 1",
+    "Stage 2",
+    "Stage 3",
+    "Stage 4",
+    "Stage 5"
+  ],
+
+  "DR_Severity_OS": [
+    "Stage 1",
+    "Stage 2",
+    "Stage 3",
+    "Stage 4",
+    "Stage 5"
+  ],
+
+  "EGFR": [
+    "EGFR >= 90",
+    "EGFR < 90"
+  ]
+}

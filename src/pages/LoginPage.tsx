@@ -1,0 +1,257 @@
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { ParticleTextEffect } from '../components/ui/particle-text-effect'
+
+type Role = 'user' | 'admin' | 'configurator'
+
+const LoginPage = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await axios.post('http://localhost:5000/login', {
+        username,
+        password,
+      })
+
+      if (response.data.success) {
+        const role = response.data.role
+        if (role === 'user') {
+          navigate('/user')
+        } else if (role === 'admin') {
+          navigate('/admin')
+        } else if (role === 'configurator') {
+          navigate('/configurator')
+        }
+      } else {
+        setError(response.data.message || 'Login failed. Please try again.')
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.')
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const backgroundLayerStyle: React.CSSProperties = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 0,
+    width: '100%',
+    height: '100vh',
+    overflow: 'hidden',
+  }
+
+  const contentLayerStyle: React.CSSProperties = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    padding: '20px',
+    boxSizing: 'border-box',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+    overflowY: 'auto',
+  }
+
+  return (
+    <div>
+      <div style={backgroundLayerStyle}>
+        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} />
+      </div>
+
+      <div style={{ ...contentLayerStyle, position: 'relative' }}>
+        <img
+          src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
+          alt="European Diabetes Foundation Logo"
+          style={{
+            position: 'absolute',
+            top: '30px',
+            left: '30px',
+            maxWidth: '300px',
+            height: 'auto',
+            filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
+            transition: 'transform 0.3s ease, filter 0.3s ease',
+            animation: 'fadeInDown 0.8s ease',
+            zIndex: 30,
+          }}
+        />
+
+        <img
+          src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1765918133/MDRF__Chennai_Logo_qfwlna.png"
+          alt="MDRF Logo"
+          style={{
+            position: 'absolute',
+            top: '30px',
+            right: '30px',
+            maxWidth: '150px',
+            height: 'auto',
+            filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
+            transition: 'transform 0.3s ease, filter 0.3s ease',
+            animation: 'fadeInDown 0.8s ease',
+            zIndex: 30,
+          }}
+        />
+
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '30px',
+          width: '100%',
+          maxWidth: '400px',
+          boxSizing: 'border-box',
+        }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            padding: '40px 30px',
+            borderRadius: '16px',
+            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.1)',
+            width: '100%',
+            boxSizing: 'border-box',
+            animation: 'fadeInUp 0.8s ease 0.2s both',
+          }}>
+            <div style={{
+              textAlign: 'center',
+              marginBottom: '35px',
+            }}>
+              <h1 style={{
+                margin: 0,
+                fontSize: '28px',
+                fontWeight: 700,
+                color: '#333',
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+              }}>CKD Analysis</h1>
+              <p style={{
+                margin: '10px 0 0 0',
+                color: '#666',
+                fontSize: '14px',
+                fontWeight: 400,
+              }}>Sign in to your account</p>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <div style={{ marginBottom: '25px' }}>
+                <label htmlFor="username" style={{
+                  display: 'block',
+                  marginBottom: '10px',
+                  fontWeight: 600,
+                  color: '#333',
+                  fontSize: '14px',
+                  letterSpacing: '0.5px',
+                }}>Username</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter your username"
+                    style={{
+                      width: '100%',
+                      padding: '12px 16px',
+                      border: '2px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '8px',
+                      fontSize: '15px',
+                      boxSizing: 'border-box',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(5px)',
+                      color: '#333',
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '25px' }}>
+                <label htmlFor="password" style={{
+                  display: 'block',
+                  marginBottom: '10px',
+                  fontWeight: 600,
+                  color: '#333',
+                  fontSize: '14px',
+                  letterSpacing: '0.5px',
+                }}>Password</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    style={{
+                      width: '100%',
+                      padding: '12px 16px',
+                      border: '2px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '8px',
+                      fontSize: '15px',
+                      boxSizing: 'border-box',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(5px)',
+                      color: '#333',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {error && <div style={{
+                color: '#d32f2f',
+                backgroundColor: 'rgba(255, 235, 238, 0.6)',
+                backdropFilter: 'blur(5px)',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                marginBottom: '20px',
+                fontSize: '14px',
+                borderLeft: '4px solid #d32f2f',
+                animation: 'slideIn 0.3s ease',
+                border: '1px solid rgba(211, 47, 47, 0.2)',
+              }}>{error}</div>}
+
+              <button type="submit" disabled={loading} style={{
+                width: '100%',
+                padding: '14px',
+                background: loading ? 'linear-gradient(135deg, #ccc 0%, #aaa 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: 600,
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.3s ease',
+                letterSpacing: '0.5px',
+                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 8px 20px rgba(102, 126, 234, 0.3)',
+              }}>
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default LoginPage

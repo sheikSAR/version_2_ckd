@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  position: relative;
+  padding: 20px;
+  z-index: 50;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-background {
+  display: none;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 450px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.org-logos {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInDown 0.8s ease;
+}
+
+.efsd-logo,
+.mdrf-logo {
+  max-width: 150px;
+  height: auto;
+  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.efsd-logo {
+  max-width: 200px;
+}
+
+.efsd-logo:hover,
+.mdrf-logo:hover {
+  transform: translateY(-5px);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  width: 100%;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.login-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-subtitle {
+  margin: 10px 0 0 0;
+  color: #666;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  color: #333;
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: rgba(102, 126, 234, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input[type='text']:focus,
+.form-group input[type='password']:focus {
+  outline: none;
+}
+
+.form-group fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-group legend {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.role-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.radio-label input[type='radio'] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #d32f2f;
+  background-color: rgba(255, 235, 238, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-left: 4px solid #d32f2f;
+  animation: slideIn 0.3s ease;
+  border: 1px solid rgba(211, 47, 47, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  background: linear-gradient(135deg, #ccc 0%, #aaa 100%);
+  cursor: not-allowed;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+  .login-content {
+    gap: 25px;
+  }
+
+  .org-logos {
+    gap: 20px;
+  }
+
+  .efsd-logo {
+    max-width: 120px;
+  }
+
+  .mdrf-logo {
+    max-width: 100px;
+  }
+
+  .login-card {
+    padding: 40px 25px;
+  }
+
+  .login-title {
+    font-size: 24px;
+  }
+
+  .form-input {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+
+  .login-button {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
