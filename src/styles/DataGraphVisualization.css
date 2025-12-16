@@ -1,0 +1,42 @@
+.data-graph-visualization-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 600px;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.data-graph-svg {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  min-width: fit-content;
+}
+
+.container-label {
+  pointer-events: none;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.node-label {
+  pointer-events: none;
+  fill: #333;
+  word-break: break-word;
+  white-space: normal;
+}
+
+@media (max-width: 768px) {
+  .data-graph-visualization-container {
+    padding: 20px 10px;
+    min-height: 400px;
+  }
+
+  .data-graph-svg {
+    max-width: 100%;
+  }
+}
