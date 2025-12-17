@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as XLSX from 'xlsx'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
-import RelationshipGraphVisualization from '../components/RelationshipGraphVisualization'
+import Graph3DVisualization from '../components/Graph3DVisualization'
+import GraphFiltersBar from '../components/GraphFiltersBar'
 import { mapPatientDataToNodes } from '../utils/patientNodeMapper'
 import type { PatientEdges } from '../utils/patientNodeMapper'
 import '../styles/RelationshipGraphPage.css'
@@ -164,29 +165,26 @@ const RelationshipGraphPage = () => {
     setError('')
   }
 
-  const variables = Array.from(
-    new Set(patientEdges.flatMap((pe) => pe.edges.map((e) => e.container)))
-  ).sort()
-
   const hasData = patientEdges.length > 0
 
   return (
     <div className="relationship-graph-page">
       <ConfiguratorNavbar />
-      <div className="relationship-graph-main">
-        <button
-          className="relationship-back-button"
-          onClick={() => navigate('/configurator/data-graph')}
-        >
-          ← Back to Node Visualization
-        </button>
 
-        {!hasData ? (
+      {!hasData ? (
+        <div className="relationship-graph-main">
+          <button
+            className="relationship-back-button"
+            onClick={() => navigate('/configurator/data-graph')}
+          >
+            ← Back to Node Visualization
+          </button>
+
           <div className="upload-section">
             <div className="upload-card">
               <h1 className="upload-title">Parse Patient Input Data</h1>
               <p className="upload-description">
-                Upload patient data (JSON, YAML, or Excel) to create relationship edges to nodes
+                Upload patient data (JSON, YAML, or Excel) to create a 3D relationship network
               </p>
 
               <div className="file-upload-wrapper">
@@ -211,85 +209,22 @@ const RelationshipGraphPage = () => {
               {error && <div className="error-message">{error}</div>}
             </div>
           </div>
-        ) : (
-          <div className="visualization-wrapper">
-            <div className="controls-panel">
-              <div className="controls-header">
-                <h3>Filters</h3>
-                <button className="clear-button" onClick={handleClearData}>
-                  Clear Data
-                </button>
-              </div>
+        </div>
+      ) : (
+        <>
+          <GraphFiltersBar
+            patientEdges={patientEdges}
+            selectedPatient={selectedPatient}
+            selectedVariable={selectedVariable}
+            onPatientChange={setSelectedPatient}
+            onVariableChange={setSelectedVariable}
+            onClearData={handleClearData}
+            isLoading={loading}
+          />
 
-              <div className="filter-section">
-                <label className="filter-label">
-                  <span className="filter-label-text">Patient ({patientEdges.length})</span>
-                  <select
-                    value={selectedPatient || ''}
-                    onChange={(e) => setSelectedPatient(e.target.value || null)}
-                    className="filter-select"
-                  >
-                    <option value="">All Patients</option>
-                    {patientEdges.map((pe) => (
-                      <option key={pe.patientId} value={pe.patientId}>
-                        {pe.patientId} ({pe.edges.length})
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              <div className="filter-section">
-                <label className="filter-label">
-                  <span className="filter-label-text">Variable ({variables.length})</span>
-                  <select
-                    value={selectedVariable || ''}
-                    onChange={(e) => setSelectedVariable(e.target.value || null)}
-                    className="filter-select"
-                  >
-                    <option value="">All Variables</option>
-                    {variables.map((variable) => (
-                      <option key={variable} value={variable}>
-                        {variable}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              <div className="stats-section">
-                <div className="stat">
-                  <span className="stat-label">Total Patients</span>
-                  <span className="stat-value">{patientEdges.length}</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-label">Total Edges</span>
-                  <span className="stat-value">
-                    {patientEdges.reduce((sum, pe) => sum + pe.edges.length, 0)}
-                  </span>
-                </div>
-                <div className="stat">
-                  <span className="stat-label">Variables</span>
-                  <span className="stat-value">{variables.length}</span>
-                </div>
-              </div>
-
-              <div className="upload-new-section">
-                <label className="file-input-label-small">
-                  <input
-                    type="file"
-                    accept=".json,.yaml,.yml,.xlsx,.xls"
-                    onChange={handleFileChange}
-                    className="file-input"
-                    disabled={loading}
-                  />
-                  <span className="upload-new-text">{loading ? 'Processing...' : 'Upload New Data'}</span>
-                </label>
-              </div>
-            </div>
-
+          <div className="relationship-graph-main">
             <div className="graph-wrapper">
-              <RelationshipGraphVisualization
+              <Graph3DVisualization
                 patientEdges={patientEdges}
                 selectedPatient={selectedPatient || undefined}
                 selectedVariable={selectedVariable || undefined}
@@ -297,8 +232,21 @@ const RelationshipGraphPage = () => {
               />
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="upload-overlay-button">
+            <label className="upload-overlay-label">
+              <input
+                type="file"
+                accept=".json,.yaml,.yml,.xlsx,.xls"
+                onChange={handleFileChange}
+                className="file-input"
+                disabled={loading}
+              />
+              <span className="upload-overlay-text">{loading ? 'Processing...' : 'Upload New Data'}</span>
+            </label>
+          </div>
+        </>
+      )}
     </div>
   )
 }
