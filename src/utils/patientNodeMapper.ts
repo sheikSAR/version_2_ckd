@@ -46,7 +46,7 @@ const mappingRules: Record<string, (value: string) => string | null> = {
     return findNumericRange(num, nodes)
   },
 
-  BMI: (value: string) => {
+  BMI: () => {
     return null
   },
 
