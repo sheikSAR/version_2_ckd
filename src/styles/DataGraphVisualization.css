@@ -7,13 +7,15 @@
 }
 
 .containers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;
   gap: 24px;
   padding: 20px;
-  overflow-y: auto;
   overflow-x: auto;
-  align-content: start;
+  overflow-y: visible;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
 }
 
 .containers-grid::-webkit-scrollbar {
