@@ -123,15 +123,21 @@ const LoginPage = () => {
           boxSizing: 'border-box',
         }}>
           <div style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            background: 'rgba(255, 255, 255, 0.03)',
+            backdropFilter: 'blur(30px)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
             padding: '40px 30px',
-            borderRadius: '16px',
-            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.1)',
+            borderRadius: '20px',
+            boxShadow: `
+              0 8px 32px rgba(31, 38, 135, 0.08),
+              inset 0 0 20px rgba(255, 255, 255, 0.1),
+              0 0 40px rgba(102, 126, 234, 0.05)
+            `,
             width: '100%',
             boxSizing: 'border-box',
             animation: 'fadeInUp 0.8s ease 0.2s both',
+            position: 'relative',
+            overflow: 'hidden',
           }}>
             <div style={{
               textAlign: 'center',
@@ -172,14 +178,15 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '2px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '8px',
+                      border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                      borderRadius: '10px',
                       fontSize: '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(5px)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(10px)',
                       color: '#333',
+                      boxShadow: 'inset 0 0 10px rgba(255, 255, 255, 0.05)',
                     }}
                   />
                 </div>
@@ -204,14 +211,15 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '2px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '8px',
+                      border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                      borderRadius: '10px',
                       fontSize: '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(5px)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(10px)',
                       color: '#333',
+                      boxShadow: 'inset 0 0 10px rgba(255, 255, 255, 0.05)',
                     }}
                   />
                 </div>
