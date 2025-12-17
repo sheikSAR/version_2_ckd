@@ -278,13 +278,12 @@
 
 @media (max-width: 480px) {
   .containers-grid {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 8px;
     padding: 6px;
   }
 
   .entity-container {
-    max-height: calc(100vh - 100px);
+    width: 130px;
   }
 
   .container-header {
