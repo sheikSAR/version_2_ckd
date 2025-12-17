@@ -201,13 +201,12 @@
 
 @media (max-width: 768px) {
   .containers-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
     padding: 10px;
   }
 
   .entity-container {
-    max-height: calc(100vh - 140px);
+    width: 160px;
     border-left-width: 3px;
   }
 
