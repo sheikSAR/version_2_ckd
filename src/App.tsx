@@ -24,6 +24,7 @@ const AppContent = () => {
         <Route path="/configurator" element={<ConfiguratorPage />} />
         <Route path="/configurator/landing" element={<LandingPage />} />
         <Route path="/configurator/data-graph" element={<DataGraphPage />} />
+        <Route path="/configurator/relationship-graph" element={<RelationshipGraphPage />} />
         <Route path="/configurator/dl-graph" element={<DLGraphPage />} />
         <Route path="/configurator/filtering" element={<FilteringPage />} />
         <Route path="/configurator/meta-graph" element={<MetaGraphPage />} />
