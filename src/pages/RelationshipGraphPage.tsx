@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import * as XLSX from 'xlsx'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import RelationshipGraphVisualization from '../components/RelationshipGraphVisualization'
-import { mapPatientDataToNodes, PatientEdges } from '../utils/patientNodeMapper'
+import { mapPatientDataToNodes } from '../utils/patientNodeMapper'
+import type { PatientEdges } from '../utils/patientNodeMapper'
 import '../styles/RelationshipGraphPage.css'
 
 const RelationshipGraphPage = () => {
