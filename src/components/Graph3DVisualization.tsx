@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import ForceGraph3D from 'react-force-graph-3d'
-import type { PatientEdges, Edge } from '../utils/patientNodeMapper'
+import type { PatientEdges } from '../utils/patientNodeMapper'
 import nodeData from '../data/node.json'
 import '../styles/Graph3DVisualization.css'
 
@@ -21,8 +21,8 @@ interface GraphNode {
 }
 
 interface GraphLink {
-  source: string
-  target: string
+  source: string | GraphNode
+  target: string | GraphNode
   isVisible: boolean
 }
 
@@ -87,9 +87,9 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
     const nodesMap = new Map<string, GraphNode>()
     const linksArray: GraphLink[] = []
-
     const patientNodes = patientEdges.map((pe) => pe.patientId)
 
+    // Add patient nodes
     patientNodes.forEach((patientId) => {
       nodesMap.set(`patient-${patientId}`, {
         id: `patient-${patientId}`,
@@ -101,6 +101,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       })
     })
 
+    // Add variable nodes and links
     const processedEdges = new Set<string>()
 
     patientEdges.forEach((patientData) => {
@@ -141,22 +142,21 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }, [patientEdges, selectedPatient, selectedVariable, containerToColorMap, nodeTypeColors])
 
   useEffect(() => {
-    if (fgRef.current) {
-      const maxZoom = 100
-      const minZoom = 1
-      fgRef.current.zoom(3, 2000)
+    if (fgRef.current && graphData.nodes.length > 0) {
+      // Configure the force simulation
+      const graph = fgRef.current
+      graph.d3Force('charge').strength(-300)
+      graph.d3Force('link').distance(100)
+      
+      // Fit to screen after a delay
+      setTimeout(() => {
+        graph.zoomToFit(400, 50)
+      }, 100)
     }
-  }, [])
+  }, [graphData])
 
   const handleNodeHover = (node: GraphNode | null) => {
     setHoveredNodeId(node?.id || null)
-
-    if (fgRef.current) {
-      const ctx = fgRef.current.renderer.getContext()
-      if (node) {
-        fgRef.current.camera.position.z = 60
-      }
-    }
   }
 
   const handleNodeClick = (node: GraphNode) => {
@@ -168,11 +168,15 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
   const nodeColor = (node: GraphNode) => {
     if (node.type === 'patient') {
-      return selectedPatient === node.name ? '#FFD700' : node.color
+      if (selectedPatient === node.name) {
+        return '#FFD700'
+      }
+      return node.color
     }
 
-    if (node.type === 'variable') {
-      return hoveredNodeId === node.id || node.id.includes(`${selectedVariable}`) ? node.color : node.color
+    // For variable nodes
+    if (hoveredNodeId === node.id) {
+      return node.color
     }
 
     return node.color
@@ -180,68 +184,79 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
   const nodeSize = (node: GraphNode) => {
     if (hoveredNodeId === node.id) {
-      return node.size * 2
+      return node.size * 2.5
     }
 
     if (node.type === 'patient' && selectedPatient === node.name) {
-      return node.size * 1.8
+      return node.size * 2
     }
 
     return node.size
   }
 
-  const linkOpacity = (link: GraphLink) => {
-    const source = (link.source as unknown as GraphNode).id || link.source
-    const target = (link.target as unknown as GraphNode).id || link.target
+  const linkOpacity = (link: GraphLink): number => {
+    const sourceId = typeof link.source === 'string' ? link.source : link.source.id
+    const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
     if (!link.isVisible) {
       return 0.05
     }
 
     if (
-      hoveredNodeId === source ||
-      hoveredNodeId === target ||
-      (selectedPatient && source === `patient-${selectedPatient}`)
+      hoveredNodeId === sourceId ||
+      hoveredNodeId === targetId ||
+      (selectedPatient && sourceId === `patient-${selectedPatient}`)
     ) {
-      return 0.6
+      return 0.8
     }
 
-    return 0.15
+    return 0.2
   }
 
-  const linkWidth = (link: GraphLink) => {
-    const source = (link.source as unknown as GraphNode).id || link.source
-    const target = (link.target as unknown as GraphNode).id || link.target
+  const linkWidth = (link: GraphLink): number => {
+    const sourceId = typeof link.source === 'string' ? link.source : link.source.id
+    const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
-    if (hoveredNodeId === source || hoveredNodeId === target) {
-      return 2
+    if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
+      return 3
     }
 
-    return 1
+    return 1.5
   }
 
   return (
     <div className="graph-3d-container">
-      <ForceGraph3D
-        ref={fgRef}
-        graphData={graphData}
-        nodeLabel="name"
-        nodeAutoColorBy={(node: any) => node.container}
-        nodeColor={(node: any) => nodeColor(node)}
-        nodeSize={(node: any) => nodeSize(node)}
-        linkColor={(link: any) => `rgba(102, 126, 234, ${linkOpacity(link)})`}
-        linkWidth={(link: any) => linkWidth(link)}
-        linkDirectionalArrowLength={(link: any) => link.isVisible ? 3.5 : 0}
-        linkCurvature={0.25}
-        onNodeHover={handleNodeHover}
-        onNodeClick={handleNodeClick}
-        backgroundColor="#0F1419"
-        showNavInfo={false}
-        cooldownTime={2000}
-        onEngineStop={() => fgRef.current?.zoomToFit(400, 50)}
-        width={typeof window !== 'undefined' ? window.innerWidth : 1024}
-        height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
-      />
+      {graphData.nodes.length > 0 ? (
+        <ForceGraph3D
+          ref={fgRef}
+          graphData={graphData}
+          nodeLabel={(node: any) => `${node.name}`}
+          nodeColor={(node: any) => nodeColor(node)}
+          nodeSize={(node: any) => nodeSize(node)}
+          linkColor={(link: any) => {
+            const opacity = linkOpacity(link)
+            const rgb = 'rgb(102, 126, 234)'
+            return rgb.replace('rgb(', `rgba(`).replace(')', `, ${opacity})`)
+          }}
+          linkWidth={(link: any) => linkWidth(link)}
+          linkDirectionalArrowLength={(link: any) => (link.isVisible ? 3 : 0)}
+          linkCurvature={0.25}
+          onNodeHover={handleNodeHover}
+          onNodeClick={handleNodeClick}
+          backgroundColor="#0F1419"
+          cooldownTime={3000}
+          warmupTicks={100}
+          d3AlphaDecay={0.03}
+          d3VelocityDecay={0.3}
+          width={typeof window !== 'undefined' ? window.innerWidth : 1024}
+          height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
+        />
+      ) : (
+        <div className="graph-loading">
+          <div className="loading-spinner"></div>
+          <p>Loading graph...</p>
+        </div>
+      )}
     </div>
   )
 }
