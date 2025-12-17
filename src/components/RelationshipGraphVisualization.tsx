@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react'
 import nodeData from '../data/node.json'
-import { PatientEdges, Edge } from '../utils/patientNodeMapper'
+import type { PatientEdges, Edge } from '../utils/patientNodeMapper'
 import '../styles/RelationshipGraphVisualization.css'
 
 interface ContainerData {
