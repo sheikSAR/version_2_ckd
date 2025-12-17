@@ -9,7 +9,6 @@ import '../styles/RelationshipGraphPage.css'
 
 const RelationshipGraphPage = () => {
   const navigate = useNavigate()
-  const [patientData, setPatientData] = useState<Record<string, Record<string, string>>>({})
   const [patientEdges, setPatientEdges] = useState<PatientEdges[]>([])
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null)
   const [selectedVariable, setSelectedVariable] = useState<string | null>(null)
