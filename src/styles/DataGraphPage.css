@@ -16,10 +16,16 @@
   overflow-x: hidden;
 }
 
-.data-graph-back-button {
-  align-self: flex-start;
-  padding: 12px 24px;
+.data-graph-button-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.data-graph-back-button {
+  padding: 12px 24px;
   background: rgba(255, 255, 255, 0.9);
   color: #333;
   border: 2px solid rgba(102, 126, 234, 0.2);
@@ -39,6 +45,31 @@
 }
 
 .data-graph-back-button:active {
+  transform: translateY(0);
+}
+
+.data-graph-cta-button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(102, 126, 234, 0.6) 100%);
+  color: white;
+  border: 2px solid rgba(102, 126, 234, 0.6);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.data-graph-cta-button:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 1) 0%, rgba(102, 126, 234, 0.8) 100%);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  border-color: rgba(102, 126, 234, 0.8);
+}
+
+.data-graph-cta-button:active {
   transform: translateY(0);
 }
 
