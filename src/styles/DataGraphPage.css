@@ -45,7 +45,9 @@
 .data-graph-content-wrapper {
   flex: 1;
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
 }
 
 .configurator-navbar.scrolled {
