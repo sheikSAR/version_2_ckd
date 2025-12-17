@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
 }
 
 .relationship-graph-main {
@@ -11,30 +11,37 @@
   display: flex;
   flex-direction: column;
   margin-top: 80px;
-  padding: 30px;
   overflow: hidden;
+  position: relative;
+}
+
+.relationship-graph-main.with-filters {
+  margin-top: 160px;
 }
 
 .relationship-back-button {
-  align-self: flex-start;
+  position: absolute;
+  top: 120px;
+  left: 24px;
+  z-index: 50;
   padding: 12px 24px;
-  margin-bottom: 24px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  border: 2px solid rgba(102, 126, 234, 0.2);
+  background: rgba(15, 20, 25, 0.9);
+  color: #ddd;
+  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .relationship-back-button:hover {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: rgba(15, 20, 25, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transform: translateY(-2px);
-  border-color: rgba(102, 126, 234, 0.4);
+  border-color: rgba(102, 126, 234, 0.6);
 }
 
 .relationship-back-button:active {
@@ -47,16 +54,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding: 40px 20px;
 }
 
 .upload-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(26, 31, 46, 0.9) 0%, rgba(15, 20, 25, 0.9) 100%);
   border-radius: 16px;
   padding: 60px 40px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   max-width: 600px;
   width: 100%;
   animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(102, 126, 234, 0.15);
 }
 
 @keyframes slideIn {
@@ -74,14 +83,18 @@
   margin: 0 0 16px 0;
   font-size: 28px;
   font-weight: 700;
-  color: #333;
+  color: #e0e0e0;
   text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .upload-description {
   margin: 0 0 32px 0;
   font-size: 14px;
-  color: #666;
+  color: #aaa;
   text-align: center;
 }
 
@@ -114,6 +127,7 @@
 .file-input-label:hover .file-input-content {
   border-color: rgba(102, 126, 234, 0.6);
   background: rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.1);
 }
 
 .file-icon {
@@ -123,190 +137,83 @@
 .file-text {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #ddd;
 }
 
 .file-hint {
   font-size: 12px;
-  color: #999;
+  color: #888;
 }
 
 .error-message {
   padding: 12px 16px;
-  background: #fee;
-  color: #c33;
-  border-left: 4px solid #c33;
+  background: rgba(220, 53, 69, 0.1);
+  color: #ff6b6b;
+  border-left: 4px solid #dc3545;
   border-radius: 4px;
   font-size: 14px;
-}
-
-.visualization-wrapper {
-  flex: 1;
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  overflow: hidden;
-  animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.controls-panel {
-  width: 280px;
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  overflow-y: auto;
-}
-
-.controls-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 16px;
-}
-
-.controls-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: #333;
-}
-
-.clear-button {
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #c33;
-  background: rgba(204, 51, 51, 0.1);
-  border: 1px solid rgba(204, 51, 51, 0.3);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.clear-button:hover {
-  background: rgba(204, 51, 51, 0.2);
-  border-color: rgba(204, 51, 51, 0.6);
-}
-
-.filter-section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.filter-label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.filter-label-text {
-  font-size: 12px;
-  font-weight: 700;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.filter-select {
-  padding: 10px 12px;
-  font-size: 13px;
-  border: 1px solid rgba(102, 126, 234, 0.2);
-  border-radius: 6px;
-  background: white;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.filter-select:hover {
-  border-color: rgba(102, 126, 234, 0.4);
-}
-
-.filter-select:focus {
-  outline: none;
-  border-color: rgba(102, 126, 234, 0.6);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.stats-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 8px;
-  border-left: 4px solid rgba(102, 126, 234, 0.3);
-}
-
-.stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #666;
-  font-weight: 600;
-}
-
-.stat-value {
-  font-size: 16px;
-  font-weight: 700;
-  color: rgba(102, 126, 234, 0.8);
-}
-
-.upload-new-section {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 16px;
-  margin-top: auto;
-}
-
-.file-input-label-small {
-  display: block;
-  cursor: pointer;
-}
-
-.upload-new-text {
-  display: block;
-  padding: 10px 16px;
-  background: rgba(102, 126, 234, 0.1);
-  color: rgba(102, 126, 234, 0.8);
-  border: 1px solid rgba(102, 126, 234, 0.3);
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.file-input-label-small:hover .upload-new-text {
-  background: rgba(102, 126, 234, 0.2);
-  border-color: rgba(102, 126, 234, 0.6);
+  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 .graph-wrapper {
   flex: 1;
-  background: white;
-  border-radius: 12px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  border-radius: 0;
+}
+
+.upload-overlay-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+}
+
+.upload-overlay-label {
+  display: block;
+  cursor: pointer;
+}
+
+.upload-overlay-text {
+  display: block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  color: #667eea;
+  border: 1px solid rgba(102, 126, 234, 0.4);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.upload-overlay-label:hover .upload-overlay-text {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+  border-color: rgba(102, 126, 234, 0.6);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.upload-overlay-label:active .upload-overlay-text {
+  transform: translateY(0);
 }
 
 @media (max-width: 1024px) {
   .relationship-graph-main {
-    padding: 20px;
     margin-top: 80px;
+  }
+
+  .relationship-back-button {
+    top: 120px;
+    left: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
   }
 
   .upload-card {
@@ -315,40 +222,6 @@
 
   .upload-title {
     font-size: 24px;
-  }
-
-  .file-input-content {
-    padding: 40px 24px;
-  }
-
-  .visualization-wrapper {
-    gap: 16px;
-  }
-
-  .controls-panel {
-    width: 240px;
-    padding: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .relationship-graph-main {
-    padding: 15px;
-    margin-top: 70px;
-  }
-
-  .relationship-back-button {
-    padding: 10px 16px;
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  .upload-card {
-    padding: 30px 20px;
-  }
-
-  .upload-title {
-    font-size: 20px;
     margin-bottom: 12px;
   }
 
@@ -358,8 +231,7 @@
   }
 
   .file-input-content {
-    padding: 32px 16px;
-    gap: 10px;
+    padding: 40px 24px;
   }
 
   .file-icon {
@@ -373,83 +245,110 @@
   .file-hint {
     font-size: 11px;
   }
-
-  .visualization-wrapper {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .controls-panel {
-    width: 100%;
-    height: 200px;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    gap: 16px;
-    padding: 12px;
-  }
-
-  .controls-header {
-    display: none;
-  }
-
-  .filter-section {
-    min-width: 150px;
-  }
-
-  .stats-section {
-    min-width: 150px;
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .stat {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .stat-label {
-    font-size: 11px;
-  }
-
-  .stat-value {
-    font-size: 14px;
-  }
-
-  .upload-new-section {
-    display: none;
-  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .relationship-graph-main {
-    padding: 12px;
-    margin-top: 60px;
+    margin-top: 80px;
+    padding: 0;
   }
 
   .relationship-back-button {
+    top: 100px;
+    left: 12px;
     padding: 10px 12px;
     font-size: 12px;
   }
 
+  .upload-section {
+    padding: 30px 15px;
+  }
+
   .upload-card {
-    padding: 24px 16px;
+    padding: 30px 20px;
     border-radius: 12px;
   }
 
   .upload-title {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 10px;
   }
 
   .upload-description {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 20px;
   }
 
   .file-upload-wrapper {
     margin-bottom: 24px;
+  }
+
+  .file-input-content {
+    padding: 32px 16px;
+    gap: 10px;
+  }
+
+  .file-icon {
+    font-size: 36px;
+  }
+
+  .file-text {
+    font-size: 14px;
+  }
+
+  .file-hint {
+    font-size: 11px;
+  }
+
+  .error-message {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .upload-overlay-button {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .upload-overlay-text {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .relationship-graph-main {
+    margin-top: 80px;
+  }
+
+  .relationship-back-button {
+    top: 90px;
+    left: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .upload-section {
+    padding: 20px 10px;
+  }
+
+  .upload-card {
+    padding: 24px 16px;
+    border-radius: 10px;
+  }
+
+  .upload-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .upload-description {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .file-upload-wrapper {
+    margin-bottom: 20px;
   }
 
   .file-input-content {
@@ -465,11 +364,22 @@
     font-size: 13px;
   }
 
-  .controls-panel {
-    height: auto;
+  .file-hint {
+    font-size: 10px;
   }
 
-  .visualization-wrapper {
-    gap: 10px;
+  .error-message {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .upload-overlay-button {
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .upload-overlay-text {
+    padding: 8px 12px;
+    font-size: 11px;
   }
 }
