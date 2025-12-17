@@ -75,11 +75,11 @@
 }
 
 .container-body {
-  flex: 1;
+  flex: 0 1 auto;
   padding: 20px 16px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .container-body::-webkit-scrollbar {
