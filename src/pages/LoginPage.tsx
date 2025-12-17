@@ -211,14 +211,15 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '2px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '8px',
+                      border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                      borderRadius: '10px',
                       fontSize: '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(5px)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(10px)',
                       color: '#333',
+                      boxShadow: 'inset 0 0 10px rgba(255, 255, 255, 0.05)',
                     }}
                   />
                 </div>
