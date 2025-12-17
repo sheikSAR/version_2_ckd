@@ -47,10 +47,10 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-left: 4px solid;
-  height: fit-content;
-  max-height: calc(100vh - 200px);
-  display: flex;
-  flex-direction: column;
+  flex-shrink: 0;
+  width: 220px;
+  height: auto;
+  min-height: auto;
 }
 
 .entity-container:hover {
