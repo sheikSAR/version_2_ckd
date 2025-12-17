@@ -142,13 +142,12 @@
 
 @media (max-width: 1440px) {
   .containers-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 16px;
   }
 
   .entity-container {
-    max-height: calc(100vh - 180px);
+    width: 200px;
   }
 
   .node-circle {
