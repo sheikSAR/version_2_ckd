@@ -12,7 +12,8 @@
   flex-direction: column;
   margin-top: 80px;
   padding: 30px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .data-graph-back-button {
