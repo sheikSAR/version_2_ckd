@@ -96,11 +96,11 @@ const mappingRules: Record<string, (value: string) => string | null> = {
     return null
   },
 
-  CHO: (value: string) => {
+  CHO: () => {
     return null
   },
 
-  TRI: (value: string) => {
+  TRI: () => {
     return null
   },
 
