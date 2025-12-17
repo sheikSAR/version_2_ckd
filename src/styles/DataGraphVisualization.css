@@ -163,13 +163,12 @@
 
 @media (max-width: 1024px) {
   .containers-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
     padding: 12px;
   }
 
   .entity-container {
-    max-height: calc(100vh - 160px);
+    width: 180px;
   }
 
   .container-header {
