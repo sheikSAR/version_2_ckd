@@ -145,7 +145,6 @@ const RelationshipGraphPage = () => {
         }
       }
 
-      setPatientData(parsedData)
       const edges = mapPatientDataToNodes(parsedData)
       setPatientEdges(edges)
       setSelectedPatient(null)
