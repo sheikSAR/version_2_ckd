@@ -158,7 +158,6 @@ const RelationshipGraphPage = () => {
   }
 
   const handleClearData = () => {
-    setPatientData({})
     setPatientEdges([])
     setSelectedPatient(null)
     setSelectedVariable(null)
