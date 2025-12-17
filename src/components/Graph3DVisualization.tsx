@@ -34,6 +34,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 }) => {
   const fgRef = useRef<any>(null)
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
+  const [connectedNodeIds, setConnectedNodeIds] = useState<Set<string>>(new Set())
   const [graphData, setGraphData] = useState<{ nodes: GraphNode[]; links: GraphLink[] }>({
     nodes: [],
     links: [],
@@ -78,6 +79,24 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     }),
     []
   )
+
+  // Build adjacency map for hover interactions
+  const adjacencyMap = useMemo(() => {
+    const map = new Map<string, Set<string>>()
+
+    graphData.links.forEach((link) => {
+      const sourceId = typeof link.source === 'string' ? link.source : link.source.id
+      const targetId = typeof link.target === 'string' ? link.target : link.target.id
+
+      if (!map.has(sourceId)) map.set(sourceId, new Set())
+      if (!map.has(targetId)) map.set(targetId, new Set())
+
+      map.get(sourceId)!.add(targetId)
+      map.get(targetId)!.add(sourceId)
+    })
+
+    return map
+  }, [graphData.links])
 
   useEffect(() => {
     if (!patientEdges.length) {
@@ -145,8 +164,8 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     if (fgRef.current && graphData.nodes.length > 0) {
       // Configure the force simulation
       const graph = fgRef.current
-      graph.d3Force('charge').strength(-300)
-      graph.d3Force('link').distance(100)
+      graph.d3Force('charge').strength(-400)
+      graph.d3Force('link').distance(80)
       
       // Fit to screen after a delay
       setTimeout(() => {
@@ -156,7 +175,15 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }, [graphData])
 
   const handleNodeHover = (node: GraphNode | null) => {
-    setHoveredNodeId(node?.id || null)
+    if (node) {
+      setHoveredNodeId(node.id)
+      // Get all connected nodes
+      const connected = adjacencyMap.get(node.id) || new Set()
+      setConnectedNodeIds(connected)
+    } else {
+      setHoveredNodeId(null)
+      setConnectedNodeIds(new Set())
+    }
   }
 
   const handleNodeClick = (node: GraphNode) => {
@@ -187,6 +214,10 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       return node.size * 2.5
     }
 
+    if (connectedNodeIds.has(node.id)) {
+      return node.size * 1.8
+    }
+
     if (node.type === 'patient' && selectedPatient === node.name) {
       return node.size * 2
     }
@@ -202,15 +233,17 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       return 0.05
     }
 
-    if (
-      hoveredNodeId === sourceId ||
-      hoveredNodeId === targetId ||
-      (selectedPatient && sourceId === `patient-${selectedPatient}`)
-    ) {
-      return 0.8
+    // Highlight links connected to hovered node
+    if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
+      return 0.9
     }
 
-    return 0.2
+    // Highlight links connected to selected patient
+    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
+      return 0.4
+    }
+
+    return 0.15
   }
 
   const linkWidth = (link: GraphLink): number => {
@@ -218,39 +251,84 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
     if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
-      return 3
+      return 4
+    }
+
+    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
+      return 2.5
     }
 
     return 1.5
   }
 
+  const getLinkColor = (link: GraphLink): string => {
+    const sourceId = typeof link.source === 'string' ? link.source : link.source.id
+    const targetId = typeof link.target === 'string' ? link.target : link.target.id
+    const opacity = linkOpacity(link)
+
+    // Use brighter color for hovered edges
+    if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
+      return `rgba(255, 200, 0, ${opacity})`
+    }
+
+    // Use gradient-like color based on selected patient
+    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
+      return `rgba(102, 200, 234, ${opacity})`
+    }
+
+    return `rgba(102, 126, 234, ${opacity})`
+  }
+
   return (
     <div className="graph-3d-container">
       {graphData.nodes.length > 0 ? (
-        <ForceGraph3D
-          ref={fgRef}
-          graphData={graphData}
-          nodeLabel={(node: any) => `${node.name}`}
-          nodeColor={(node: any) => nodeColor(node)}
-          nodeSize={(node: any) => nodeSize(node)}
-          linkColor={(link: any) => {
-            const opacity = linkOpacity(link)
-            const rgb = 'rgb(102, 126, 234)'
-            return rgb.replace('rgb(', `rgba(`).replace(')', `, ${opacity})`)
-          }}
-          linkWidth={(link: any) => linkWidth(link)}
-          linkDirectionalArrowLength={(link: any) => (link.isVisible ? 3 : 0)}
-          linkCurvature={0.25}
-          onNodeHover={handleNodeHover}
-          onNodeClick={handleNodeClick}
-          backgroundColor="#0F1419"
-          cooldownTime={3000}
-          warmupTicks={100}
-          d3AlphaDecay={0.03}
-          d3VelocityDecay={0.3}
-          width={typeof window !== 'undefined' ? window.innerWidth : 1024}
-          height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
-        />
+        <>
+          <ForceGraph3D
+            ref={fgRef}
+            graphData={graphData}
+            nodeLabel={(node: any) => {
+              const label = `${node.name}`
+              if (node.type === 'patient') {
+                return `Patient: ${label}`
+              }
+              return `${node.container}: ${label}`
+            }}
+            nodeColor={(node: any) => nodeColor(node)}
+            nodeSize={(node: any) => nodeSize(node)}
+            linkColor={(link: any) => getLinkColor(link)}
+            linkWidth={(link: any) => linkWidth(link)}
+            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 4 : 0)}
+            linkCurvature={0.25}
+            onNodeHover={handleNodeHover}
+            onNodeClick={handleNodeClick}
+            backgroundColor="#0F1419"
+            cooldownTime={3000}
+            warmupTicks={100}
+            d3AlphaDecay={0.03}
+            d3VelocityDecay={0.3}
+            width={typeof window !== 'undefined' ? window.innerWidth : 1024}
+            height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
+          />
+          <div className="graph-info-panel">
+            <div className="info-header">Graph Stats</div>
+            <div className="info-stat">
+              <span className="info-label">Nodes:</span>
+              <span className="info-value">{graphData.nodes.length}</span>
+            </div>
+            <div className="info-stat">
+              <span className="info-label">Edges:</span>
+              <span className="info-value">{graphData.links.length}</span>
+            </div>
+            {hoveredNodeId && (
+              <div className="info-stat hovered-info">
+                <span className="info-label">Hovering:</span>
+                <span className="info-value">
+                  {graphData.nodes.find((n) => n.id === hoveredNodeId)?.name}
+                </span>
+              </div>
+            )}
+          </div>
+        </>
       ) : (
         <div className="graph-loading">
           <div className="loading-spinner"></div>
