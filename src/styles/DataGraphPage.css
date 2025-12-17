@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
 }
 
 .data-graph-main {
@@ -26,22 +26,22 @@
 
 .data-graph-back-button {
   padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  border: 2px solid rgba(102, 126, 234, 0.2);
+  background: rgba(15, 20, 25, 0.9);
+  color: #ddd;
+  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .data-graph-back-button:hover {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: rgba(15, 20, 25, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transform: translateY(-2px);
-  border-color: rgba(102, 126, 234, 0.4);
+  border-color: rgba(102, 126, 234, 0.6);
 }
 
 .data-graph-back-button:active {
@@ -50,21 +50,21 @@
 
 .data-graph-cta-button {
   padding: 12px 24px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(102, 126, 234, 0.6) 100%);
-  color: white;
-  border: 2px solid rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+  color: #667eea;
+  border: 1px solid rgba(102, 126, 234, 0.5);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
   letter-spacing: 0.3px;
 }
 
 .data-graph-cta-button:hover {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 1) 0%, rgba(102, 126, 234, 0.8) 100%);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
   transform: translateY(-2px);
   border-color: rgba(102, 126, 234, 0.8);
 }
@@ -79,13 +79,6 @@
   overflow-x: auto;
   overflow-y: visible;
   width: 100%;
-}
-
-.configurator-navbar.scrolled {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(30px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  height: 70px;
 }
 
 @media (max-width: 1024px) {
