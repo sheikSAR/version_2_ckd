@@ -8,6 +8,7 @@ interface FileUploadModeProps {
 
 const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
   const [error, setError] = useState('')
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null)
 
   const parseYaml = (yamlText: string): Record<string, Record<string, string>> => {
     const result: Record<string, Record<string, string>> = {}
@@ -96,6 +97,7 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
     if (!file) return
 
     setError('')
+    setUploadedFileName(null)
 
     const fileName = file.name.toLowerCase()
     const isJson = fileName.endsWith('.json')
@@ -135,6 +137,7 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
         }
       }
 
+      setUploadedFileName(file.name)
       onFileUpload(parsedData)
     } catch (err) {
       setError('Error parsing file. Please check the file format.')
@@ -152,8 +155,11 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
           onChange={handleFileChange}
           className="file-input"
         />
-        <span className="file-input-display">Click to upload or drag and drop</span>
+        <span className="file-input-display">
+          {uploadedFileName ? `Selected: ${uploadedFileName}` : 'Click to upload or drag and drop'}
+        </span>
       </label>
+      {uploadedFileName && <div className="success-message">✓ File successfully uploaded</div>}
       {error && <div className="error-message">{error}</div>}
       <p className="file-hint">Supported formats: JSON, YAML, Excel (.xlsx, .xls)</p>
     </div>
