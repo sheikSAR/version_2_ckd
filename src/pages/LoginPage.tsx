@@ -6,8 +6,6 @@ import { API_ENDPOINTS } from '../constants/api'
 import { UserRole } from '../types'
 import '../styles/LoginPage.css'
 
-type Role = 'user' | 'admin' | 'configurator'
-
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
