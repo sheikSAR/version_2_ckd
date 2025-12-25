@@ -77,7 +77,7 @@ const LoginPage = () => {
     alignItems: 'center',
     width: '100%',
     height: '100vh',
-    padding: '20px',
+    padding: isMobile ? '15px' : '20px',
     boxSizing: 'border-box',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
     overflowY: 'auto',
