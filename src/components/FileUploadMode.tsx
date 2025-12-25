@@ -18,49 +18,27 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
 
     setError('')
 
-    const fileName = file.name.toLowerCase()
-    const isJson = fileName.endsWith('.json')
-    const isYaml = fileName.endsWith('.yaml') || fileName.endsWith('.yml')
-    const isExcel = fileName.endsWith('.xlsx') || fileName.endsWith('.xls')
-
-    if (!isJson && !isYaml && !isExcel) {
-      setError('Please upload a .json, .yaml, .yml, .xlsx, or .xls file.')
+    if (!isValidFileExtension(file.name)) {
+      setError(FILE_ERROR_MESSAGES.INVALID_TYPE)
+      setUploadedFileName(null)
       return
     }
 
     try {
-      let parsedData: Record<string, Record<string, string>> = {}
+      const parsedData = await parseFile(file)
 
-      if (isJson) {
-        const text = await file.text()
-        const parsed = JSON.parse(text)
-        if (typeof parsed !== 'object' || Array.isArray(parsed)) {
-          setError('JSON file must contain an object.')
-          return
-        }
-        parsedData = parsed
-      } else if (isYaml) {
-        const text = await file.text()
-        const yamlData = parseYaml(text)
-        parsedData = Object.fromEntries(
-          Object.entries(yamlData).map(([key, value]) => [
-            key,
-            typeof value === 'object' ? value : { value: String(value) }
-          ])
-        )
-      } else if (isExcel) {
-        parsedData = await parseExcel(file)
-        if (Object.keys(parsedData).length === 0) {
-          setError('Unable to parse Excel file. Make sure it contains data in the first two columns.')
-          return
-        }
+      if (Object.keys(parsedData).length === 0) {
+        setError(FILE_ERROR_MESSAGES.EMPTY_SHEET)
+        setUploadedFileName(null)
+        return
       }
 
       onFileUpload(parsedData)
       setUploadedFileName(file.name)
       setError('')
     } catch (err) {
-      setError('Error parsing file. Please check the file format.')
+      const errorMessage = err instanceof Error ? err.message : FILE_ERROR_MESSAGES.PARSE_ERROR
+      setError(errorMessage)
       setUploadedFileName(null)
       console.error(err)
     }
