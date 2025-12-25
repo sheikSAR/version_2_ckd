@@ -110,13 +110,13 @@ html, body, #root {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  color: #333;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #e0e0e0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .login-subtitle {
   margin: 10px 0 0 0;
-  color: #666;
+  color: #b0b8c1;
   font-size: 14px;
   font-weight: 400;
 }
@@ -129,7 +129,7 @@ html, body, #root {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-  color: #333;
+  color: #d0d8e0;
   font-size: 14px;
   letter-spacing: 0.5px;
 }
