@@ -5,6 +5,8 @@ import FileUploadMode from '../components/FileUploadMode'
 import ManualEntryMode from '../components/ManualEntryMode'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { API_ENDPOINTS } from '../constants/api'
+import { ConfigurationData } from '../types'
 import '../styles/ConfiguratorPage.css'
 
 type InputMode = 'file' | 'manual'
