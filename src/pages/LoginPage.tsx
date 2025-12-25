@@ -119,20 +119,23 @@ const LoginPage = () => {
 
         <div style={{
           position: 'fixed',
-          top: '30px',
+          top: isMobile ? '15px' : '30px',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 40,
           textAlign: 'center',
+          maxWidth: isMobile ? '200px' : 'auto',
+          paddingX: isMobile ? '10px' : '0px',
         }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: isMobile ? '24px' : '48px',
             fontWeight: 900,
             color: '#ffffff',
             margin: 0,
             letterSpacing: '2px',
             textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
             opacity: 1,
+            wordBreak: 'break-word',
           }}>
             SESU'S RESEARCH LAB
           </h2>
