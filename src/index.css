@@ -1,45 +1,77 @@
-/**
- * Global styles and CSS reset
- * Imports shared theme and animations from shared.css
- */
+/* Global styles */
 
-@import './styles/shared.css';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* ======================== Body and Root Styles ======================== */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, var(--color-background-dark) 0%, var(--color-background-darker) 100%);
-  color: var(--color-text-primary);
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  color: #e0e0e0;
 }
 
-/* ======================== Text Selection ======================== */
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.25);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.4);
+}
+
+/* Selection styles */
 ::selection {
   background: rgba(102, 126, 234, 0.3);
-  color: var(--color-text-primary);
+  color: #e0e0e0;
 }
 
 ::-moz-selection {
   background: rgba(102, 126, 234, 0.3);
-  color: var(--color-text-primary);
+  color: #e0e0e0;
 }
 
-/* ======================== Form Elements Reset ======================== */
+/* Input and button reset */
 input,
 button,
 textarea,
 select {
   font-family: inherit;
-  font-size: inherit;
 }
 
 button {
   border: none;
   outline: none;
-  cursor: pointer;
 }
 
 input:focus,
@@ -48,127 +80,39 @@ select:focus {
   outline: none;
 }
 
-/* ======================== Links ======================== */
+/* Links */
 a {
-  color: var(--color-primary);
+  color: #667eea;
   text-decoration: none;
-  transition: color var(--duration-base) ease;
+  transition: all 0.3s ease;
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: #764ba2;
 }
 
-/* ======================== Headings ======================== */
+/* Headings */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: var(--color-text-primary);
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  color: #e0e0e0;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-/* ======================== Code Blocks ======================== */
+/* Code blocks */
 code,
 pre {
   background: rgba(102, 126, 234, 0.1);
   color: #b3d9ff;
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-sm);
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.9em;
-}
-
-code {
+  border: 1px solid rgba(102, 126, 234, 0.2);
   padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
 }
 
 pre {
   padding: 12px;
   overflow-x: auto;
-  line-height: 1.6;
-}
-
-/* ======================== Tables ======================== */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: var(--space-lg) 0;
-}
-
-th,
-td {
-  padding: var(--space-md);
-  border: 1px solid var(--color-border-light);
-  text-align: left;
-}
-
-th {
-  background: var(--color-surface);
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-/* ======================== Utilities ======================== */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-muted {
-  color: var(--color-text-muted);
-}
-
-.mt-0 { margin-top: 0; }
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mt-lg { margin-top: var(--space-lg); }
-
-.mb-0 { margin-bottom: 0; }
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
-.mb-lg { margin-bottom: var(--space-lg); }
-
-.p-sm { padding: var(--space-sm); }
-.p-md { padding: var(--space-md); }
-.p-lg { padding: var(--space-lg); }
-
-.hidden {
-  display: none !important;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
