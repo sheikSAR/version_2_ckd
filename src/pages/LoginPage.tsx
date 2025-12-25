@@ -76,41 +76,73 @@ const LoginPage = () => {
   return (
     <div>
       <div style={backgroundLayerStyle}>
-        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} />
+        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} position="left" />
+        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} position="right" />
       </div>
 
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
-        <img
-          src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
-          alt="European Diabetes Foundation Logo"
-          style={{
-            position: 'absolute',
-            top: '30px',
-            left: '30px',
-            maxWidth: '300px',
-            height: 'auto',
-            filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
-            transition: 'transform 0.3s ease, filter 0.3s ease',
-            animation: 'fadeInDown 0.8s ease',
-            zIndex: 30,
-          }}
-        />
+        <div style={{
+          position: 'absolute',
+          top: '30px',
+          left: '30px',
+          zIndex: 30,
+        }}>
+          <img
+            src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
+            alt="European Diabetes Foundation Logo"
+            style={{
+              maxWidth: '150px',
+              height: 'auto',
+              filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
+              transition: 'transform 0.3s ease, filter 0.3s ease',
+              animation: 'fadeInDown 0.8s ease',
+            }}
+          />
+        </div>
 
-        <img
-          src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1765918133/MDRF__Chennai_Logo_qfwlna.png"
-          alt="MDRF Logo"
-          style={{
-            position: 'absolute',
-            top: '30px',
-            right: '30px',
-            maxWidth: '150px',
-            height: 'auto',
-            filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
-            transition: 'transform 0.3s ease, filter 0.3s ease',
+        <div style={{
+          position: 'absolute',
+          top: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 30,
+          textAlign: 'center',
+        }}>
+          <h2 style={{
+            fontSize: '18px',
+            fontWeight: 700,
+            color: '#e0e0e0',
+            margin: 0,
+            letterSpacing: '1.5px',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
             animation: 'fadeInDown 0.8s ease',
-            zIndex: 30,
-          }}
-        />
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
+            SESU'S RESEARCH LAB
+          </h2>
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          top: '30px',
+          right: '30px',
+          zIndex: 30,
+        }}>
+          <img
+            src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1765918133/MDRF__Chennai_Logo_qfwlna.png"
+            alt="MDRF Logo"
+            style={{
+              maxWidth: '150px',
+              height: 'auto',
+              filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
+              transition: 'transform 0.3s ease, filter 0.3s ease',
+              animation: 'fadeInDown 0.8s ease',
+            }}
+          />
+        </div>
 
         <div style={{
           display: 'flex',
@@ -123,15 +155,15 @@ const LoginPage = () => {
           boxSizing: 'border-box',
         }}>
           <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'rgba(26, 31, 46, 0.85)',
             backdropFilter: 'blur(30px)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            border: '1px solid rgba(102, 126, 234, 0.25)',
             padding: '40px 30px',
             borderRadius: '20px',
             boxShadow: `
-              0 8px 32px rgba(31, 38, 135, 0.08),
-              inset 0 0 20px rgba(255, 255, 255, 0.1),
-              0 0 40px rgba(102, 126, 234, 0.05)
+              0 8px 32px rgba(0, 0, 0, 0.3),
+              inset 0 0 20px rgba(102, 126, 234, 0.05),
+              0 0 40px rgba(102, 126, 234, 0.1)
             `,
             width: '100%',
             boxSizing: 'border-box',
@@ -147,12 +179,12 @@ const LoginPage = () => {
                 margin: 0,
                 fontSize: '28px',
                 fontWeight: 700,
-                color: '#333',
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                color: '#e0e0e0',
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
               }}>CKD Analysis</h1>
               <p style={{
                 margin: '10px 0 0 0',
-                color: '#666',
+                color: '#b0b8c1',
                 fontSize: '14px',
                 fontWeight: 400,
               }}>Sign in to your account</p>
@@ -164,7 +196,7 @@ const LoginPage = () => {
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
-                  color: '#333',
+                  color: '#d0d8e0',
                   fontSize: '14px',
                   letterSpacing: '0.5px',
                 }}>Username</label>
@@ -178,15 +210,23 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                      border: '1.5px solid rgba(102, 126, 234, 0.25)',
                       borderRadius: '10px',
                       fontSize: '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      backgroundColor: 'rgba(15, 20, 25, 0.4)',
                       backdropFilter: 'blur(10px)',
-                      color: '#333',
-                      boxShadow: 'inset 0 0 10px rgba(255, 255, 255, 0.05)',
+                      color: '#d0d8e0',
+                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.05)',
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.5)'
+                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.6)'
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.25)'
+                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.4)'
                     }}
                   />
                 </div>
@@ -197,7 +237,7 @@ const LoginPage = () => {
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
-                  color: '#333',
+                  color: '#d0d8e0',
                   fontSize: '14px',
                   letterSpacing: '0.5px',
                 }}>Password</label>
@@ -211,37 +251,45 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                      border: '1.5px solid rgba(102, 126, 234, 0.25)',
                       borderRadius: '10px',
                       fontSize: '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      backgroundColor: 'rgba(15, 20, 25, 0.4)',
                       backdropFilter: 'blur(10px)',
-                      color: '#333',
-                      boxShadow: 'inset 0 0 10px rgba(255, 255, 255, 0.05)',
+                      color: '#d0d8e0',
+                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.05)',
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.5)'
+                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.6)'
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.25)'
+                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.4)'
                     }}
                   />
                 </div>
               </div>
 
               {error && <div style={{
-                color: '#d32f2f',
-                backgroundColor: 'rgba(255, 235, 238, 0.6)',
+                color: '#ff6b6b',
+                backgroundColor: 'rgba(211, 47, 47, 0.15)',
                 backdropFilter: 'blur(5px)',
                 padding: '12px 16px',
                 borderRadius: '8px',
                 marginBottom: '20px',
                 fontSize: '14px',
-                borderLeft: '4px solid #d32f2f',
+                borderLeft: '4px solid #ff6b6b',
                 animation: 'slideIn 0.3s ease',
-                border: '1px solid rgba(211, 47, 47, 0.2)',
+                border: '1px solid rgba(255, 107, 107, 0.3)',
               }}>{error}</div>}
 
               <button type="submit" disabled={loading} style={{
                 width: '100%',
                 padding: '14px',
-                background: loading ? 'linear-gradient(135deg, #ccc 0%, #aaa 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: loading ? 'linear-gradient(135deg, #555 0%, #333 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -250,7 +298,7 @@ const LoginPage = () => {
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
                 letterSpacing: '0.5px',
-                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 8px 20px rgba(102, 126, 234, 0.3)',
+                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.3)' : '0 8px 20px rgba(102, 126, 234, 0.4)',
               }}>
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>

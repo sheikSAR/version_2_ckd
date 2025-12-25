@@ -131,6 +131,7 @@ interface ParticleTextEffectProps {
   words?: string[]
   particleColors?: string[]
   wordChangeInterval?: number
+  position?: 'center' | 'left' | 'right'
 }
 
 const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
@@ -138,7 +139,8 @@ const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
 export function ParticleTextEffect({
   words = DEFAULT_WORDS,
   particleColors = ["#667eea", "#764ba2", "#f093fb", "#4facfe", "#00f2fe"],
-  wordChangeInterval = 240
+  wordChangeInterval = 240,
+  position = 'center'
 }: ParticleTextEffectProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
@@ -315,7 +317,7 @@ export function ParticleTextEffect({
     if (!canvas) return
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
+      canvas.width = position === 'center' ? window.innerWidth : window.innerWidth / 2
       canvas.height = window.innerHeight
       nextWord(words[0], canvas)
     }
@@ -366,13 +368,24 @@ export function ParticleTextEffect({
       canvas.removeEventListener("contextmenu", handleContextMenu)
       window.removeEventListener("resize", handleWindowResize)
     }
-  }, [words, wordChangeInterval])
+  }, [words, wordChangeInterval, position])
+
+  const canvasStyle = {
+    display: "block",
+    width: position === 'center' ? "100vw" : "50vw",
+    height: "100vh",
+    ...(position === 'center' && { position: 'fixed' as const, top: 0, left: 0 }),
+    ...(position === 'left' && { position: 'absolute' as const, top: 0, left: 0 }),
+    ...(position === 'right' && { position: 'absolute' as const, top: 0, right: 0 }),
+  }
+
+  const canvasClass = position === 'center' ? "fixed top-0 left-0 w-full h-full -z-10" : "absolute top-0 -z-10"
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-10"
-      style={{ display: "block", width: "100vw", height: "100vh" }}
+      className={canvasClass}
+      style={canvasStyle}
     />
   )
 }

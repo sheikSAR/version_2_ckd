@@ -41,7 +41,10 @@ const ConfiguratorNavbar: React.FC = () => {
           </div>
         </div>
         <div className="navbar-title">
-          <h1>Data Configurator</h1>
+          <div className="navbar-title-content">
+            <h2 className="navbar-text-logo">SESU'S RESEARCH LAB</h2>
+            <h1>Data Configurator</h1>
+          </div>
         </div>
         <button onClick={handleLogout} className="logout-button">
           Logout
