@@ -5,6 +5,8 @@ import FileUploadMode from '../components/FileUploadMode'
 import ManualEntryMode from '../components/ManualEntryMode'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { API_ENDPOINTS } from '../constants/api'
+import { ConfigurationData } from '../types'
 import '../styles/ConfiguratorPage.css'
 
 type InputMode = 'file' | 'manual'
@@ -12,7 +14,7 @@ type OperationMode = 'run' | 'test' | 'calibrate'
 
 const ConfiguratorPage = () => {
   const [inputMode, setInputMode] = useState<InputMode>('manual')
-  const [jsonData, setJsonData] = useState<Record<string, Record<string, string>>>({})
+  const [jsonData, setJsonData] = useState<ConfigurationData>({})
   const [operationMode, setOperationMode] = useState<OperationMode>('run')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -23,11 +25,11 @@ const ConfiguratorPage = () => {
   const operationModeRef = useScrollAnimation()
   const submitRef = useScrollAnimation()
 
-  const handleFileUpload = (data: Record<string, Record<string, string>>) => {
+  const handleFileUpload = (data: ConfigurationData) => {
     setJsonData(data)
   }
 
-  const handleManualEntry = (data: Record<string, Record<string, string>>) => {
+  const handleManualEntry = (data: ConfigurationData) => {
     setJsonData(data)
   }
 
@@ -46,7 +48,7 @@ const ConfiguratorPage = () => {
     setError('')
 
     try {
-      const response = await axios.post('http://localhost:5000/configurator/create-session', {
+      const response = await axios.post(API_ENDPOINTS.CREATE_SESSION, {
         role: 'configurator',
         mode: operationMode,
         data: jsonData,

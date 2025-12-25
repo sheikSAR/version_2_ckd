@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { ConfigurationData } from '../types'
 import '../styles/ManualEntryMode.css'
 
 interface PropertyField {
@@ -14,7 +15,7 @@ interface EntryItem {
 }
 
 interface ManualEntryModeProps {
-  onDataChange: (data: Record<string, Record<string, string>>) => void
+  onDataChange: (data: ConfigurationData) => void
 }
 
 const ManualEntryMode: React.FC<ManualEntryModeProps> = ({ onDataChange }) => {
@@ -23,7 +24,7 @@ const ManualEntryMode: React.FC<ManualEntryModeProps> = ({ onDataChange }) => {
   ])
 
   useEffect(() => {
-    const data = entries.reduce((acc, entry) => {
+    const data: ConfigurationData = entries.reduce((acc, entry) => {
       if (entry.itemId.trim()) {
         const nestedObj = entry.properties.reduce((propAcc, prop) => {
           if (prop.name.trim()) {
@@ -37,7 +38,7 @@ const ManualEntryMode: React.FC<ManualEntryModeProps> = ({ onDataChange }) => {
         }
       }
       return acc
-    }, {} as Record<string, Record<string, string>>)
+    }, {} as ConfigurationData)
 
     onDataChange(data)
   }, [entries, onDataChange])
