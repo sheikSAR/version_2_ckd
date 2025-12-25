@@ -137,8 +137,11 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
       }
 
       onFileUpload(parsedData)
+      setUploadedFileName(file.name)
+      setError('')
     } catch (err) {
       setError('Error parsing file. Please check the file format.')
+      setUploadedFileName(null)
       console.error(err)
     }
   }
