@@ -191,59 +191,158 @@
   transform: translateX(4px);
 }
 
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .landing-container {
+    padding: 50px 32px;
+    min-height: calc(100vh - 80px);
+  }
+
+  .landing-title {
+    font-size: 44px;
+  }
+
+  .landing-subtitle {
+    font-size: 16px;
+  }
+
+  .cards-grid {
+    gap: 28px;
+  }
+
+  .card {
+    min-height: 300px;
+    padding: 32px 28px;
+  }
+}
+
 @media (max-width: 768px) {
   .landing-container {
-    padding: 30px 15px;
+    padding: 40px 20px;
+    min-height: calc(100vh - 70px);
+  }
+
+  .landing-header {
+    margin-bottom: 40px;
+  }
+
+  .landing-title {
+    font-size: 36px;
+  }
+
+  .landing-subtitle {
+    font-size: 15px;
   }
 
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .landing-title {
-    font-size: 32px;
-    margin-bottom: 10px;
-  }
-
-  .landing-subtitle {
-    font-size: 14px;
-    margin-bottom: 40px;
+    gap: 24px;
   }
 
   .card {
-    padding: 32px 20px;
-    min-height: 140px;
+    min-height: 280px;
+    padding: 28px 24px;
+  }
+
+  .card-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
   }
 
   .card-title {
-    font-size: 16px;
+    font-size: 20px;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+  }
+
+  .card-description {
+    font-size: 13px;
+  }
+
+  .card-badge {
+    font-size: 10px;
+    padding: 5px 10px;
   }
 }
 
 @media (max-width: 480px) {
   .landing-container {
-    padding: 20px 12px;
-    min-height: auto;
-    padding-top: 80px;
+    padding: 30px 16px;
+    min-height: calc(100vh - 60px);
+    margin-top: 60px;
   }
 
-  .landing-title {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-
-  .landing-subtitle {
-    font-size: 12px;
+  .landing-header {
     margin-bottom: 30px;
   }
 
+  .landing-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .landing-subtitle {
+    font-size: 13px;
+  }
+
+  .cards-grid {
+    gap: 18px;
+  }
+
   .card {
-    padding: 24px 16px;
-    min-height: 120px;
+    min-height: 260px;
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .card-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
   }
 
   .card-title {
-    font-size: 14px;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .card-description {
+    font-size: 12px;
+  }
+
+  .card-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+
+  .card-action {
+    font-size: 12px;
   }
 }
