@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { parseFile, isValidFileExtension } from '../utils/fileParsers'
 import { ACCEPTED_MIME_TYPES, FILE_ERROR_MESSAGES } from '../constants/files'
 import { ConfigurationData } from '../types'
