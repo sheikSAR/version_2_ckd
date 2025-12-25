@@ -166,10 +166,11 @@ const LoginPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '30px',
+          gap: isMobile ? '20px' : '30px',
           width: '100%',
-          maxWidth: '400px',
+          maxWidth: isMobile ? '100%' : '400px',
           boxSizing: 'border-box',
+          marginTop: isMobile ? '60px' : '0px',
         }}>
           <div style={{
             background: 'rgba(26, 31, 46, 0.85)',
