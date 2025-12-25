@@ -74,34 +74,35 @@
 }
 
 .file-hint {
-  color: #a8b2bb;
+  color: var(--color-text-muted);
   font-size: 13px;
   margin: 10px 0 0 0;
   font-weight: 500;
 }
 
-.error-message {
-  color: #ff6b6b;
-  background-color: rgba(211, 47, 47, 0.15);
-  backdrop-filter: blur(5px);
-  padding: 12px 14px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  font-size: 13px;
-  border-left: 4px solid #ff6b6b;
-  animation: slideIn 0.3s ease;
-  border: 1px solid rgba(255, 107, 107, 0.3);
+.uploaded-file-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--space-md) var(--space-sm);
+  background-color: var(--color-success-light);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  animation: slideIn var(--duration-base) ease;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.uploaded-file-icon {
+  color: var(--color-success);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.uploaded-file-name {
+  color: #a8d5a8;
+  font-size: 14px;
+  font-weight: 500;
+  word-break: break-word;
 }
 
 @media (max-width: 600px) {
