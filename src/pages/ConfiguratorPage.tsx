@@ -25,11 +25,11 @@ const ConfiguratorPage = () => {
   const operationModeRef = useScrollAnimation()
   const submitRef = useScrollAnimation()
 
-  const handleFileUpload = (data: Record<string, Record<string, string>>) => {
+  const handleFileUpload = (data: ConfigurationData) => {
     setJsonData(data)
   }
 
-  const handleManualEntry = (data: Record<string, Record<string, string>>) => {
+  const handleManualEntry = (data: ConfigurationData) => {
     setJsonData(data)
   }
 
