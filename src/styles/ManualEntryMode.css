@@ -4,7 +4,7 @@
 }
 
 .manual-entry-section h3 {
-  color: #333;
+  color: #d0d8e0;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 16px;
@@ -24,7 +24,7 @@
   flex-direction: column;
   gap: 12px;
   padding: 16px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(15, 20, 25, 0.4);
   border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 8px;
 }
