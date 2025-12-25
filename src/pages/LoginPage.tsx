@@ -250,13 +250,13 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: '25px' }}>
+              <div style={{ marginBottom: isMobile ? '20px' : '25px' }}>
                 <label htmlFor="password" style={{
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
                   color: '#d0d8e0',
-                  fontSize: '14px',
+                  fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Password</label>
                 <div style={{ position: 'relative' }}>
