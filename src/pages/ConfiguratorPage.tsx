@@ -14,7 +14,7 @@ type OperationMode = 'run' | 'test' | 'calibrate'
 
 const ConfiguratorPage = () => {
   const [inputMode, setInputMode] = useState<InputMode>('manual')
-  const [jsonData, setJsonData] = useState<Record<string, Record<string, string>>>({})
+  const [jsonData, setJsonData] = useState<ConfigurationData>({})
   const [operationMode, setOperationMode] = useState<OperationMode>('run')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
