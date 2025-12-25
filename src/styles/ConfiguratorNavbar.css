@@ -199,6 +199,14 @@
     height: 38px;
   }
 
+  .navbar-title-content {
+    gap: 2px;
+  }
+
+  .navbar-text-logo {
+    font-size: 12px;
+  }
+
   .navbar-title h1 {
     font-size: 18px;
   }
