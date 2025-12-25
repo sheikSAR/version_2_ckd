@@ -48,7 +48,7 @@ const ConfiguratorPage = () => {
     setError('')
 
     try {
-      const response = await axios.post('http://localhost:5000/configurator/create-session', {
+      const response = await axios.post(API_ENDPOINTS.CREATE_SESSION, {
         role: 'configurator',
         mode: operationMode,
         data: jsonData,
