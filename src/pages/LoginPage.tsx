@@ -99,7 +99,7 @@ const LoginPage = () => {
           display: 'block',
         }}>
           <img
-            src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1766678006/EFSD_rguwfz.png"
+            src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1766678682/EFSD_bbakla.png"
             alt="European Diabetes Foundation Logo"
             style={{
               width: 'auto',
