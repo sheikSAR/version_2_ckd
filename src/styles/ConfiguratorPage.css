@@ -255,19 +255,19 @@
 }
 
 .error-message {
-  color: #d32f2f;
-  background-color: rgba(255, 235, 238, 0.6);
+  color: #ff6b6b;
+  background-color: rgba(211, 47, 47, 0.15);
   backdrop-filter: blur(5px);
   padding: 14px 16px;
   border-radius: 8px;
   margin-bottom: 20px;
   font-size: 14px;
-  border-left: 4px solid #d32f2f;
+  border-left: 4px solid #ff6b6b;
   animation: slideIn 0.3s ease;
   max-width: 850px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid rgba(211, 47, 47, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
 @keyframes slideIn {
