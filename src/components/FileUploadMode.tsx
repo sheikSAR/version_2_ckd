@@ -155,8 +155,11 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
           onChange={handleFileChange}
           className="file-input"
         />
-        <span className="file-input-display">Click to upload or drag and drop</span>
+        <span className="file-input-display">
+          {uploadedFileName ? `Selected: ${uploadedFileName}` : 'Click to upload or drag and drop'}
+        </span>
       </label>
+      {uploadedFileName && <div className="success-message">✓ File successfully uploaded</div>}
       {error && <div className="error-message">{error}</div>}
       <p className="file-hint">Supported formats: JSON, YAML, Excel (.xlsx, .xls)</p>
     </div>
