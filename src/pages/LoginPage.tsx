@@ -191,11 +191,11 @@ const LoginPage = () => {
           }}>
             <div style={{
               textAlign: 'center',
-              marginBottom: '35px',
+              marginBottom: isMobile ? '25px' : '35px',
             }}>
               <h1 style={{
                 margin: 0,
-                fontSize: '28px',
+                fontSize: isMobile ? '22px' : '28px',
                 fontWeight: 700,
                 color: '#e0e0e0',
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
@@ -203,7 +203,7 @@ const LoginPage = () => {
               <p style={{
                 margin: '10px 0 0 0',
                 color: '#b0b8c1',
-                fontSize: '14px',
+                fontSize: isMobile ? '12px' : '14px',
                 fontWeight: 400,
               }}>Sign in to your account</p>
             </div>
