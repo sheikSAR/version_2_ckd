@@ -106,15 +106,15 @@
 
 .mode-button {
   padding: 13px 28px;
-  border: 2px solid rgba(102, 126, 234, 0.2);
-  background-color: rgba(102, 126, 234, 0.05);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  background-color: rgba(102, 126, 234, 0.08);
   border-radius: 10px;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.3px;
-  color: #333;
+  color: #d0d8e0;
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
