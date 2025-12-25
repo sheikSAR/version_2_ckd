@@ -1,12 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import '../styles/ConfiguratorDemoPage.css'
 
 const FilteringPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="demo-page-container">
+    <>
+      <ConfiguratorNavbar />
+      <div className="demo-page-container">
       <div className="demo-page-content">
         <button className="back-button" onClick={() => navigate('/configurator/landing')}>
           ← Back to Configuration Landing
@@ -19,6 +22,7 @@ const FilteringPage = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
