@@ -4,7 +4,7 @@
 }
 
 .file-upload-section h3 {
-  color: #d0d8e0;
+  color: var(--color-text-primary);
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 16px;
@@ -14,28 +14,28 @@
 
 .file-input-label {
   display: block;
-  padding: 14px 16px;
+  padding: var(--space-md) var(--space-lg);
   border: 2px dashed rgba(102, 126, 234, 0.4);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  margin-bottom: 12px;
-  background-color: rgba(15, 20, 25, 0.4);
+  margin-bottom: var(--space-sm);
+  background-color: var(--color-surface-dark);
   backdrop-filter: blur(5px);
   font-size: 14px;
-  transition: all 0.3s ease;
-  color: #d0d8e0;
+  transition: all var(--duration-base) ease;
+  color: var(--color-text-primary);
   font-weight: 500;
   text-align: center;
 }
 
 .file-input-label:hover {
-  border-color: rgba(102, 126, 234, 0.6);
+  border-color: var(--color-border-focus);
   background-color: rgba(15, 20, 25, 0.6);
 }
 
 .file-input-label:focus-within {
   outline: none;
-  border-color: rgba(102, 126, 234, 0.6);
+  border-color: var(--color-border-focus);
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
