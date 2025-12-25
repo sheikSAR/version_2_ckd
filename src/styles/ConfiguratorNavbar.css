@@ -90,15 +90,12 @@
 
 .navbar-text-logo {
   font-size: 14px;
-  font-weight: 700;
-  color: #e0e0e0;
+  font-weight: 900;
+  color: #ffffff;
   margin: 0;
   letter-spacing: 1.2px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .navbar-title h1 {
