@@ -128,7 +128,7 @@ const LoginPage = () => {
           paddingX: isMobile ? '10px' : '0px',
         }}>
           <h2 style={{
-            fontSize: isMobile ? '24px' : '48px',
+            fontSize: isMobile ? '18px' : '40px',
             fontWeight: 900,
             color: '#ffffff',
             margin: 0,
