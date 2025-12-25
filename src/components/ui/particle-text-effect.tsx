@@ -370,11 +370,22 @@ export function ParticleTextEffect({
     }
   }, [words, wordChangeInterval])
 
+  const canvasStyle = {
+    display: "block",
+    width: position === 'center' ? "100vw" : "50vw",
+    height: "100vh",
+    ...(position === 'center' && { position: 'fixed' as const, top: 0, left: 0 }),
+    ...(position === 'left' && { position: 'absolute' as const, top: 0, left: 0 }),
+    ...(position === 'right' && { position: 'absolute' as const, top: 0, right: 0 }),
+  }
+
+  const canvasClass = position === 'center' ? "fixed top-0 left-0 w-full h-full -z-10" : "absolute top-0 -z-10"
+
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-10"
-      style={{ display: "block", width: "100vw", height: "100vh" }}
+      className={canvasClass}
+      style={canvasStyle}
     />
   )
 }
