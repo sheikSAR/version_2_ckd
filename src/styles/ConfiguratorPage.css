@@ -26,14 +26,14 @@
 .input-section,
 .data-preview,
 .operation-mode-selector {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(26, 31, 46, 0.7);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 16px;
   padding: 35px;
   margin: 0 auto 30px;
   max-width: 900px;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.12), 0 0 1px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 1px rgba(102, 126, 234, 0.05);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: translateY(30px);
