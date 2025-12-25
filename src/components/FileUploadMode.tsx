@@ -50,7 +50,7 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
       <label className="file-input-label">
         <input
           type="file"
-          accept=".json,.yaml,.yml,.xlsx,.xls"
+          accept={ACCEPTED_MIME_TYPES}
           onChange={handleFileChange}
           className="file-input"
         />
