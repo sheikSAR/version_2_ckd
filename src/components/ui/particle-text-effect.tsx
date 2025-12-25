@@ -368,7 +368,7 @@ export function ParticleTextEffect({
       canvas.removeEventListener("contextmenu", handleContextMenu)
       window.removeEventListener("resize", handleWindowResize)
     }
-  }, [words, wordChangeInterval])
+  }, [words, wordChangeInterval, position])
 
   const canvasStyle = {
     display: "block",
