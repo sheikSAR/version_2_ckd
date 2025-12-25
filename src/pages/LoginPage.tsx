@@ -176,7 +176,7 @@ const LoginPage = () => {
             background: 'rgba(26, 31, 46, 0.85)',
             backdropFilter: 'blur(30px)',
             border: '1px solid rgba(102, 126, 234, 0.25)',
-            padding: '40px 30px',
+            padding: isMobile ? '25px 20px' : '40px 30px',
             borderRadius: '20px',
             boxShadow: `
               0 8px 32px rgba(0, 0, 0, 0.3),
