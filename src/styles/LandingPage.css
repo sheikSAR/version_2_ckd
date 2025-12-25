@@ -43,6 +43,8 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -1px;
+  line-height: 1.2;
+  word-spacing: 0.05em;
 }
 
 .landing-subtitle {
