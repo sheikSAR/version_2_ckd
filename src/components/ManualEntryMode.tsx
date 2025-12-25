@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { ConfigurationData } from '../types'
 import '../styles/ManualEntryMode.css'
 
 interface PropertyField {
@@ -14,7 +15,7 @@ interface EntryItem {
 }
 
 interface ManualEntryModeProps {
-  onDataChange: (data: Record<string, Record<string, string>>) => void
+  onDataChange: (data: ConfigurationData) => void
 }
 
 const ManualEntryMode: React.FC<ManualEntryModeProps> = ({ onDataChange }) => {
