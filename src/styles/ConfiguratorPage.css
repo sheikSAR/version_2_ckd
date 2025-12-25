@@ -219,9 +219,9 @@
 }
 
 .operation-mode-selector {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(15, 20, 25, 0.3);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.15);
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 25px;
