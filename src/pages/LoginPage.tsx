@@ -101,25 +101,21 @@ const LoginPage = () => {
         </div>
 
         <div style={{
-          position: 'absolute',
+          position: 'fixed',
           top: '30px',
           left: '50%',
           transform: 'translateX(-50%)',
-          zIndex: 30,
+          zIndex: 40,
           textAlign: 'center',
         }}>
           <h2 style={{
-            fontSize: '18px',
-            fontWeight: 700,
-            color: '#e0e0e0',
+            fontSize: '48px',
+            fontWeight: 900,
+            color: '#ffffff',
             margin: 0,
-            letterSpacing: '1.5px',
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-            animation: 'fadeInDown 0.8s ease',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            letterSpacing: '2px',
+            textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            opacity: 1,
           }}>
             SESU'S RESEARCH LAB
           </h2>
