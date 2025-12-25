@@ -142,20 +142,21 @@ const LoginPage = () => {
         </div>
 
         <div style={{
-          position: 'absolute',
-          top: '30px',
-          right: '30px',
-          zIndex: 30,
+          position: 'fixed',
+          top: isMobile ? '15px' : '30px',
+          right: isMobile ? '15px' : '30px',
+          zIndex: 40,
         }}>
           <img
             src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1765918133/MDRF__Chennai_Logo_qfwlna.png"
             alt="MDRF Logo"
             style={{
-              maxWidth: '150px',
-              height: 'auto',
+              width: 'auto',
+              height: isMobile ? '60px' : '80px',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
-              animation: 'fadeInDown 0.8s ease',
+              opacity: 1,
+              objectFit: 'contain',
             }}
           />
         </div>
