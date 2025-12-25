@@ -86,16 +86,23 @@ const LoginPage = () => {
           top: '30px',
           left: '30px',
           zIndex: 40,
+          display: 'block',
         }}>
           <img
             src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
             alt="European Diabetes Foundation Logo"
             style={{
-              maxWidth: '150px',
-              height: 'auto',
+              width: '120px',
+              height: '120px',
+              display: 'block',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
               opacity: 1,
+              objectFit: 'contain',
+            }}
+            onError={(e) => {
+              console.error('Failed to load logo:', e);
+              (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         </div>
