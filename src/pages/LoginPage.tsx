@@ -29,13 +29,13 @@ const LoginPage = () => {
     setLoading(true)
 
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post(API_ENDPOINTS.LOGIN, {
         username,
         password,
       })
 
       if (response.data.success) {
-        const role = response.data.role
+        const role: UserRole = response.data.role
         if (role === 'user') {
           navigate('/user')
         } else if (role === 'admin') {
