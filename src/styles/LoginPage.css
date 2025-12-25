@@ -180,6 +180,7 @@ html, body, #root {
   }
 }
 
+/* ======================== Card Header ======================== */
 .card-header {
   text-align: center;
   margin-bottom: 35px;
@@ -200,17 +201,42 @@ html, body, #root {
   font-weight: 400;
 }
 
+.login-form-wrapper.mobile .card-header {
+  margin-bottom: 25px;
+}
+
+.login-form-wrapper.mobile .login-title {
+  font-size: 22px;
+}
+
+.login-form-wrapper.mobile .login-subtitle {
+  font-size: 12px;
+}
+
+/* ======================== Form Elements ======================== */
+.login-form {
+  width: 100%;
+}
+
 .form-group {
   margin-bottom: 25px;
 }
 
-.form-group label {
+.login-form-wrapper.mobile .form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
   color: #d0d8e0;
   font-size: 14px;
   letter-spacing: 0.5px;
+}
+
+.login-form-wrapper.mobile .form-label {
+  font-size: 12px;
 }
 
 .input-wrapper {
@@ -229,6 +255,11 @@ html, body, #root {
   backdrop-filter: blur(10px);
   color: #d0d8e0;
   box-shadow: inset 0 0 10px rgba(102, 126, 234, 0.05);
+}
+
+.login-form-wrapper.mobile .form-input {
+  padding: 10px 14px;
+  font-size: 14px;
 }
 
 .form-input::placeholder {
