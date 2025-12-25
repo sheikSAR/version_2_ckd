@@ -131,6 +131,7 @@ interface ParticleTextEffectProps {
   words?: string[]
   particleColors?: string[]
   wordChangeInterval?: number
+  position?: 'center' | 'left' | 'right'
 }
 
 const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
@@ -138,7 +139,8 @@ const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
 export function ParticleTextEffect({
   words = DEFAULT_WORDS,
   particleColors = ["#667eea", "#764ba2", "#f093fb", "#4facfe", "#00f2fe"],
-  wordChangeInterval = 240
+  wordChangeInterval = 240,
+  position = 'center'
 }: ParticleTextEffectProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
