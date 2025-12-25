@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ParticleTextEffect } from '../components/ui/particle-text-effect'
+import '../styles/LoginPage.css'
 
 type Role = 'user' | 'admin' | 'configurator'
 
