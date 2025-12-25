@@ -201,12 +201,12 @@
     height: 38px;
   }
 
-  .navbar-title-content {
-    gap: 2px;
+  .navbar-text-logo {
+    font-size: 11px;
   }
 
-  .navbar-text-logo {
-    font-size: 12px;
+  .text-logo-wrapper {
+    padding: 10px 8px;
   }
 
   .navbar-title h1 {
