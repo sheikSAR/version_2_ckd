@@ -18,16 +18,16 @@
 }
 
 .landing-title {
-  color: #333;
+  color: #e0e0e0;
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 42px;
   font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .landing-subtitle {
-  color: #666;
+  color: #a8b2bb;
   font-size: 16px;
   margin-bottom: 50px;
   font-weight: 400;
@@ -41,9 +41,9 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(26, 31, 46, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 12px;
   padding: 40px;
   text-align: center;
@@ -53,14 +53,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .card:hover:not(.disabled) {
   transform: scale(1.05) translateY(-5px);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+  background: rgba(26, 31, 46, 0.8);
+  border-color: rgba(102, 126, 234, 0.4);
 }
 
 .card.disabled {
@@ -70,7 +70,7 @@
 }
 
 .card-title {
-  color: #333;
+  color: #d0d8e0;
   font-size: 18px;
   margin: 0;
   font-weight: 500;
