@@ -306,12 +306,12 @@ const LoginPage = () => {
 
               <button type="submit" disabled={loading} style={{
                 width: '100%',
-                padding: '14px',
+                padding: isMobile ? '12px' : '14px',
                 background: loading ? 'linear-gradient(135deg, #555 0%, #333 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '16px',
+                fontSize: isMobile ? '14px' : '16px',
                 fontWeight: 600,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
