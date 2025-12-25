@@ -122,19 +122,40 @@ html, body, #root {
   font-size: 18px;
 }
 
+/* ======================== Form Wrapper & Card ======================== */
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  gap: 30px;
+}
+
+.login-form-wrapper.mobile {
+  gap: 20px;
+  max-width: 100%;
+  margin-top: 60px;
+}
+
 .login-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(26, 31, 46, 0.3);
   backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 50px 40px;
+  border: 1px solid rgba(102, 126, 234, 0.35);
+  padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08),
-              inset 0 0 20px rgba(255, 255, 255, 0.1),
-              0 0 40px rgba(102, 126, 234, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+              inset 0 0 20px rgba(102, 126, 234, 0.08),
+              0 0 40px rgba(102, 126, 234, 0.15);
   width: 100%;
   animation: fadeInUp 0.8s ease 0.2s both;
   position: relative;
   overflow: hidden;
+}
+
+.login-form-wrapper.mobile .login-card {
+  padding: 25px 20px;
 }
 
 @keyframes fadeInUp {
