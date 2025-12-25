@@ -273,43 +273,7 @@ html, body, #root {
   box-shadow: inset 0 0 10px rgba(102, 126, 234, 0.05), 0 0 0 4px rgba(102, 126, 234, 0.15);
 }
 
-.form-group input[type='text']:focus,
-.form-group input[type='password']:focus {
-  outline: none;
-}
-
-.form-group fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-.form-group legend {
-  font-weight: 500;
-  color: #d0d8e0;
-  margin-bottom: 12px;
-}
-
-.role-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-weight: normal;
-  color: #d0d8e0;
-}
-
-.radio-label input[type='radio'] {
-  margin-right: 8px;
-  cursor: pointer;
-  accent-color: #667eea;
-}
-
+/* ======================== Error Message ======================== */
 .error-message {
   color: #ff6b6b;
   background-color: rgba(211, 47, 47, 0.15);
@@ -318,22 +282,12 @@ html, body, #root {
   border-radius: 8px;
   margin-bottom: 20px;
   font-size: 14px;
+  border: 1px solid rgba(255, 107, 107, 0.3);
   border-left: 4px solid #ff6b6b;
   animation: slideIn 0.3s ease;
-  border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
+/* ======================== Submit Button ======================== */
 .login-button {
   width: 100%;
   padding: 14px;
@@ -349,6 +303,11 @@ html, body, #root {
   box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
+.login-form-wrapper.mobile .login-button {
+  padding: 12px;
+  font-size: 14px;
+}
+
 .login-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
@@ -358,44 +317,98 @@ html, body, #root {
   transform: translateY(0);
 }
 
-.login-button:disabled {
+.login-button:disabled,
+.login-button.loading {
   background: linear-gradient(135deg, #555 0%, #333 100%);
   cursor: not-allowed;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* ======================== Animations ======================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ======================== Responsive Design ======================== */
 @media (max-width: 600px) {
-  .login-content {
-    gap: 25px;
+  .login-content-layer {
+    padding: 15px;
   }
 
-  .org-logos {
+  .logo-left {
+    top: 15px;
+    left: 15px;
+  }
+
+  .logo-center {
+    top: 15px;
+    left: 50%;
+  }
+
+  .logo-right {
+    top: 15px;
+    right: 15px;
+  }
+
+  .organization-logo {
+    height: 60px;
+  }
+
+  .organization-title {
+    font-size: 18px;
+  }
+
+  .login-form-wrapper {
     gap: 20px;
-  }
-
-  .efsd-logo {
-    max-width: 120px;
-  }
-
-  .mdrf-logo {
-    max-width: 100px;
+    max-width: 100%;
+    margin-top: 60px;
   }
 
   .login-card {
-    padding: 40px 25px;
+    padding: 25px 20px;
+  }
+
+  .card-header {
+    margin-bottom: 25px;
   }
 
   .login-title {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .login-subtitle {
+    font-size: 12px;
+  }
+
+  .form-label {
+    font-size: 12px;
   }
 
   .form-input {
-    padding: 11px 14px;
+    padding: 10px 14px;
     font-size: 14px;
   }
 
   .login-button {
     padding: 12px;
-    font-size: 15px;
+    font-size: 14px;
   }
 }
