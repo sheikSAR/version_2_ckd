@@ -137,11 +137,11 @@
 }
 
 .mode-button:hover {
-  border-color: rgba(102, 126, 234, 0.4);
-  color: #333;
+  border-color: rgba(102, 126, 234, 0.5);
+  color: #d0d8e0;
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
-  background-color: rgba(102, 126, 234, 0.08);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
+  background-color: rgba(102, 126, 234, 0.12);
 }
 
 .mode-button.active {
