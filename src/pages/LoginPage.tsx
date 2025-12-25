@@ -268,10 +268,10 @@ const LoginPage = () => {
                     placeholder="Enter your password"
                     style={{
                       width: '100%',
-                      padding: '12px 16px',
+                      padding: isMobile ? '10px 14px' : '12px 16px',
                       border: '1.5px solid rgba(102, 126, 234, 0.25)',
                       borderRadius: '10px',
-                      fontSize: '15px',
+                      fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
                       backgroundColor: 'rgba(15, 20, 25, 0.4)',
