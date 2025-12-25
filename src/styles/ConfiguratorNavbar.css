@@ -245,6 +245,14 @@
     margin-bottom: 5px;
   }
 
+  .navbar-title-content {
+    gap: 2px;
+  }
+
+  .navbar-text-logo {
+    font-size: 10px;
+  }
+
   .navbar-title h1 {
     font-size: 14px;
   }
