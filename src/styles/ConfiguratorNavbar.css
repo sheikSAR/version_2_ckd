@@ -44,6 +44,11 @@
   animation: fadeInLeft 0.8s ease-out 0.1s both;
 }
 
+.text-logo-wrapper {
+  padding: 10px 15px;
+  animation-delay: 0.3s;
+}
+
 .navbar-logo {
   height: 50px;
   width: auto;
