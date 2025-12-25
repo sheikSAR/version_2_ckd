@@ -8,6 +8,7 @@ interface FileUploadModeProps {
 
 const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
   const [error, setError] = useState('')
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null)
 
   const parseYaml = (yamlText: string): Record<string, Record<string, string>> => {
     const result: Record<string, Record<string, string>> = {}
