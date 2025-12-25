@@ -53,6 +53,20 @@ const LoginPage = () => {
     width: '100%',
     height: '100vh',
     overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'stretch',
+  }
+
+  const particleContainerStyle: React.CSSProperties = {
+    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+  }
+
+  const centerSpacerStyle: React.CSSProperties = {
+    flex: 0,
+    width: '600px',
+    position: 'relative',
   }
 
   const contentLayerStyle: React.CSSProperties = {
@@ -76,7 +90,13 @@ const LoginPage = () => {
   return (
     <div>
       <div style={backgroundLayerStyle}>
-        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} />
+        <div style={particleContainerStyle}>
+          <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} />
+        </div>
+        <div style={centerSpacerStyle}></div>
+        <div style={particleContainerStyle}>
+          <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} />
+        </div>
       </div>
 
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
