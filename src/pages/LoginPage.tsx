@@ -101,18 +101,18 @@ const LoginPage = () => {
 
         <div style={{
           position: 'absolute',
-          top: '50%',
+          top: '30px',
           left: '50%',
-          transform: 'translate(-50%, -50%)',
+          transform: 'translateX(-50%)',
           zIndex: 30,
           textAlign: 'center',
         }}>
           <h2 style={{
-            fontSize: '22px',
+            fontSize: '18px',
             fontWeight: 700,
             color: '#e0e0e0',
             margin: 0,
-            letterSpacing: '1px',
+            letterSpacing: '1.5px',
             textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
             animation: 'fadeInDown 0.8s ease',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
