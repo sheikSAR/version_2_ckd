@@ -93,7 +93,7 @@ const LoginPage = () => {
             alt="European Diabetes Foundation Logo"
             style={{
               width: '120px',
-              height: '120px',
+              height: 'auto',
               display: 'block',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
