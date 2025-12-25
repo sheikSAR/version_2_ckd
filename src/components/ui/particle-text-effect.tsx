@@ -317,7 +317,7 @@ export function ParticleTextEffect({
     if (!canvas) return
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
+      canvas.width = position === 'center' ? window.innerWidth : window.innerWidth / 2
       canvas.height = window.innerHeight
       nextWord(words[0], canvas)
     }
