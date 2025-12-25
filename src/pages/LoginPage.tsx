@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ParticleTextEffect } from '../components/ui/particle-text-effect'
@@ -10,7 +10,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -67,7 +77,7 @@ const LoginPage = () => {
     alignItems: 'center',
     width: '100%',
     height: '100vh',
-    padding: '20px',
+    padding: isMobile ? '15px' : '20px',
     boxSizing: 'border-box',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
     overflowY: 'auto',
@@ -82,64 +92,71 @@ const LoginPage = () => {
 
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
         <div style={{
-          position: 'absolute',
-          top: '30px',
-          left: '30px',
-          zIndex: 30,
+          position: 'fixed',
+          top: isMobile ? '15px' : '30px',
+          left: isMobile ? '15px' : '30px',
+          zIndex: 40,
+          display: 'block',
         }}>
           <img
-            src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
+            src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1766678682/EFSD_bbakla.png"
             alt="European Diabetes Foundation Logo"
             style={{
-              maxWidth: '150px',
-              height: 'auto',
+              width: 'auto',
+              height: isMobile ? '60px' : '80px',
+              display: 'block',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
-              animation: 'fadeInDown 0.8s ease',
+              opacity: 1,
+              objectFit: 'contain',
+            }}
+            onError={(e) => {
+              console.error('Failed to load logo:', e);
+              (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         </div>
 
         <div style={{
-          position: 'absolute',
-          top: '30px',
+          position: 'fixed',
+          top: isMobile ? '15px' : '30px',
           left: '50%',
           transform: 'translateX(-50%)',
-          zIndex: 30,
+          zIndex: 40,
           textAlign: 'center',
+          maxWidth: isMobile ? '200px' : 'auto',
+          paddingX: isMobile ? '10px' : '0px',
         }}>
           <h2 style={{
-            fontSize: '18px',
-            fontWeight: 700,
-            color: '#e0e0e0',
+            fontSize: isMobile ? '18px' : '40px',
+            fontWeight: 900,
+            color: '#ffffff',
             margin: 0,
-            letterSpacing: '1.5px',
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-            animation: 'fadeInDown 0.8s ease',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            letterSpacing: '2px',
+            textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            opacity: 1,
+            wordBreak: 'break-word',
           }}>
             SESU'S RESEARCH LAB
           </h2>
         </div>
 
         <div style={{
-          position: 'absolute',
-          top: '30px',
-          right: '30px',
-          zIndex: 30,
+          position: 'fixed',
+          top: isMobile ? '15px' : '30px',
+          right: isMobile ? '15px' : '30px',
+          zIndex: 40,
         }}>
           <img
             src="https://res.cloudinary.com/dk2wudmxh/image/upload/v1765918133/MDRF__Chennai_Logo_qfwlna.png"
             alt="MDRF Logo"
             style={{
-              maxWidth: '150px',
-              height: 'auto',
+              width: 'auto',
+              height: isMobile ? '60px' : '80px',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
-              animation: 'fadeInDown 0.8s ease',
+              opacity: 1,
+              objectFit: 'contain',
             }}
           />
         </div>
@@ -149,16 +166,17 @@ const LoginPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '30px',
+          gap: isMobile ? '20px' : '30px',
           width: '100%',
-          maxWidth: '400px',
+          maxWidth: isMobile ? '100%' : '400px',
           boxSizing: 'border-box',
+          marginTop: isMobile ? '60px' : '0px',
         }}>
           <div style={{
             background: 'rgba(26, 31, 46, 0.85)',
             backdropFilter: 'blur(30px)',
             border: '1px solid rgba(102, 126, 234, 0.25)',
-            padding: '40px 30px',
+            padding: isMobile ? '25px 20px' : '40px 30px',
             borderRadius: '20px',
             boxShadow: `
               0 8px 32px rgba(0, 0, 0, 0.3),
@@ -173,11 +191,11 @@ const LoginPage = () => {
           }}>
             <div style={{
               textAlign: 'center',
-              marginBottom: '35px',
+              marginBottom: isMobile ? '25px' : '35px',
             }}>
               <h1 style={{
                 margin: 0,
-                fontSize: '28px',
+                fontSize: isMobile ? '22px' : '28px',
                 fontWeight: 700,
                 color: '#e0e0e0',
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
@@ -185,19 +203,19 @@ const LoginPage = () => {
               <p style={{
                 margin: '10px 0 0 0',
                 color: '#b0b8c1',
-                fontSize: '14px',
+                fontSize: isMobile ? '12px' : '14px',
                 fontWeight: 400,
               }}>Sign in to your account</p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: '25px' }}>
+              <div style={{ marginBottom: isMobile ? '20px' : '25px' }}>
                 <label htmlFor="username" style={{
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
                   color: '#d0d8e0',
-                  fontSize: '14px',
+                  fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Username</label>
                 <div style={{ position: 'relative' }}>
@@ -209,10 +227,10 @@ const LoginPage = () => {
                     placeholder="Enter your username"
                     style={{
                       width: '100%',
-                      padding: '12px 16px',
+                      padding: isMobile ? '10px 14px' : '12px 16px',
                       border: '1.5px solid rgba(102, 126, 234, 0.25)',
                       borderRadius: '10px',
-                      fontSize: '15px',
+                      fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
                       backgroundColor: 'rgba(15, 20, 25, 0.4)',
@@ -232,13 +250,13 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: '25px' }}>
+              <div style={{ marginBottom: isMobile ? '20px' : '25px' }}>
                 <label htmlFor="password" style={{
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
                   color: '#d0d8e0',
-                  fontSize: '14px',
+                  fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Password</label>
                 <div style={{ position: 'relative' }}>
@@ -250,10 +268,10 @@ const LoginPage = () => {
                     placeholder="Enter your password"
                     style={{
                       width: '100%',
-                      padding: '12px 16px',
+                      padding: isMobile ? '10px 14px' : '12px 16px',
                       border: '1.5px solid rgba(102, 126, 234, 0.25)',
                       borderRadius: '10px',
-                      fontSize: '15px',
+                      fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
                       backgroundColor: 'rgba(15, 20, 25, 0.4)',
@@ -288,12 +306,12 @@ const LoginPage = () => {
 
               <button type="submit" disabled={loading} style={{
                 width: '100%',
-                padding: '14px',
+                padding: isMobile ? '12px' : '14px',
                 background: loading ? 'linear-gradient(135deg, #555 0%, #333 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '16px',
+                fontSize: isMobile ? '14px' : '16px',
                 fontWeight: 600,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',

@@ -8,6 +8,8 @@
   position: relative;
   z-index: 10;
   padding: 20px;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .page-heading {
@@ -15,4 +17,31 @@
   color: #e0e0e0;
   margin: 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 15px;
+    min-height: auto;
+    padding-top: 60px;
+  }
+
+  .page-heading {
+    font-size: 28px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 12px;
+    padding-top: 50px;
+  }
+
+  .page-heading {
+    font-size: 24px;
+  }
 }

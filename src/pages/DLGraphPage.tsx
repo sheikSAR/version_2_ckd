@@ -1,12 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import '../styles/ConfiguratorDemoPage.css'
 
 const DLGraphPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="demo-page-container">
+    <>
+      <ConfiguratorNavbar />
+      <div className="demo-page-container">
       <div className="demo-page-content">
         <button
           className="back-button"
@@ -52,6 +55,7 @@ const DLGraphPage = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

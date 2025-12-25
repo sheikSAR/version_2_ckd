@@ -39,10 +39,13 @@ const ConfiguratorNavbar: React.FC = () => {
               className="navbar-logo mdrf-logo"
             />
           </div>
+          <div className="navbar-divider"></div>
+          <div className="logo-wrapper text-logo-wrapper">
+            <h2 className="navbar-text-logo">SESU'S RESEARCH LAB</h2>
+          </div>
         </div>
         <div className="navbar-title">
           <div className="navbar-title-content">
-            <h2 className="navbar-text-logo">SESU'S RESEARCH LAB</h2>
             <h1>Data Configurator</h1>
           </div>
         </div>
