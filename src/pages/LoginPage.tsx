@@ -93,8 +93,8 @@ const LoginPage = () => {
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
         <div style={{
           position: 'fixed',
-          top: '30px',
-          left: '30px',
+          top: isMobile ? '15px' : '30px',
+          left: isMobile ? '15px' : '30px',
           zIndex: 40,
           display: 'block',
         }}>
@@ -102,8 +102,8 @@ const LoginPage = () => {
             src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
             alt="European Diabetes Foundation Logo"
             style={{
-              width: '120px',
-              height: 'auto',
+              width: 'auto',
+              height: isMobile ? '60px' : '80px',
               display: 'block',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
