@@ -77,6 +77,10 @@
 }
 
 @media (max-width: 768px) {
+  .landing-container {
+    padding: 30px 15px;
+  }
+
   .cards-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -84,6 +88,7 @@
 
   .landing-title {
     font-size: 32px;
+    margin-bottom: 10px;
   }
 
   .landing-subtitle {
@@ -94,5 +99,36 @@
   .card {
     padding: 32px 20px;
     min-height: 140px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-container {
+    padding: 20px 12px;
+    min-height: auto;
+    padding-top: 80px;
+  }
+
+  .landing-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .landing-subtitle {
+    font-size: 12px;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    padding: 24px 16px;
+    min-height: 120px;
+  }
+
+  .card-title {
+    font-size: 14px;
   }
 }
