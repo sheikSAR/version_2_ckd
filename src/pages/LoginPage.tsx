@@ -82,10 +82,10 @@ const LoginPage = () => {
 
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
         <div style={{
-          position: 'absolute',
+          position: 'fixed',
           top: '30px',
           left: '30px',
-          zIndex: 30,
+          zIndex: 40,
         }}>
           <img
             src="https://www.europeandiabetesfoundation.org/assets/img/efsd-logo-blue.svg"
@@ -95,7 +95,7 @@ const LoginPage = () => {
               height: 'auto',
               filter: 'drop-shadow(0 4px 15px rgba(0, 0, 0, 0.15))',
               transition: 'transform 0.3s ease, filter 0.3s ease',
-              animation: 'fadeInDown 0.8s ease',
+              opacity: 1,
             }}
           />
         </div>
