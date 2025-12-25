@@ -173,15 +173,15 @@ const LoginPage = () => {
           marginTop: isMobile ? '60px' : '0px',
         }}>
           <div style={{
-            background: 'rgba(26, 31, 46, 0.85)',
+            background: 'rgba(26, 31, 46, 0.3)',
             backdropFilter: 'blur(30px)',
-            border: '1px solid rgba(102, 126, 234, 0.25)',
+            border: '1px solid rgba(102, 126, 234, 0.35)',
             padding: isMobile ? '25px 20px' : '40px 30px',
             borderRadius: '20px',
             boxShadow: `
-              0 8px 32px rgba(0, 0, 0, 0.3),
-              inset 0 0 20px rgba(102, 126, 234, 0.05),
-              0 0 40px rgba(102, 126, 234, 0.1)
+              0 8px 32px rgba(0, 0, 0, 0.2),
+              inset 0 0 20px rgba(102, 126, 234, 0.08),
+              0 0 40px rgba(102, 126, 234, 0.15)
             `,
             width: '100%',
             boxSizing: 'border-box',
