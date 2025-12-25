@@ -4,7 +4,7 @@
 }
 
 .file-upload-section h3 {
-  color: #333;
+  color: #d0d8e0;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 16px;
@@ -19,18 +19,18 @@
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 12px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 20, 25, 0.4);
   backdrop-filter: blur(5px);
   font-size: 14px;
   transition: all 0.3s ease;
-  color: #333;
+  color: #d0d8e0;
   font-weight: 500;
   text-align: center;
 }
 
 .file-input-label:hover {
   border-color: rgba(102, 126, 234, 0.6);
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(15, 20, 25, 0.6);
 }
 
 .file-input-label:focus-within {
