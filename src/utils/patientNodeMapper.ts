@@ -263,7 +263,7 @@ function getContainerForAttribute(attribute: string): string {
 }
 
 export function mapPatientDataToNodes(
-  patients: Record<string, Record<string, string>>
+  patients: Record<string, Record<string, string | number>>
 ): PatientEdges[] {
   const allEdges: PatientEdges[] = []
 
@@ -271,7 +271,9 @@ export function mapPatientDataToNodes(
     const edges: Edge[] = []
 
     for (const [attribute, value] of Object.entries(patientData)) {
-      if (!value || value.trim() === '') {
+      // Convert value to string and check if empty
+      const stringValue = String(value).trim()
+      if (!stringValue) {
         continue
       }
 
@@ -280,7 +282,7 @@ export function mapPatientDataToNodes(
         continue
       }
 
-      const mappedNode = mapperFunction(value.trim())
+      const mappedNode = mapperFunction(stringValue)
       if (!mappedNode) {
         continue
       }
@@ -299,7 +301,7 @@ export function mapPatientDataToNodes(
           container,
           node: mappedNode,
           relationshipType: `HAS_${container.toUpperCase()}`,
-          value,
+          value: stringValue,
         })
       }
     }
