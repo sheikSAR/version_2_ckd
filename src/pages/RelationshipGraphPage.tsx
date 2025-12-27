@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import Graph3DVisualization from '../components/Graph3DVisualization'
-import GraphFiltersBar from '../components/GraphFiltersBar'
-import { mapPatientDataToNodes } from '../utils/patientNodeMapper'
+import { mapPatientDataToChainGraph } from '../utils/patientNodeMapper'
 import { useConfigurator } from '../context/ConfiguratorContext'
-import type { PatientEdges } from '../utils/patientNodeMapper'
+import type { PatientChainGraph } from '../utils/patientNodeMapper'
 import '../styles/RelationshipGraphPage.css'
 
 const RelationshipGraphPage = () => {
   const navigate = useNavigate()
   const { configPath } = useConfigurator()
-  const [patientEdges, setPatientEdges] = useState<PatientEdges[]>([])
+  const [chainGraph, setChainGraph] = useState<PatientChainGraph>({ nodes: [], edges: [] })
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null)
-  const [selectedVariable, setSelectedVariable] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -33,11 +31,10 @@ const RelationshipGraphPage = () => {
           throw new Error('File not found')
         }
 
-        const parsedData: Record<string, Record<string, string>> = await response.json()
-        const edges = mapPatientDataToNodes(parsedData)
-        setPatientEdges(edges)
+        const parsedData = await response.json()
+        const graph = mapPatientDataToChainGraph(parsedData)
+        setChainGraph(graph)
         setSelectedPatient(null)
-        setSelectedVariable(null)
         setError('')
       } catch (err) {
         setError('Configuration input file not found. Please restart configurator setup.')
