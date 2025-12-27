@@ -413,8 +413,9 @@ export function mapPatientDataToChainGraph(
       }
 
       // Create unique node ID for this patient's chain step
-      // Format: CONTAINER_nodeValue_PpatientIndex
-      const currentNodeId = `${container.toUpperCase()}_${mappedNode.replace(/\s+/g, '_')}_P${patientIndex}`
+      // Format: CONTAINER_nodeValue_patientId_PpatientIndex
+      const sanitizedPatientId = String(patientId).replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20)
+      const currentNodeId = `${container.toUpperCase()}_${mappedNode.replace(/\s+/g, '_')}_${sanitizedPatientId}_P${patientIndex}`
       const currentNodeLabel = mappedNode
 
       // Add node if not already added
