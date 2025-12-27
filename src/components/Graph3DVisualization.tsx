@@ -111,18 +111,28 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
     // Add all nodes from chain graph
     chainGraph.nodes.forEach((chainNode) => {
-      // Extract patient ID from node ID for attribute nodes (format: CONTAINER_value_PpatientIndex)
+      // Extract patient ID from node ID for attribute nodes (format: CONTAINER_value_sanitizedPatientId_PpatientIndex)
       let patientId: string | undefined
       if (chainNode.type === 'attribute' && chainNode.id.includes('_P')) {
         const parts = chainNode.id.split('_P')
-        patientId = parts[1]
+        if (parts.length >= 2) {
+          // Extract the patient ID part (second to last underscore-separated part)
+          const beforeIndex = parts[0]
+          const afterIndex = parts[1]
+          // Format is: CONTAINER_nodeValue_sanitizedPatientId
+          const idParts = beforeIndex.split('_')
+          if (idParts.length >= 3) {
+            // Take the second-to-last part as the sanitized patient ID
+            patientId = idParts[idParts.length - 1]
+          }
+        }
       }
 
       const nodeColor =
         chainNode.type === 'root'
           ? nodeTypeColors.root
           : patientId
-            ? patientColorMap[`Patient_${patientId}`] || patientColorMap[patientId] || '#667EEA'
+            ? patientColorMap[patientId] || patientColorMap[`Patient_${patientId}`] || '#667EEA'
             : '#667EEA'
 
       nodesMap.set(chainNode.id, {
