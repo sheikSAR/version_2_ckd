@@ -101,58 +101,49 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }, [graphData.links])
 
   useEffect(() => {
-    if (!patientEdges.length) {
+    if (!chainGraph.nodes.length || !chainGraph.edges.length) {
       setGraphData({ nodes: [], links: [] })
       return
     }
 
     const nodesMap = new Map<string, GraphNode>()
     const linksArray: GraphLink[] = []
-    const patientNodes = patientEdges.map((pe) => pe.patientId)
 
-    // Add patient nodes
-    patientNodes.forEach((patientId) => {
-      nodesMap.set(`patient-${patientId}`, {
-        id: `patient-${patientId}`,
-        name: patientId,
-        type: 'patient',
-        container: 'Patient_ID',
-        color: nodeTypeColors.patient,
-        size: 8,
+    // Add all nodes from chain graph
+    chainGraph.nodes.forEach((chainNode) => {
+      // Extract patient ID from node ID for attribute nodes (format: CONTAINER_value_PpatientIndex)
+      let patientId: string | undefined
+      if (chainNode.type === 'attribute' && chainNode.id.includes('_P')) {
+        const parts = chainNode.id.split('_P')
+        patientId = parts[1]
+      }
+
+      const nodeColor =
+        chainNode.type === 'root'
+          ? nodeTypeColors.root
+          : patientId
+            ? patientColorMap[`Patient_${patientId}`] || patientColorMap[patientId] || '#667EEA'
+            : '#667EEA'
+
+      nodesMap.set(chainNode.id, {
+        id: chainNode.id,
+        label: chainNode.label,
+        type: chainNode.type,
+        color: nodeColor,
+        size: chainNode.type === 'root' ? 12 : 6,
+        patientId,
       })
     })
 
-    // Add variable nodes and links
-    const processedEdges = new Set<string>()
+    // Add all edges from chain graph
+    chainGraph.edges.forEach((chainEdge) => {
+      const shouldShowEdge = !selectedPatient || selectedPatient === chainEdge.patientId
 
-    patientEdges.forEach((patientData) => {
-      patientData.edges.forEach((edge) => {
-        const shouldShowEdge =
-          (!selectedPatient || selectedPatient === patientData.patientId) &&
-          (!selectedVariable || selectedVariable === edge.container)
-
-        const nodeId = `variable-${edge.container}-${edge.node}`
-
-        if (!nodesMap.has(nodeId)) {
-          nodesMap.set(nodeId, {
-            id: nodeId,
-            name: edge.node,
-            type: 'variable',
-            container: edge.container,
-            color: containerToColorMap[edge.container] || '#999999',
-            size: 6,
-          })
-        }
-
-        const linkKey = `${patientData.patientId}-${edge.container}-${edge.node}`
-        if (!processedEdges.has(linkKey)) {
-          linksArray.push({
-            source: `patient-${patientData.patientId}`,
-            target: nodeId,
-            isVisible: shouldShowEdge,
-          })
-          processedEdges.add(linkKey)
-        }
+      linksArray.push({
+        source: chainEdge.source,
+        target: chainEdge.target,
+        patientId: chainEdge.patientId,
+        isVisible: shouldShowEdge,
       })
     })
 
@@ -160,7 +151,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       nodes: Array.from(nodesMap.values()),
       links: linksArray,
     })
-  }, [patientEdges, selectedPatient, selectedVariable, containerToColorMap, nodeTypeColors])
+  }, [chainGraph, selectedPatient, nodeTypeColors, patientColorMap])
 
   useEffect(() => {
     if (fgRef.current && graphData.nodes.length > 0) {
