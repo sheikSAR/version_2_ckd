@@ -197,12 +197,12 @@ const LoginPage = () => {
                 margin: 0,
                 fontSize: isMobile ? '22px' : '28px',
                 fontWeight: 700,
-                color: '#e0e0e0',
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                color: '#1a1a1a',
+                textShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
               }}>CKD Analysis</h1>
               <p style={{
                 margin: '10px 0 0 0',
-                color: '#b0b8c1',
+                color: '#4a5568',
                 fontSize: isMobile ? '12px' : '14px',
                 fontWeight: 400,
               }}>Sign in to your account</p>
