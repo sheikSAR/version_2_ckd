@@ -1,13 +1,13 @@
 .graph-filters-bar {
   width: 100%;
-  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
-  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 2px solid #e6f0ff;
   padding: 16px 0;
   position: sticky;
   top: 80px;
   z-index: 40;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
 }
 
 .filters-container {
