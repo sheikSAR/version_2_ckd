@@ -126,13 +126,13 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.3px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
   animation: fadeInRight 0.8s ease-out 0.4s both;
 }
 
 .logout-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
 }
 
 .logout-button:active {
