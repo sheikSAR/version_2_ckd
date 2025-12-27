@@ -284,7 +284,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     const opacity = linkOpacity(link)
 
     // Get patient color for this link
-    const patientColor = patientColorMap[`Patient_${link.patientId}`] || patientColorMap[link.patientId]
+    const patientColor = patientColorMap[link.patientId] || patientColorMap[`Patient_${link.patientId}`]
 
     // Use brighter color for hovered edges
     if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
