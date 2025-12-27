@@ -344,11 +344,34 @@
 
 @media (max-width: 1024px) {
   .relationship-graph-main {
-    margin-top: 80px;
+    margin-top: 140px;
+  }
+
+  .relationship-graph-header {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .header-info {
+    gap: 16px;
+  }
+
+  .info-item {
+    font-size: 13px;
+  }
+
+  .header-controls {
+    gap: 8px;
+  }
+
+  .clear-selection-btn,
+  .clear-data-btn {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 
   .relationship-back-button {
-    top: 120px;
+    top: 150px;
     left: 16px;
     padding: 10px 16px;
     font-size: 13px;
