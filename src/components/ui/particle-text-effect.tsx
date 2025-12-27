@@ -138,7 +138,7 @@ const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
 
 export function ParticleTextEffect({
   words = DEFAULT_WORDS,
-  particleColors = ["#667eea", "#764ba2", "#f093fb", "#4facfe", "#00f2fe"],
+  particleColors = ["#4c51bf", "#6b46c1", "#d946ef", "#0ea5e9", "#06b6d4"],
   wordChangeInterval = 240,
   position = 'center'
 }: ParticleTextEffectProps) {
