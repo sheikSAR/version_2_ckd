@@ -48,13 +48,12 @@ const RelationshipGraphPage = () => {
   }, [configPath])
 
   const handleClearData = () => {
-    setPatientEdges([])
+    setChainGraph({ nodes: [], edges: [] })
     setSelectedPatient(null)
-    setSelectedVariable(null)
     setError('')
   }
 
-  const hasData = patientEdges.length > 0
+  const hasData = chainGraph.nodes.length > 0
 
   if (loading) {
     return (
@@ -96,9 +95,9 @@ const RelationshipGraphPage = () => {
         <div className="relationship-graph-main">
           <button
             className="relationship-back-button"
-            onClick={() => navigate('/configurator/data-graph')}
+            onClick={() => navigate('/configurator')}
           >
-            ← Back to Node Visualization
+            ← Back to Configurator
           </button>
           <div className="empty-state">
             <p className="empty-text">No data available. Please restart the configurator setup.</p>
@@ -108,25 +107,43 @@ const RelationshipGraphPage = () => {
     )
   }
 
+  const uniquePatients = new Set<string>()
+  chainGraph.edges.forEach((edge) => {
+    uniquePatients.add(edge.patientId)
+  })
+
   return (
     <div className="relationship-graph-page">
       <ConfiguratorNavbar />
-      <GraphFiltersBar
-        patientEdges={patientEdges}
-        selectedPatient={selectedPatient}
-        selectedVariable={selectedVariable}
-        onPatientChange={setSelectedPatient}
-        onVariableChange={setSelectedVariable}
-        onClearData={handleClearData}
-        isLoading={loading}
-      />
+      <div className="relationship-graph-header">
+        <div className="header-info">
+          <span className="info-item">
+            <strong>Patients:</strong> {uniquePatients.size}
+          </span>
+          <span className="info-item">
+            <strong>Nodes:</strong> {chainGraph.nodes.length}
+          </span>
+          <span className="info-item">
+            <strong>Chains:</strong> {chainGraph.edges.length / 6}
+          </span>
+        </div>
+        <div className="header-controls">
+          {selectedPatient && (
+            <button className="clear-selection-btn" onClick={() => setSelectedPatient(null)}>
+              Clear Patient Selection
+            </button>
+          )}
+          <button className="clear-data-btn" onClick={handleClearData}>
+            Reload Data
+          </button>
+        </div>
+      </div>
 
       <div className="relationship-graph-main">
         <div className="graph-wrapper">
           <Graph3DVisualization
-            patientEdges={patientEdges}
+            chainGraph={chainGraph}
             selectedPatient={selectedPatient || undefined}
-            selectedVariable={selectedVariable || undefined}
             onPatientSelect={setSelectedPatient}
           />
         </div>
