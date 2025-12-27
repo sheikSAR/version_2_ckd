@@ -1,13 +1,13 @@
 .graph-filters-bar {
   width: 100%;
-  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
-  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 2px solid #e6f0ff;
   padding: 16px 0;
   position: sticky;
   top: 80px;
   z-index: 40;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
 }
 
 .filters-container {
@@ -25,18 +25,18 @@
 }
 
 .filters-container::-webkit-scrollbar-track {
-  background: rgba(102, 126, 234, 0.05);
+  background: rgba(102, 126, 234, 0.08);
   border-radius: 3px;
 }
 
 .filters-container::-webkit-scrollbar-thumb {
-  background: rgba(102, 126, 234, 0.25);
+  background: rgba(102, 126, 234, 0.35);
   border-radius: 3px;
   transition: all 0.3s ease;
 }
 
 .filters-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(102, 126, 234, 0.4);
+  background: rgba(102, 126, 234, 0.55);
 }
 
 .filter-group {
@@ -55,7 +55,7 @@
 .filter-label-text {
   font-size: 11px;
   font-weight: 700;
-  color: #aaa;
+  color: #4a5568;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -63,25 +63,25 @@
 .filter-select {
   padding: 10px 12px;
   font-size: 13px;
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  border: 2px solid #e6f0ff;
   border-radius: 6px;
-  background: rgba(15, 20, 25, 0.6);
-  color: #e0e0e0;
+  background: #ffffff;
+  color: #2d3748;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
 }
 
 .filter-select:hover:not(:disabled) {
-  border-color: rgba(102, 126, 234, 0.5);
-  background: rgba(15, 20, 25, 0.8);
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  background: #f8fafc;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.2);
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: rgba(102, 126, 234, 0.8);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
 .filter-select:disabled {
@@ -90,14 +90,14 @@
 }
 
 .filter-select option {
-  background: #1a1f2e;
-  color: #e0e0e0;
+  background: #ffffff;
+  color: #2d3748;
 }
 
 .filter-divider {
   width: 1px;
   height: 40px;
-  background: rgba(102, 126, 234, 0.15);
+  background: #e6f0ff;
   margin: 0 8px;
 }
 
@@ -114,22 +114,22 @@
   align-items: center;
   gap: 4px;
   padding: 10px 16px;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  background: #f0f4ff;
+  border: 2px solid #e6f0ff;
   border-radius: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .metric-chip:hover {
-  background: rgba(102, 126, 234, 0.15);
-  border-color: rgba(102, 126, 234, 0.4);
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.15);
+  background: #e6f0ff;
+  border-color: #667eea;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.2);
 }
 
 .metric-label {
   font-size: 10px;
   font-weight: 700;
-  color: #999;
+  color: #718096;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -145,10 +145,10 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: rgba(220, 53, 69, 0.1);
-  border: 1px solid rgba(220, 53, 69, 0.3);
+  background: #fff5f5;
+  border: 2px solid #fc8181;
   border-radius: 6px;
-  color: #dc3545;
+  color: #c53030;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -158,9 +158,9 @@
 }
 
 .clear-data-button:hover:not(:disabled) {
-  background: rgba(220, 53, 69, 0.2);
-  border-color: rgba(220, 53, 69, 0.6);
-  box-shadow: 0 0 12px rgba(220, 53, 69, 0.15);
+  background: #fed7d7;
+  border-color: #f56565;
+  box-shadow: 0 0 12px rgba(220, 53, 69, 0.25);
   transform: translateY(-2px);
 }
 
