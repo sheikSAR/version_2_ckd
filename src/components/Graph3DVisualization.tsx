@@ -26,9 +26,8 @@ interface GraphLink {
 }
 
 const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
-  patientEdges,
+  chainGraph,
   selectedPatient,
-  selectedVariable,
   onPatientSelect,
 }) => {
   const fgRef = useRef<any>(null)
@@ -60,21 +59,25 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     []
   )
 
-  const containerToColorMap = useMemo(() => {
+  const patientColorMap = useMemo(() => {
     const map: Record<string, string> = {}
-    const containers = Object.keys(nodeData)
+    const patientIds = new Set<string>()
 
-    containers.forEach((container, index) => {
-      map[container] = colorPalettes[index % colorPalettes.length]
+    chainGraph.edges.forEach((edge) => {
+      patientIds.add(edge.patientId)
+    })
+
+    Array.from(patientIds).forEach((patientId, index) => {
+      map[patientId] = colorPalettes[index % colorPalettes.length]
     })
 
     return map
-  }, [colorPalettes])
+  }, [chainGraph, colorPalettes])
 
   const nodeTypeColors = useMemo(
     () => ({
-      patient: '#667EEA',
-      variable: '#764BA2',
+      root: '#FFD700',
+      attribute: '#667EEA',
     }),
     []
   )
