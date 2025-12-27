@@ -305,18 +305,17 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
             ref={fgRef}
             graphData={graphData}
             nodeLabel={(node: any) => {
-              const label = `${node.name}`
-              if (node.type === 'patient') {
-                return `Patient: ${label}`
+              if (node.type === 'root') {
+                return node.label
               }
-              return `${node.container}: ${label}`
+              return `${node.label}`
             }}
             nodeColor={(node: any) => nodeColor(node)}
             nodeSize={(node: any) => nodeSize(node)}
             linkColor={(link: any) => getLinkColor(link)}
             linkWidth={(link: any) => linkWidth(link)}
-            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 4 : 0)}
-            linkCurvature={0.25}
+            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 3 : 0)}
+            linkCurvature={0.15}
             onNodeHover={handleNodeHover}
             onNodeClick={handleNodeClick}
             backgroundColor="#0F1419"
@@ -328,20 +327,20 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
             height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
           />
           <div className="graph-info-panel">
-            <div className="info-header">Graph Stats</div>
+            <div className="info-header">Patient Chain Graph</div>
             <div className="info-stat">
               <span className="info-label">Nodes:</span>
               <span className="info-value">{graphData.nodes.length}</span>
             </div>
             <div className="info-stat">
-              <span className="info-label">Edges:</span>
-              <span className="info-value">{graphData.links.length}</span>
+              <span className="info-label">Chains:</span>
+              <span className="info-value">{graphData.links.length / 6}</span>
             </div>
             {hoveredNodeId && (
               <div className="info-stat hovered-info">
                 <span className="info-label">Hovering:</span>
                 <span className="info-value">
-                  {graphData.nodes.find((n) => n.id === hoveredNodeId)?.name}
+                  {graphData.nodes.find((n) => n.id === hoveredNodeId)?.label}
                 </span>
               </div>
             )}
@@ -350,7 +349,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       ) : (
         <div className="graph-loading">
           <div className="loading-spinner"></div>
-          <p>Loading graph...</p>
+          <p>Loading chain graph...</p>
         </div>
       )}
     </div>
