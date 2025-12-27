@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { PageLayout } from './components/PageLayout'
+import { ConfiguratorProvider } from './context/ConfiguratorContext'
 import LoginPage from './pages/LoginPage'
 import UserPage from './pages/UserPage'
 import AdminPage from './pages/AdminPage'
@@ -36,9 +37,11 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ConfiguratorProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ConfiguratorProvider>
   )
 }
 

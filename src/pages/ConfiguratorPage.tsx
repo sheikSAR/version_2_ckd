@@ -5,6 +5,7 @@ import FileUploadMode from '../components/FileUploadMode'
 import ManualEntryMode from '../components/ManualEntryMode'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { useConfigurator } from '../context/ConfiguratorContext'
 import '../styles/ConfiguratorPage.css'
 
 type InputMode = 'file' | 'manual'
@@ -17,6 +18,7 @@ const ConfiguratorPage = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { setConfigPath } = useConfigurator()
 
   const step1Ref = useScrollAnimation()
   const step2Ref = useScrollAnimation()
@@ -53,6 +55,7 @@ const ConfiguratorPage = () => {
       })
 
       if (response.data.success) {
+        setConfigPath(response.data.sessionFolder)
         navigate('/configurator/landing')
       } else {
         setError('Failed to create session.')
