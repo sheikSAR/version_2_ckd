@@ -130,10 +130,10 @@ const LoginPage = () => {
           <h2 style={{
             fontSize: isMobile ? '18px' : '40px',
             fontWeight: 900,
-            color: '#ffffff',
+            color: '#1a1a1a',
             margin: 0,
             letterSpacing: '2px',
-            textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             opacity: 1,
             wordBreak: 'break-word',
           }}>
