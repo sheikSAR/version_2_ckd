@@ -134,7 +134,7 @@ interface ParticleTextEffectProps {
   position?: 'center' | 'left' | 'right'
 }
 
-const DEFAULT_WORDS = ["EFSD", "MDRF", "DIABETES"]
+const DEFAULT_WORDS = ["EFSD", "MDRF", "CKD"]
 
 export function ParticleTextEffect({
   words = DEFAULT_WORDS,

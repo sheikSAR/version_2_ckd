@@ -86,8 +86,8 @@ const LoginPage = () => {
   return (
     <div>
       <div style={backgroundLayerStyle}>
-        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} position="left" />
-        <ParticleTextEffect words={["EFSD", "MDRF", "DIABETES"]} position="right" />
+        <ParticleTextEffect words={["EFSD", "MDRF", "CKD"]} position="left" />
+        <ParticleTextEffect words={["EFSD", "MDRF", "CKD"]} position="right" />
       </div>
 
       <div style={{ ...contentLayerStyle, position: 'relative' }}>
