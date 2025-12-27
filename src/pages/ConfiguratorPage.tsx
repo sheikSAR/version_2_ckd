@@ -55,6 +55,7 @@ const ConfiguratorPage = () => {
       })
 
       if (response.data.success) {
+        setConfigPath(response.data.sessionFolder)
         navigate('/configurator/landing')
       } else {
         setError('Failed to create session.')
