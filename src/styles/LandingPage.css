@@ -35,7 +35,7 @@
 .landing-title {
   color: #1a1a1a;
   margin: 0 0 16px 0;
-  font-size: 56px;
+  font-size: clamp(28px, 7vw, 56px);
   font-weight: 800;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -49,10 +49,11 @@
 
 .landing-subtitle {
   color: #4a5568;
-  font-size: 18px;
+  font-size: clamp(14px, 3.5vw, 18px);
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.3px;
+  line-height: 1.5;
 }
 
 .cards-grid {
@@ -307,16 +308,16 @@
 
 @media (max-width: 600px) {
   .landing-container {
-    padding: 45px 24px;
-    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+    min-height: calc(100vh - 60px);
+    margin-top: 60px;
   }
 
   .landing-header {
-    margin-bottom: 45px;
+    margin-bottom: 40px;
   }
 
   .landing-title {
-    font-size: 28px;
     margin-bottom: 12px;
   }
 
@@ -325,12 +326,12 @@
   }
 
   .cards-grid {
-    gap: 24px;
+    gap: 22px;
   }
 
   .card {
-    min-height: 300px;
-    padding: 36px 28px;
+    min-height: 290px;
+    padding: 32px 24px;
   }
 
   .card-icon {
@@ -360,18 +361,17 @@
 
 @media (max-width: 480px) {
   .landing-container {
-    padding: 40px 20px;
-    min-height: calc(100vh - 60px);
-    margin-top: 60px;
+    padding: 35px 16px;
+    min-height: calc(100vh - 55px);
+    margin-top: 55px;
   }
 
   .landing-header {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 
   .landing-title {
-    font-size: 24px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: -0.5px;
   }
 
@@ -381,12 +381,12 @@
   }
 
   .cards-grid {
-    gap: 22px;
+    gap: 20px;
   }
 
   .card {
-    min-height: 280px;
-    padding: 32px 24px;
+    min-height: 270px;
+    padding: 28px 22px;
     border-radius: 16px;
   }
 
@@ -421,30 +421,32 @@
 
 @media (max-width: 380px) {
   .landing-container {
-    padding: 35px 18px;
-    min-height: calc(100vh - 60px);
+    padding: 32px 14px;
+    min-height: calc(100vh - 55px);
+    margin-top: 55px;
   }
 
   .landing-header {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
   }
 
   .landing-title {
-    font-size: 22px;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
   .landing-subtitle {
     font-size: 12px;
+    line-height: 1.4;
   }
 
   .cards-grid {
-    gap: 20px;
+    gap: 18px;
   }
 
   .card {
-    min-height: 270px;
-    padding: 28px 22px;
+    min-height: 260px;
+    padding: 26px 20px;
+    border-radius: 14px;
   }
 
   .card-icon {
