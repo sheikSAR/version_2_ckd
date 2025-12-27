@@ -13,6 +13,24 @@ export interface PatientEdges {
   edges: Edge[]
 }
 
+export interface ChainNode {
+  id: string
+  label: string
+  type: 'root' | 'attribute'
+}
+
+export interface ChainEdge {
+  source: string
+  target: string
+  relationship: string
+  patientId: string
+}
+
+export interface PatientChainGraph {
+  nodes: ChainNode[]
+  edges: ChainEdge[]
+}
+
 type NodeDataType = Record<string, string[]>
 
 const mappingRules: Record<string, (value: string) => string | null> = {
