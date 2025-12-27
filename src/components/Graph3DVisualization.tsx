@@ -229,7 +229,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       return node.size * 2
     }
 
-    if (selectedPatient && node.patientId && `Patient_${node.patientId}` === selectedPatient) {
+    if (selectedPatient && node.patientId && node.patientId === selectedPatient) {
       return node.size * 1.8
     }
 
