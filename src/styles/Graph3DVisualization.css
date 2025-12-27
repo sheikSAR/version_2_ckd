@@ -57,13 +57,13 @@
 
 .info-header {
   font-weight: 700;
-  color: #ddd;
+  color: #2d3748;
   font-size: 13px;
   margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+  border-bottom: 2px solid #e6f0ff;
 }
 
 .info-stat {
