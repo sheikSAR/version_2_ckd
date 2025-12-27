@@ -114,22 +114,22 @@
   align-items: center;
   gap: 4px;
   padding: 10px 16px;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  background: #f0f4ff;
+  border: 2px solid #e6f0ff;
   border-radius: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .metric-chip:hover {
-  background: rgba(102, 126, 234, 0.15);
-  border-color: rgba(102, 126, 234, 0.4);
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.15);
+  background: #e6f0ff;
+  border-color: #667eea;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.2);
 }
 
 .metric-label {
   font-size: 10px;
   font-weight: 700;
-  color: #999;
+  color: #718096;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
