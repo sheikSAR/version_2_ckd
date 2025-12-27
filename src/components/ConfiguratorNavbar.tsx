@@ -41,7 +41,7 @@ const ConfiguratorNavbar: React.FC = () => {
           </div>
           <div className="navbar-divider"></div>
           <div className="logo-wrapper text-logo-wrapper">
-            <h2 className="navbar-text-logo">SESU'S RESEARCH LAB</h2>
+            <h2 className="navbar-text-logo">SESHU'S RESEARCH LAB</h2>
           </div>
         </div>
         <div className="navbar-title">

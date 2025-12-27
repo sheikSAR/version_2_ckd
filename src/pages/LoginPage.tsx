@@ -125,7 +125,8 @@ const LoginPage = () => {
           zIndex: 40,
           textAlign: 'center',
           maxWidth: isMobile ? '200px' : 'auto',
-          paddingX: isMobile ? '10px' : '0px',
+          paddingLeft: isMobile ? '10px' : '0px',
+          paddingRight: isMobile ? '10px' : '0px',
         }}>
           <h2 style={{
             fontSize: isMobile ? '18px' : '40px',
@@ -137,7 +138,7 @@ const LoginPage = () => {
             opacity: 1,
             wordBreak: 'break-word',
           }}>
-            SESU'S RESEARCH LAB
+            SESHU'S RESEARCH LAB
           </h2>
         </div>
 
