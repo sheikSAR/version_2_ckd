@@ -6,17 +6,86 @@
   background: linear-gradient(135deg, #f8f9fc 0%, #f0f3f8 100%);
 }
 
+.relationship-graph-header {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 2px solid #e6f0ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  gap: 24px;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.header-info {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.info-item {
+  font-size: 14px;
+  color: #4a5568;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-item strong {
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.header-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.clear-selection-btn,
+.clear-data-btn {
+  padding: 8px 16px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border: 1px solid #667eea;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clear-selection-btn:hover,
+.clear-data-btn:hover {
+  background: #667eea;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+}
+
+.clear-selection-btn:active,
+.clear-data-btn:active {
+  transform: scale(0.98);
+}
+
 .relationship-graph-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 140px;
   overflow: hidden;
   position: relative;
 }
 
 .relationship-graph-main.with-filters {
-  margin-top: 160px;
+  margin-top: 140px;
 }
 
 .relationship-back-button {
