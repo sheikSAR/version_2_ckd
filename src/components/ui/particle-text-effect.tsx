@@ -272,7 +272,7 @@ export function ParticleTextEffect({
     const particles = particlesRef.current
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.fillStyle = "rgba(255, 255, 255, 0.08)"
+    ctx.fillStyle = "rgba(248, 250, 252, 0.15)"
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     for (let i = particles.length - 1; i >= 0; i--) {
