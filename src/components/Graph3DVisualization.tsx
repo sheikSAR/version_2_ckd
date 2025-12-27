@@ -250,8 +250,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     }
 
     // Highlight links connected to selected patient
-    if (selectedPatient && link.patientId && `Patient_${link.patientId}` === selectedPatient) {
-      return 0.5
+    if (selectedPatient && link.patientId) {
+      const selectedPatientId = selectedPatient.replace('Patient_', '')
+      if (link.patientId === selectedPatientId || `Patient_${link.patientId}` === selectedPatient) {
+        return 0.5
+      }
     }
 
     return 0.2
