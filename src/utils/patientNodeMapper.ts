@@ -340,6 +340,7 @@ export function mapPatientDataToChainGraph(
   const nodes: ChainNode[] = []
   const edges: ChainEdge[] = []
   const nodesSet = new Set<string>()
+  const patientIndexMap = new Map<number, string>() // Map index to patient ID
 
   // Add single root Patient node
   const rootId = 'PATIENT_ROOT'
@@ -375,6 +376,7 @@ export function mapPatientDataToChainGraph(
   // Process each patient
   let patientIndex = 0
   for (const [patientId, patientData] of Object.entries(patientDict)) {
+    patientIndexMap.set(patientIndex, patientId)
     let previousNodeId = rootId
     let previousNodeLabel = 'Patient'
 
