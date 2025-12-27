@@ -292,16 +292,16 @@ const LoginPage = () => {
               </div>
 
               {error && <div style={{
-                color: '#ff6b6b',
-                backgroundColor: 'rgba(211, 47, 47, 0.15)',
+                color: '#c53030',
+                backgroundColor: '#fed7d7',
                 backdropFilter: 'blur(5px)',
                 padding: '12px 16px',
                 borderRadius: '8px',
                 marginBottom: '20px',
                 fontSize: '14px',
-                borderLeft: '4px solid #ff6b6b',
+                borderLeft: '4px solid #c53030',
                 animation: 'slideIn 0.3s ease',
-                border: '1px solid rgba(255, 107, 107, 0.3)',
+                border: '1px solid rgba(197, 48, 48, 0.3)',
               }}>{error}</div>}
 
               <button type="submit" disabled={loading} style={{
