@@ -145,10 +145,10 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: rgba(220, 53, 69, 0.1);
-  border: 1px solid rgba(220, 53, 69, 0.3);
+  background: #fff5f5;
+  border: 2px solid #fc8181;
   border-radius: 6px;
-  color: #dc3545;
+  color: #c53030;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -158,9 +158,9 @@
 }
 
 .clear-data-button:hover:not(:disabled) {
-  background: rgba(220, 53, 69, 0.2);
-  border-color: rgba(220, 53, 69, 0.6);
-  box-shadow: 0 0 12px rgba(220, 53, 69, 0.15);
+  background: #fed7d7;
+  border-color: #f56565;
+  box-shadow: 0 0 12px rgba(220, 53, 69, 0.25);
   transform: translateY(-2px);
 }
 
