@@ -240,11 +240,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     }
 
     // Highlight links connected to selected patient
-    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
-      return 0.4
+    if (selectedPatient && link.patientId && `Patient_${link.patientId}` === selectedPatient) {
+      return 0.5
     }
 
-    return 0.15
+    return 0.2
   }
 
   const linkWidth = (link: GraphLink): number => {
@@ -255,7 +255,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       return 4
     }
 
-    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
+    if (selectedPatient && link.patientId && `Patient_${link.patientId}` === selectedPatient) {
       return 2.5
     }
 
@@ -267,17 +267,34 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     const targetId = typeof link.target === 'string' ? link.target : link.target.id
     const opacity = linkOpacity(link)
 
+    // Get patient color for this link
+    const patientColor = patientColorMap[`Patient_${link.patientId}`] || patientColorMap[link.patientId]
+
     // Use brighter color for hovered edges
     if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
       return `rgba(255, 200, 0, ${opacity})`
     }
 
-    // Use gradient-like color based on selected patient
-    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
-      return `rgba(102, 200, 234, ${opacity})`
+    // Use patient-specific color
+    if (patientColor) {
+      const rgb = hexToRgb(patientColor)
+      if (rgb) {
+        return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`
+      }
     }
 
     return `rgba(102, 126, 234, ${opacity})`
+  }
+
+  const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null
   }
 
   return (
