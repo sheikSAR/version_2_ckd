@@ -63,25 +63,25 @@
 .filter-select {
   padding: 10px 12px;
   font-size: 13px;
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  border: 2px solid #e6f0ff;
   border-radius: 6px;
-  background: rgba(15, 20, 25, 0.6);
-  color: #e0e0e0;
+  background: #ffffff;
+  color: #2d3748;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
 }
 
 .filter-select:hover:not(:disabled) {
-  border-color: rgba(102, 126, 234, 0.5);
-  background: rgba(15, 20, 25, 0.8);
-  box-shadow: 0 0 12px rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  background: #f8fafc;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.2);
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: rgba(102, 126, 234, 0.8);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
 .filter-select:disabled {
@@ -90,8 +90,8 @@
 }
 
 .filter-select option {
-  background: #1a1f2e;
-  color: #e0e0e0;
+  background: #ffffff;
+  color: #2d3748;
 }
 
 .filter-divider {
