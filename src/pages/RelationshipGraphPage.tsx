@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as XLSX from 'xlsx'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
 import Graph3DVisualization from '../components/Graph3DVisualization'
 import GraphFiltersBar from '../components/GraphFiltersBar'
 import { mapPatientDataToNodes } from '../utils/patientNodeMapper'
+import { useConfigurator } from '../context/ConfiguratorContext'
 import type { PatientEdges } from '../utils/patientNodeMapper'
 import '../styles/RelationshipGraphPage.css'
 
