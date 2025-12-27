@@ -180,22 +180,23 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }
 
   const handleNodeClick = (node: GraphNode) => {
-    if (node.type === 'patient') {
-      const patientId = node.name
+    if (node.type === 'attribute' && node.patientId) {
+      const patientId = `Patient_${node.patientId}`
       onPatientSelect?.(patientId === selectedPatient ? null : patientId)
     }
   }
 
   const nodeColor = (node: GraphNode) => {
-    if (node.type === 'patient') {
-      if (selectedPatient === node.name) {
-        return '#FFD700'
-      }
+    if (node.type === 'root') {
       return node.color
     }
 
-    // For variable nodes
+    // For attribute nodes, highlight if they belong to hovered chain
     if (hoveredNodeId === node.id) {
+      return node.color
+    }
+
+    if (connectedNodeIds.has(node.id) && node.patientId) {
       return node.color
     }
 
@@ -203,16 +204,23 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }
 
   const nodeSize = (node: GraphNode) => {
+    if (node.type === 'root') {
+      if (hoveredNodeId === node.id) {
+        return node.size * 1.5
+      }
+      return node.size
+    }
+
     if (hoveredNodeId === node.id) {
       return node.size * 2.5
     }
 
     if (connectedNodeIds.has(node.id)) {
-      return node.size * 1.8
+      return node.size * 2
     }
 
-    if (node.type === 'patient' && selectedPatient === node.name) {
-      return node.size * 2
+    if (selectedPatient && node.patientId && `Patient_${node.patientId}` === selectedPatient) {
+      return node.size * 1.8
     }
 
     return node.size
