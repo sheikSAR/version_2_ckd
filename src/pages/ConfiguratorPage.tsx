@@ -13,6 +13,7 @@ type OperationMode = 'run' | 'test' | 'calibrate'
 
 const ConfiguratorPage = () => {
   const [inputMode, setInputMode] = useState<InputMode>('manual')
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [jsonData, setJsonData] = useState<Record<string, Record<string, string>>>({})
   const [operationMode, setOperationMode] = useState<OperationMode>('run')
   const [loading, setLoading] = useState(false)
@@ -25,8 +26,18 @@ const ConfiguratorPage = () => {
   const operationModeRef = useScrollAnimation()
   const submitRef = useScrollAnimation()
 
-  const handleFileUpload = useCallback((data: Record<string, Record<string, string>>) => {
-    setJsonData(data)
+  const generateConfigPath = (): string => {
+    const now = new Date()
+    const date = String(now.getDate()).padStart(2, '0')
+    const month = String(now.getMonth() + 1).padStart(2, '0')
+    const year = now.getFullYear()
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    return `configurator_${operationMode}_${date}_${month}_${year}_${hours}_${minutes}`
+  }
+
+  const handleFileUpload = useCallback((file: File) => {
+    setUploadedFile(file)
   }, [])
 
   const handleManualEntry = useCallback((data: Record<string, Record<string, string>>) => {
