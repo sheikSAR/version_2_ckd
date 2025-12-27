@@ -37,9 +37,11 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ConfiguratorProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ConfiguratorProvider>
   )
 }
 
