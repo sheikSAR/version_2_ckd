@@ -228,23 +228,23 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: isMobile ? '10px 14px' : '12px 16px',
-                      border: '1.5px solid rgba(102, 126, 234, 0.25)',
+                      border: '1.5px solid rgba(102, 126, 234, 0.3)',
                       borderRadius: '10px',
                       fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(15, 20, 25, 0.4)',
+                      backgroundColor: '#f8f9fa',
                       backdropFilter: 'blur(10px)',
-                      color: '#d0d8e0',
-                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.05)',
+                      color: '#1a1a1a',
+                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.03)',
                     }}
                     onFocus={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.5)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.6)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.6)'
+                      e.target.style.backgroundColor = '#ffffff'
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.25)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.4)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.3)'
+                      e.target.style.backgroundColor = '#f8f9fa'
                     }}
                   />
                 </div>
