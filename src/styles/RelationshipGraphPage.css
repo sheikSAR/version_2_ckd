@@ -510,11 +510,40 @@
 
 @media (max-width: 480px) {
   .relationship-graph-main {
-    margin-top: 80px;
+    margin-top: 140px;
+  }
+
+  .relationship-graph-header {
+    padding: 8px;
+    gap: 8px;
+    height: auto;
+    min-height: auto;
+  }
+
+  .header-info {
+    gap: 8px;
+    font-size: 11px;
+  }
+
+  .info-item {
+    font-size: 11px;
+  }
+
+  .header-controls {
+    gap: 6px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .clear-selection-btn,
+  .clear-data-btn {
+    padding: 6px 8px;
+    font-size: 10px;
+    width: 100%;
   }
 
   .relationship-back-button {
-    top: 90px;
+    top: 140px;
     left: 8px;
     padding: 8px 10px;
     font-size: 11px;
