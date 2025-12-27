@@ -130,10 +130,10 @@ const LoginPage = () => {
           <h2 style={{
             fontSize: isMobile ? '18px' : '40px',
             fontWeight: 900,
-            color: '#ffffff',
+            color: '#1a1a1a',
             margin: 0,
             letterSpacing: '2px',
-            textShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+            textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             opacity: 1,
             wordBreak: 'break-word',
           }}>
@@ -173,15 +173,15 @@ const LoginPage = () => {
           marginTop: isMobile ? '60px' : '0px',
         }}>
           <div style={{
-            background: 'rgba(26, 31, 46, 0.85)',
+            background: 'rgba(255, 255, 255, 0.9)',
             backdropFilter: 'blur(30px)',
-            border: '1px solid rgba(102, 126, 234, 0.25)',
+            border: '1px solid rgba(102, 126, 234, 0.3)',
             padding: isMobile ? '25px 20px' : '40px 30px',
             borderRadius: '20px',
             boxShadow: `
-              0 8px 32px rgba(0, 0, 0, 0.3),
-              inset 0 0 20px rgba(102, 126, 234, 0.05),
-              0 0 40px rgba(102, 126, 234, 0.1)
+              0 8px 32px rgba(0, 0, 0, 0.1),
+              inset 0 0 20px rgba(102, 126, 234, 0.03),
+              0 0 40px rgba(102, 126, 234, 0.08)
             `,
             width: '100%',
             boxSizing: 'border-box',
@@ -197,12 +197,12 @@ const LoginPage = () => {
                 margin: 0,
                 fontSize: isMobile ? '22px' : '28px',
                 fontWeight: 700,
-                color: '#e0e0e0',
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+                color: '#1a1a1a',
+                textShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
               }}>CKD Analysis</h1>
               <p style={{
                 margin: '10px 0 0 0',
-                color: '#b0b8c1',
+                color: '#4a5568',
                 fontSize: isMobile ? '12px' : '14px',
                 fontWeight: 400,
               }}>Sign in to your account</p>
@@ -214,7 +214,7 @@ const LoginPage = () => {
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
-                  color: '#d0d8e0',
+                  color: '#2d3748',
                   fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Username</label>
@@ -228,23 +228,23 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: isMobile ? '10px 14px' : '12px 16px',
-                      border: '1.5px solid rgba(102, 126, 234, 0.25)',
+                      border: '1.5px solid rgba(102, 126, 234, 0.3)',
                       borderRadius: '10px',
                       fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(15, 20, 25, 0.4)',
+                      backgroundColor: '#f8f9fa',
                       backdropFilter: 'blur(10px)',
-                      color: '#d0d8e0',
-                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.05)',
+                      color: '#1a1a1a',
+                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.03)',
                     }}
                     onFocus={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.5)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.6)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.6)'
+                      e.target.style.backgroundColor = '#ffffff'
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.25)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.4)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.3)'
+                      e.target.style.backgroundColor = '#f8f9fa'
                     }}
                   />
                 </div>
@@ -255,7 +255,7 @@ const LoginPage = () => {
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
-                  color: '#d0d8e0',
+                  color: '#2d3748',
                   fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Password</label>
@@ -269,45 +269,45 @@ const LoginPage = () => {
                     style={{
                       width: '100%',
                       padding: isMobile ? '10px 14px' : '12px 16px',
-                      border: '1.5px solid rgba(102, 126, 234, 0.25)',
+                      border: '1.5px solid rgba(102, 126, 234, 0.3)',
                       borderRadius: '10px',
                       fontSize: isMobile ? '14px' : '15px',
                       boxSizing: 'border-box',
                       transition: 'all 0.3s ease',
-                      backgroundColor: 'rgba(15, 20, 25, 0.4)',
+                      backgroundColor: '#f8f9fa',
                       backdropFilter: 'blur(10px)',
-                      color: '#d0d8e0',
-                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.05)',
+                      color: '#1a1a1a',
+                      boxShadow: 'inset 0 0 10px rgba(102, 126, 234, 0.03)',
                     }}
                     onFocus={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.5)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.6)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.6)'
+                      e.target.style.backgroundColor = '#ffffff'
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.25)'
-                      e.target.style.backgroundColor = 'rgba(15, 20, 25, 0.4)'
+                      e.target.style.borderColor = 'rgba(102, 126, 234, 0.3)'
+                      e.target.style.backgroundColor = '#f8f9fa'
                     }}
                   />
                 </div>
               </div>
 
               {error && <div style={{
-                color: '#ff6b6b',
-                backgroundColor: 'rgba(211, 47, 47, 0.15)',
+                color: '#c53030',
+                backgroundColor: '#fed7d7',
                 backdropFilter: 'blur(5px)',
                 padding: '12px 16px',
                 borderRadius: '8px',
                 marginBottom: '20px',
                 fontSize: '14px',
-                borderLeft: '4px solid #ff6b6b',
+                borderLeft: '4px solid #c53030',
                 animation: 'slideIn 0.3s ease',
-                border: '1px solid rgba(255, 107, 107, 0.3)',
+                border: '1px solid rgba(197, 48, 48, 0.3)',
               }}>{error}</div>}
 
               <button type="submit" disabled={loading} style={{
                 width: '100%',
                 padding: isMobile ? '12px' : '14px',
-                background: loading ? 'linear-gradient(135deg, #555 0%, #333 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: loading ? 'linear-gradient(135deg, #cbd5e1 0%, #b0bcc4 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -316,7 +316,7 @@ const LoginPage = () => {
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
                 letterSpacing: '0.5px',
-                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.3)' : '0 8px 20px rgba(102, 126, 234, 0.4)',
+                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.15)' : '0 8px 20px rgba(102, 126, 234, 0.4)',
               }}>
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>

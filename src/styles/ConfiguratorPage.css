@@ -13,7 +13,7 @@
   font-size: 42px;
   font-weight: 800;
   margin-bottom: 60px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   letter-spacing: 0.5px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
@@ -26,14 +26,14 @@
 .input-section,
 .data-preview,
 .operation-mode-selector {
-  background: rgba(26, 31, 46, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 16px;
   padding: 35px;
   margin: 0 auto 30px;
   max-width: 900px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 1px rgba(102, 126, 234, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 1px rgba(102, 126, 234, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: translateY(30px);
@@ -91,10 +91,7 @@
   margin-top: 0;
   margin-bottom: 25px;
   letter-spacing: 0.4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1a1a1a;
 }
 
 .mode-buttons {
@@ -106,15 +103,15 @@
 
 .mode-button {
   padding: 13px 28px;
-  border: 2px solid rgba(102, 126, 234, 0.3);
-  background-color: rgba(102, 126, 234, 0.08);
+  border: 2px solid rgba(102, 126, 234, 0.4);
+  background-color: #f8f9fa;
   border-radius: 10px;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.3px;
-  color: #d0d8e0;
+  color: #2d3748;
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
@@ -127,7 +124,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
   transition: left 0.3s ease;
   z-index: -1;
 }
@@ -137,11 +134,11 @@
 }
 
 .mode-button:hover {
-  border-color: rgba(102, 126, 234, 0.5);
-  color: #d0d8e0;
+  border-color: rgba(102, 126, 234, 0.6);
+  color: #1a1a1a;
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.25);
-  background-color: rgba(102, 126, 234, 0.12);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+  background-color: #ffffff;
 }
 
 .mode-button.active {
@@ -152,16 +149,16 @@
 }
 
 .input-section {
-  background: rgba(15, 20, 25, 0.3);
+  background: rgba(248, 250, 252, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 25px;
 }
 
 .input-section h3 {
-  color: #d0d8e0;
+  color: #2d3748;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 18px;
@@ -169,9 +166,9 @@
 }
 
 .data-preview {
-  background: rgba(15, 20, 25, 0.3);
+  background: rgba(248, 250, 252, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 25px;
@@ -179,13 +176,13 @@
 
 .data-preview h3 {
   margin-top: 0;
-  color: #d0d8e0;
+  color: #2d3748;
   font-size: 18px;
   font-weight: 600;
 }
 
 .data-preview pre {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(240, 245, 250, 0.8) 100%);
   backdrop-filter: blur(10px);
   padding: 24px;
   border-radius: 12px;
@@ -194,11 +191,11 @@
   border: 1px solid rgba(102, 126, 234, 0.2);
   max-height: 350px;
   overflow-y: auto;
-  color: #b3d9ff;
+  color: #2563eb;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   line-height: 1.6;
   scrollbar-width: thin;
-  scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
+  scrollbar-color: rgba(102, 126, 234, 0.4) transparent;
 }
 
 .data-preview pre::-webkit-scrollbar {
@@ -219,9 +216,9 @@
 }
 
 .operation-mode-selector {
-  background: rgba(15, 20, 25, 0.3);
+  background: rgba(248, 250, 252, 0.6);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 25px;
@@ -238,7 +235,7 @@
   align-items: center;
   cursor: pointer;
   font-weight: 500;
-  color: #d0d8e0;
+  color: #2d3748;
   transition: color 0.3s ease;
 }
 
@@ -255,19 +252,19 @@
 }
 
 .error-message {
-  color: #ff6b6b;
-  background-color: rgba(211, 47, 47, 0.15);
+  color: #c53030;
+  background-color: #fed7d7;
   backdrop-filter: blur(5px);
   padding: 14px 16px;
   border-radius: 8px;
   margin-bottom: 20px;
   font-size: 14px;
-  border-left: 4px solid #ff6b6b;
+  border-left: 4px solid #c53030;
   animation: slideIn 0.3s ease;
   max-width: 850px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  border: 1px solid rgba(197, 48, 48, 0.3);
 }
 
 @keyframes slideIn {

@@ -1,6 +1,6 @@
 .landing-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -33,11 +33,11 @@
 }
 
 .landing-title {
-  color: #ffffff;
+  color: #1a1a1a;
   margin: 0 0 16px 0;
   font-size: 56px;
   font-weight: 800;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -48,7 +48,7 @@
 }
 
 .landing-subtitle {
-  color: #b0b8c1;
+  color: #4a5568;
   font-size: 18px;
   margin: 0;
   font-weight: 400;
@@ -63,9 +63,9 @@
 }
 
 .card {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 20px;
   padding: 40px 32px;
   text-align: center;
@@ -76,7 +76,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(102, 126, 234, 0.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), inset 0 0 20px rgba(102, 126, 234, 0.03);
   position: relative;
   overflow: hidden;
 }
@@ -94,8 +94,8 @@
 
 .card.active:hover {
   transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 24px 60px rgba(102, 126, 234, 0.3), inset 0 0 20px rgba(102, 126, 234, 0.1);
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.08) 100%);
+  box-shadow: 0 24px 60px rgba(102, 126, 234, 0.2), inset 0 0 20px rgba(102, 126, 234, 0.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 1) 100%);
   border-color: rgba(102, 126, 234, 0.5);
 }
 
@@ -148,7 +148,7 @@
 }
 
 .card-title {
-  color: #ffffff;
+  color: #1a1a1a;
   font-size: 24px;
   margin: 0 0 8px 0;
   font-weight: 700;
@@ -165,7 +165,7 @@
 }
 
 .card-description {
-  color: #a8b2bb;
+  color: #4a5568;
   font-size: 14px;
   margin: 0;
   font-weight: 400;
@@ -175,7 +175,7 @@
 .card-footer {
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid rgba(102, 126, 234, 0.15);
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
   width: 100%;
 }
 
