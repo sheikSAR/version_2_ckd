@@ -35,7 +35,7 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
       <label className="file-input-label">
         <input
           type="file"
-          accept=".json,.yaml,.yml,.xlsx,.xls"
+          accept=".json,.xlsx,.xls"
           onChange={handleFileChange}
           className="file-input"
         />
@@ -45,7 +45,7 @@ const FileUploadMode: React.FC<FileUploadModeProps> = ({ onFileUpload }) => {
       </label>
       {uploadedFileName && <div className="success-message">✓ File successfully uploaded</div>}
       {error && <div className="error-message">{error}</div>}
-      <p className="file-hint">Supported formats: JSON, YAML, Excel (.xlsx, .xls)</p>
+      <p className="file-hint">Supported formats: JSON, Excel (.xlsx, .xls)</p>
     </div>
   )
 }
