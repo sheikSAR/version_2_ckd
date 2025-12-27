@@ -268,8 +268,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       return 4
     }
 
-    if (selectedPatient && link.patientId && `Patient_${link.patientId}` === selectedPatient) {
-      return 2.5
+    if (selectedPatient && link.patientId) {
+      const selectedPatientId = selectedPatient.replace('Patient_', '')
+      if (link.patientId === selectedPatientId || `Patient_${link.patientId}` === selectedPatient) {
+        return 2.5
+      }
     }
 
     return 1.5
