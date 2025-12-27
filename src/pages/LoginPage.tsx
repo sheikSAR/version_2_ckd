@@ -307,7 +307,7 @@ const LoginPage = () => {
               <button type="submit" disabled={loading} style={{
                 width: '100%',
                 padding: isMobile ? '12px' : '14px',
-                background: loading ? 'linear-gradient(135deg, #555 0%, #333 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: loading ? 'linear-gradient(135deg, #cbd5e1 0%, #b0bcc4 100%)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -316,7 +316,7 @@ const LoginPage = () => {
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
                 letterSpacing: '0.5px',
-                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.3)' : '0 8px 20px rgba(102, 126, 234, 0.4)',
+                boxShadow: loading ? '0 4px 10px rgba(0, 0, 0, 0.15)' : '0 8px 20px rgba(102, 126, 234, 0.4)',
               }}>
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
