@@ -53,12 +53,12 @@ body {
 /* Selection styles */
 ::selection {
   background: rgba(102, 126, 234, 0.3);
-  color: #e0e0e0;
+  color: #1a1a1a;
 }
 
 ::-moz-selection {
   background: rgba(102, 126, 234, 0.3);
-  color: #e0e0e0;
+  color: #1a1a1a;
 }
 
 /* Input and button reset */
