@@ -67,12 +67,13 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       patientIds.add(edge.patientId)
     })
 
-    Array.from(patientIds).forEach((patientId, index) => {
+    const sortedPatientIds = Array.from(patientIds).sort()
+    sortedPatientIds.forEach((patientId, index) => {
       map[patientId] = colorPalettes[index % colorPalettes.length]
     })
 
     return map
-  }, [chainGraph, colorPalettes])
+  }, [chainGraph.edges, colorPalettes])
 
   const nodeTypeColors = useMemo(
     () => ({
