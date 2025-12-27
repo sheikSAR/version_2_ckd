@@ -172,106 +172,178 @@
   }
 }
 
-@media (max-width: 768px) {
-  .configurator-navbar {
-    height: 70px;
-  }
-
-  .configurator-navbar.scrolled {
-    height: 65px;
-  }
-
+@media (max-width: 1024px) {
   .navbar-container {
-    padding: 0 15px;
-    flex-wrap: wrap;
-    height: auto;
-    gap: 10px;
+    padding: 0 20px;
   }
 
   .navbar-logos {
-    gap: 12px;
-    min-width: auto;
+    gap: 16px;
   }
 
   .navbar-logo {
-    height: 40px;
-  }
-
-  .configurator-navbar.scrolled .navbar-logo {
-    height: 38px;
-  }
-
-  .navbar-text-logo {
-    font-size: 11px;
-  }
-
-  .text-logo-wrapper {
-    padding: 10px 8px;
+    height: 48px;
   }
 
   .navbar-title h1 {
-    font-size: 18px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .configurator-navbar {
+    height: auto;
+    min-height: 70px;
+  }
+
+  .configurator-navbar.scrolled {
+    height: auto;
+    min-height: 65px;
+  }
+
+  .navbar-container {
+    padding: 12px 15px;
+    flex-wrap: nowrap;
+    height: auto;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .navbar-logos {
+    gap: 10px;
+    min-width: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    height: 38px;
+  }
+
+  .configurator-navbar.scrolled .navbar-logo {
+    height: 36px;
+  }
+
+  .navbar-text-logo {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .text-logo-wrapper {
+    padding: 8px 6px;
+  }
+
+  .navbar-title {
+    flex-shrink: 0;
+    min-width: auto;
+  }
+
+  .navbar-title h1 {
+    font-size: 16px;
   }
 
   .navbar-divider {
-    height: 40px;
+    height: 38px;
+    width: 1px;
   }
 
   .logout-button {
     padding: 8px 14px;
     font-size: 12px;
+    flex-shrink: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .configurator-navbar {
-    height: 60px;
-  }
-
-  .navbar-container {
-    justify-content: center;
-    padding: 0 10px;
-  }
-
+@media (max-width: 640px) {
   .navbar-logos {
     gap: 8px;
-    order: 2;
-    width: 100%;
-    justify-content: center;
   }
 
-  .navbar-title {
-    order: 1;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 5px;
+  .navbar-logo {
+    height: 34px;
   }
 
   .navbar-text-logo {
     font-size: 9px;
   }
 
-  .text-logo-wrapper {
-    padding: 10px 6px;
-  }
-
   .navbar-title h1 {
     font-size: 14px;
-  }
-
-  .navbar-logo {
-    height: 30px;
-  }
-
-  .navbar-divider {
-    height: 30px;
   }
 
   .logout-button {
     padding: 6px 12px;
     font-size: 11px;
-    position: absolute;
-    top: 8px;
-    right: 10px;
+  }
+
+  .navbar-divider {
+    height: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .configurator-navbar {
+    height: auto;
+    min-height: 55px;
+  }
+
+  .navbar-container {
+    justify-content: space-between;
+    padding: 10px 12px;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .navbar-logos {
+    gap: 6px;
+    order: 2;
+    min-width: auto;
+  }
+
+  .navbar-title {
+    order: 1;
+    flex: 0 1 auto;
+    padding: 0 8px;
+  }
+
+  .navbar-title-content {
+    gap: 0;
+  }
+
+  .navbar-text-logo {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+  }
+
+  .text-logo-wrapper {
+    padding: 6px 4px;
+  }
+
+  .navbar-title h1 {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  .navbar-logo {
+    height: 28px;
+  }
+
+  .navbar-divider {
+    height: 28px;
+    width: 1px;
+  }
+
+  .logo-wrapper {
+    padding: 8px 0;
+  }
+
+  .logout-button {
+    padding: 5px 10px;
+    font-size: 10px;
+    position: relative;
+    top: auto;
+    right: auto;
   }
 }

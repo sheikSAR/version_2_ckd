@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 80px);
-  padding: 60px 40px;
+  padding: 80px 60px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   position: relative;
@@ -28,14 +28,14 @@
 }
 
 .landing-header {
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   animation: fadeInDown 0.8s ease-out;
 }
 
 .landing-title {
   color: #1a1a1a;
   margin: 0 0 16px 0;
-  font-size: 56px;
+  font-size: clamp(28px, 7vw, 56px);
   font-weight: 800;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -49,16 +49,17 @@
 
 .landing-subtitle {
   color: #4a5568;
-  font-size: 18px;
+  font-size: clamp(14px, 3.5vw, 18px);
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.3px;
+  line-height: 1.5;
 }
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
   width: 100%;
 }
 
@@ -67,11 +68,11 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 20px;
-  padding: 40px 32px;
+  padding: 48px 40px;
   text-align: center;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 320px;
+  min-height: 360px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,7 +218,7 @@
 
 @media (max-width: 1024px) {
   .landing-container {
-    padding: 50px 32px;
+    padding: 70px 50px;
     min-height: calc(100vh - 80px);
   }
 
@@ -230,18 +231,18 @@
   }
 
   .cards-grid {
-    gap: 28px;
+    gap: 36px;
   }
 
   .card {
-    min-height: 300px;
-    padding: 32px 28px;
+    min-height: 340px;
+    padding: 44px 36px;
   }
 }
 
 @media (max-width: 900px) {
   .landing-container {
-    padding: 45px 28px;
+    padding: 60px 40px;
   }
 
   .landing-title {
@@ -255,12 +256,12 @@
 
 @media (max-width: 768px) {
   .landing-container {
-    padding: 40px 20px;
+    padding: 50px 28px;
     min-height: calc(100vh - 70px);
   }
 
   .landing-header {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
   }
 
   .landing-title {
@@ -274,12 +275,12 @@
 
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 28px;
   }
 
   .card {
-    min-height: 280px;
-    padding: 28px 24px;
+    min-height: 320px;
+    padding: 40px 32px;
   }
 
   .card-icon {
@@ -307,16 +308,16 @@
 
 @media (max-width: 600px) {
   .landing-container {
-    padding: 35px 18px;
-    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+    min-height: calc(100vh - 60px);
+    margin-top: 60px;
   }
 
   .landing-header {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
   }
 
   .landing-title {
-    font-size: 28px;
     margin-bottom: 12px;
   }
 
@@ -325,12 +326,12 @@
   }
 
   .cards-grid {
-    gap: 20px;
+    gap: 22px;
   }
 
   .card {
-    min-height: 270px;
-    padding: 26px 22px;
+    min-height: 290px;
+    padding: 32px 24px;
   }
 
   .card-icon {
@@ -360,9 +361,9 @@
 
 @media (max-width: 480px) {
   .landing-container {
-    padding: 32px 16px;
-    min-height: calc(100vh - 60px);
-    margin-top: 60px;
+    padding: 35px 16px;
+    min-height: calc(100vh - 55px);
+    margin-top: 55px;
   }
 
   .landing-header {
@@ -370,8 +371,7 @@
   }
 
   .landing-title {
-    font-size: 24px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: -0.5px;
   }
 
@@ -381,12 +381,12 @@
   }
 
   .cards-grid {
-    gap: 18px;
+    gap: 20px;
   }
 
   .card {
-    min-height: 260px;
-    padding: 24px 20px;
+    min-height: 270px;
+    padding: 28px 22px;
     border-radius: 16px;
   }
 
@@ -421,30 +421,32 @@
 
 @media (max-width: 380px) {
   .landing-container {
-    padding: 28px 14px;
-    min-height: calc(100vh - 60px);
+    padding: 32px 14px;
+    min-height: calc(100vh - 55px);
+    margin-top: 55px;
   }
 
   .landing-header {
-    margin-bottom: 28px;
+    margin-bottom: 30px;
   }
 
   .landing-title {
-    font-size: 22px;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
   .landing-subtitle {
     font-size: 12px;
+    line-height: 1.4;
   }
 
   .cards-grid {
-    gap: 16px;
+    gap: 18px;
   }
 
   .card {
-    min-height: 250px;
-    padding: 22px 18px;
+    min-height: 260px;
+    padding: 26px 20px;
+    border-radius: 14px;
   }
 
   .card-icon {
