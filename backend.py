@@ -59,5 +59,21 @@ def create_session():
     return jsonify({"success": True, "sessionFolder": session_folder})
 
 
+@app.route("/configurator/<config_path>/input/initial_data.json", methods=["GET"])
+def get_initial_data(config_path):
+    try:
+        initial_data_path = os.path.join(SESSIONS_DIR, config_path, "input", "initial_data.json")
+
+        if not os.path.exists(initial_data_path):
+            return jsonify({"success": False, "error": "File not found"}), 404
+
+        with open(initial_data_path, "r") as f:
+            data = json.load(f)
+
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
