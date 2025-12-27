@@ -192,8 +192,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
   const handleNodeClick = (node: GraphNode) => {
     if (node.type === 'attribute' && node.patientId) {
-      const patientId = `Patient_${node.patientId}`
-      onPatientSelect?.(patientId === selectedPatient ? null : patientId)
+      onPatientSelect?.(node.patientId === selectedPatient ? null : node.patientId)
     }
   }
 
