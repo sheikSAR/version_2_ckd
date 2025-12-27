@@ -63,9 +63,9 @@
 }
 
 .card {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 20px;
   padding: 40px 32px;
   text-align: center;
@@ -76,7 +76,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(102, 126, 234, 0.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), inset 0 0 20px rgba(102, 126, 234, 0.03);
   position: relative;
   overflow: hidden;
 }
