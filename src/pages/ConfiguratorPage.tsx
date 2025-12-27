@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import FileUploadMode from '../components/FileUploadMode'
@@ -23,13 +23,13 @@ const ConfiguratorPage = () => {
   const operationModeRef = useScrollAnimation()
   const submitRef = useScrollAnimation()
 
-  const handleFileUpload = (data: Record<string, Record<string, string>>) => {
+  const handleFileUpload = useCallback((data: Record<string, Record<string, string>>) => {
     setJsonData(data)
-  }
+  }, [])
 
-  const handleManualEntry = (data: Record<string, Record<string, string>>) => {
+  const handleManualEntry = useCallback((data: Record<string, Record<string, string>>) => {
     setJsonData(data)
-  }
+  }, [])
 
   const handleSubmit = async () => {
     if (Object.keys(jsonData).length === 0) {
