@@ -18,6 +18,7 @@ const ConfiguratorPage = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { setConfigPath } = useConfigurator()
 
   const step1Ref = useScrollAnimation()
   const step2Ref = useScrollAnimation()
