@@ -59,11 +59,43 @@ const RelationshipGraphPage = () => {
 
   const hasData = patientEdges.length > 0
 
-  return (
-    <div className="relationship-graph-page">
-      <ConfiguratorNavbar />
+  if (loading) {
+    return (
+      <div className="relationship-graph-page">
+        <ConfiguratorNavbar />
+        <div className="relationship-graph-main">
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Loading configuration data…</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
-      {!hasData ? (
+  if (error) {
+    return (
+      <div className="relationship-graph-page">
+        <ConfiguratorNavbar />
+        <div className="relationship-graph-main">
+          <button
+            className="relationship-back-button"
+            onClick={() => navigate('/configurator')}
+          >
+            ← Restart Configurator
+          </button>
+          <div className="error-state">
+            <p className="error-message">{error}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!hasData) {
+    return (
+      <div className="relationship-graph-page">
+        <ConfiguratorNavbar />
         <div className="relationship-graph-main">
           <button
             className="relationship-back-button"
@@ -71,74 +103,37 @@ const RelationshipGraphPage = () => {
           >
             ← Back to Node Visualization
           </button>
-
-          <div className="upload-section">
-            <div className="upload-card">
-              <h1 className="upload-title">Parse Patient Input Data</h1>
-              <p className="upload-description">
-                Upload patient data (JSON, YAML, or Excel) to create a 3D relationship network
-              </p>
-
-              <div className="file-upload-wrapper">
-                <label className="file-input-label">
-                  <input
-                    type="file"
-                    accept=".json,.yaml,.yml,.xlsx,.xls"
-                    onChange={handleFileChange}
-                    className="file-input"
-                    disabled={loading}
-                  />
-                  <div className="file-input-content">
-                    <span className="file-icon">📁</span>
-                    <span className="file-text">
-                      {loading ? 'Processing file...' : 'Click to upload or drag and drop'}
-                    </span>
-                    <span className="file-hint">Supported: JSON, YAML, Excel (.xlsx, .xls)</span>
-                  </div>
-                </label>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-            </div>
+          <div className="empty-state">
+            <p className="empty-text">No data available. Please restart the configurator setup.</p>
           </div>
         </div>
-      ) : (
-        <>
-          <GraphFiltersBar
+      </div>
+    )
+  }
+
+  return (
+    <div className="relationship-graph-page">
+      <ConfiguratorNavbar />
+      <GraphFiltersBar
+        patientEdges={patientEdges}
+        selectedPatient={selectedPatient}
+        selectedVariable={selectedVariable}
+        onPatientChange={setSelectedPatient}
+        onVariableChange={setSelectedVariable}
+        onClearData={handleClearData}
+        isLoading={loading}
+      />
+
+      <div className="relationship-graph-main">
+        <div className="graph-wrapper">
+          <Graph3DVisualization
             patientEdges={patientEdges}
-            selectedPatient={selectedPatient}
-            selectedVariable={selectedVariable}
-            onPatientChange={setSelectedPatient}
-            onVariableChange={setSelectedVariable}
-            onClearData={handleClearData}
-            isLoading={loading}
+            selectedPatient={selectedPatient || undefined}
+            selectedVariable={selectedVariable || undefined}
+            onPatientSelect={setSelectedPatient}
           />
-
-          <div className="relationship-graph-main">
-            <div className="graph-wrapper">
-              <Graph3DVisualization
-                patientEdges={patientEdges}
-                selectedPatient={selectedPatient || undefined}
-                selectedVariable={selectedVariable || undefined}
-                onPatientSelect={setSelectedPatient}
-              />
-            </div>
-          </div>
-
-          <div className="upload-overlay-button">
-            <label className="upload-overlay-label">
-              <input
-                type="file"
-                accept=".json,.yaml,.yml,.xlsx,.xls"
-                onChange={handleFileChange}
-                className="file-input"
-                disabled={loading}
-              />
-              <span className="upload-overlay-text">{loading ? 'Processing...' : 'Upload New Data'}</span>
-            </label>
-          </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   )
 }
