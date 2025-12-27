@@ -1,28 +1,27 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import ForceGraph3D from 'react-force-graph-3d'
-import type { PatientEdges } from '../utils/patientNodeMapper'
-import nodeData from '../data/node.json'
+import type { PatientChainGraph, ChainNode, ChainEdge } from '../utils/patientNodeMapper'
 import '../styles/Graph3DVisualization.css'
 
 interface Graph3DVisualizationProps {
-  patientEdges: PatientEdges[]
+  chainGraph: PatientChainGraph
   selectedPatient?: string
-  selectedVariable?: string
   onPatientSelect?: (patientId: string | null) => void
 }
 
 interface GraphNode {
   id: string
-  name: string
-  type: 'patient' | 'variable'
-  container: string
+  label: string
+  type: 'root' | 'attribute'
   color: string
   size: number
+  patientId?: string
 }
 
 interface GraphLink {
   source: string | GraphNode
   target: string | GraphNode
+  patientId: string
   isVisible: boolean
 }
 
