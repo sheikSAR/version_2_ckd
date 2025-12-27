@@ -13,6 +13,7 @@ type OperationMode = 'run' | 'test' | 'calibrate'
 
 const ConfiguratorPage = () => {
   const [inputMode, setInputMode] = useState<InputMode>('manual')
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [jsonData, setJsonData] = useState<Record<string, Record<string, string>>>({})
   const [operationMode, setOperationMode] = useState<OperationMode>('run')
   const [loading, setLoading] = useState(false)
@@ -25,8 +26,18 @@ const ConfiguratorPage = () => {
   const operationModeRef = useScrollAnimation()
   const submitRef = useScrollAnimation()
 
-  const handleFileUpload = useCallback((data: Record<string, Record<string, string>>) => {
-    setJsonData(data)
+  const generateConfigPath = (): string => {
+    const now = new Date()
+    const date = String(now.getDate()).padStart(2, '0')
+    const month = String(now.getMonth() + 1).padStart(2, '0')
+    const year = now.getFullYear()
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    return `configurator_${operationMode}_${date}_${month}_${year}_${hours}_${minutes}`
+  }
+
+  const handleFileUpload = useCallback((file: File) => {
+    setUploadedFile(file)
   }, [])
 
   const handleManualEntry = useCallback((data: Record<string, Record<string, string>>) => {
@@ -34,13 +45,18 @@ const ConfiguratorPage = () => {
   }, [])
 
   const handleSubmit = async () => {
-    if (Object.keys(jsonData).length === 0) {
-      setError('Please provide input data before submitting.')
+    if (!operationMode) {
+      setError('Please select an operation mode before submitting.')
       return
     }
 
-    if (!operationMode) {
-      setError('Please select an operation mode before submitting.')
+    if (inputMode === 'file' && !uploadedFile) {
+      setError('Please upload a file before submitting.')
+      return
+    }
+
+    if (inputMode === 'manual' && Object.keys(jsonData).length === 0) {
+      setError('Please provide input data before submitting.')
       return
     }
 
@@ -48,17 +64,40 @@ const ConfiguratorPage = () => {
     setError('')
 
     try {
-      const response = await axios.post('http://localhost:5000/configurator/create-session', {
-        role: 'configurator',
-        mode: operationMode,
-        data: jsonData,
-      })
+      const configPath = generateConfigPath()
 
-      if (response.data.success) {
-        setConfigPath(response.data.sessionFolder)
-        navigate('/configurator/landing')
+      if (inputMode === 'file' && uploadedFile) {
+        // Upload file to backend
+        const formData = new FormData()
+        formData.append('file', uploadedFile)
+        formData.append('configPath', configPath)
+
+        const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+
+        if (uploadResponse.data.success) {
+          setConfigPath(configPath)
+          navigate('/configurator/landing')
+        } else {
+          setError(uploadResponse.data.error || 'Failed to upload file.')
+        }
       } else {
-        setError('Failed to create session.')
+        // Use existing create-session endpoint for manual entry
+        const response = await axios.post('http://localhost:5000/configurator/create-session', {
+          role: 'configurator',
+          mode: operationMode,
+          data: jsonData,
+        })
+
+        if (response.data.success) {
+          setConfigPath(response.data.sessionFolder)
+          navigate('/configurator/landing')
+        } else {
+          setError('Failed to create session.')
+        }
       }
     } catch (err) {
       setError('Error submitting configuration.')
