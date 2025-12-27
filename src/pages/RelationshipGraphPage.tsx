@@ -26,7 +26,7 @@ const RelationshipGraphPage = () => {
       }
 
       try {
-        const filePath = `/configurator/${configPath}/input/initial_data.json`
+        const filePath = `http://localhost:5000/configurator/${configPath}/input/initial_data.json`
         const response = await fetch(filePath)
 
         if (!response.ok) {
