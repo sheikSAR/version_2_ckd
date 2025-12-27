@@ -20,7 +20,7 @@ html, body, #root {
   padding: 20px;
   z-index: 50;
   width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
 }
 
 .login-background {
