@@ -217,7 +217,7 @@
 
 @media (max-width: 1024px) {
   .landing-container {
-    padding: 50px 32px;
+    padding: 70px 50px;
     min-height: calc(100vh - 80px);
   }
 
@@ -230,18 +230,18 @@
   }
 
   .cards-grid {
-    gap: 28px;
+    gap: 36px;
   }
 
   .card {
-    min-height: 300px;
-    padding: 32px 28px;
+    min-height: 340px;
+    padding: 44px 36px;
   }
 }
 
 @media (max-width: 900px) {
   .landing-container {
-    padding: 45px 28px;
+    padding: 60px 40px;
   }
 
   .landing-title {
@@ -255,12 +255,12 @@
 
 @media (max-width: 768px) {
   .landing-container {
-    padding: 40px 20px;
+    padding: 50px 28px;
     min-height: calc(100vh - 70px);
   }
 
   .landing-header {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
   }
 
   .landing-title {
@@ -274,12 +274,12 @@
 
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 28px;
   }
 
   .card {
-    min-height: 280px;
-    padding: 28px 24px;
+    min-height: 320px;
+    padding: 40px 32px;
   }
 
   .card-icon {
@@ -307,12 +307,12 @@
 
 @media (max-width: 600px) {
   .landing-container {
-    padding: 35px 18px;
+    padding: 45px 24px;
     min-height: calc(100vh - 70px);
   }
 
   .landing-header {
-    margin-bottom: 35px;
+    margin-bottom: 45px;
   }
 
   .landing-title {
@@ -325,12 +325,12 @@
   }
 
   .cards-grid {
-    gap: 20px;
+    gap: 24px;
   }
 
   .card {
-    min-height: 270px;
-    padding: 26px 22px;
+    min-height: 300px;
+    padding: 36px 28px;
   }
 
   .card-icon {
@@ -360,13 +360,13 @@
 
 @media (max-width: 480px) {
   .landing-container {
-    padding: 32px 16px;
+    padding: 40px 20px;
     min-height: calc(100vh - 60px);
     margin-top: 60px;
   }
 
   .landing-header {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
   }
 
   .landing-title {
@@ -381,12 +381,12 @@
   }
 
   .cards-grid {
-    gap: 18px;
+    gap: 22px;
   }
 
   .card {
-    min-height: 260px;
-    padding: 24px 20px;
+    min-height: 280px;
+    padding: 32px 24px;
     border-radius: 16px;
   }
 
@@ -421,12 +421,12 @@
 
 @media (max-width: 380px) {
   .landing-container {
-    padding: 28px 14px;
+    padding: 35px 18px;
     min-height: calc(100vh - 60px);
   }
 
   .landing-header {
-    margin-bottom: 28px;
+    margin-bottom: 35px;
   }
 
   .landing-title {
@@ -439,12 +439,12 @@
   }
 
   .cards-grid {
-    gap: 16px;
+    gap: 20px;
   }
 
   .card {
-    min-height: 250px;
-    padding: 22px 18px;
+    min-height: 270px;
+    padding: 28px 22px;
   }
 
   .card-icon {
