@@ -255,7 +255,7 @@ const LoginPage = () => {
                   display: 'block',
                   marginBottom: '10px',
                   fontWeight: 600,
-                  color: '#d0d8e0',
+                  color: '#2d3748',
                   fontSize: isMobile ? '12px' : '14px',
                   letterSpacing: '0.5px',
                 }}>Password</label>
