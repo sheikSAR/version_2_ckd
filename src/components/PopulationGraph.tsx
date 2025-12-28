@@ -42,12 +42,12 @@ const colorPalettes: any = {
 
 // --- Graph Generation Logic ---
 
-const generateFlow = (data: any[]) => {
+const generateFlow = (data: any[], maxPatients: number = 100) => {
   const nodes: Node[] = []
   const edges: Edge[] = []
   const xSpacing = 280
   const ySpacing = 70
-  let nodeIndex = 0
+  const nodeIdMap = new Set<string>() // Track created nodes
 
   // 1. Create Static Categorical Nodes
   Object.keys(nodeCategories).forEach((catKey, colIndex) => {
@@ -70,14 +70,16 @@ const generateFlow = (data: any[]) => {
         textTransform: 'uppercase',
         padding: '12px 8px',
         boxShadow: `0 4px 12px ${palette.primary}40`,
-        border: 'none',
-        animation: `nodeSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${colIndex * 0.1}s both`
+        border: 'none'
       }
     })
 
     nodeCategories[catKey].forEach((label: string, rowIndex: number) => {
+      const nodeId = `${catKey}-${rowIndex}`
+      nodeIdMap.add(nodeId)
+
       nodes.push({
-        id: `${catKey}-${rowIndex}`,
+        id: nodeId,
         data: { label: label },
         position: { x: colIndex * xSpacing, y: rowIndex * ySpacing },
         style: {
@@ -90,16 +92,16 @@ const generateFlow = (data: any[]) => {
           padding: '12px 8px',
           boxShadow: `0 4px 12px rgba(0, 0, 0, 0.08)`,
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          cursor: 'pointer',
-          animation: `nodePopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${(colIndex * 11 + rowIndex) * 0.05}s both`
+          cursor: 'pointer'
         }
       })
-      nodeIndex++
     })
   })
 
-  // 2. Map Dynamic Patient Edges from Backend Data
-  data.forEach((patient, pIdx) => {
+  // 2. Map Dynamic Patient Edges from Backend Data (with limit)
+  const limitedData = data.slice(0, maxPatients)
+
+  limitedData.forEach((patient, pIdx) => {
     const path = [
       `Patient-0`,
       `Gender-${patient.gender}`,
@@ -113,26 +115,31 @@ const generateFlow = (data: any[]) => {
       patient.DR_SEVERITY_OD > 0 ? `DR_Severity_OD-${patient.DR_SEVERITY_OD - 1}` : null,
       patient.DR_SEVERITY_OS > 0 ? `DR_Severity_OS-${patient.DR_SEVERITY_OS - 1}` : null,
       `EGFR-${patient.EGFR}`
-    ].filter(Boolean)
+    ].filter(Boolean) as string[]
 
     for (let i = 0; i < path.length - 1; i++) {
-      edges.push({
-        id: `edge-p${pIdx}-step${i}`,
-        source: path[i] as string,
-        target: path[i + 1] as string,
-        animated: true,
-        style: {
-          stroke: colorPalettes.Patient.primary,
-          strokeWidth: 2,
-          opacity: 0.25,
-          animation: `edgeFadeIn 0.8s ease-in-out ${pIdx * 0.05}s both`
-        },
-        markerEnd: { type: MarkerType.ArrowClosed, color: colorPalettes.Patient.primary }
-      })
+      const source = path[i]
+      const target = path[i + 1]
+
+      // Validate nodes exist before creating edge
+      if (nodeIdMap.has(source) && nodeIdMap.has(target)) {
+        edges.push({
+          id: `edge-p${pIdx}-step${i}`,
+          source,
+          target,
+          animated: false,
+          style: {
+            stroke: colorPalettes.Patient.primary,
+            strokeWidth: 1.5,
+            opacity: 0.15
+          },
+          markerEnd: { type: MarkerType.ArrowClosed, color: colorPalettes.Patient.primary }
+        })
+      }
     }
   })
 
-  return { nodes, edges }
+  return { nodes, edges, totalPatients: data.length, visiblePatients: limitedData.length }
 }
 
 interface PopulationGraphProps {
