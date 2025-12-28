@@ -102,30 +102,33 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       size: 12,
     })
 
-    patientEdges.forEach((patientData: any) => {
-      if (!patientData.edges || !Array.isArray(patientData.edges)) return
+    for (let i = 0; i < patientEdges.length; i++) {
+      const patientData = patientEdges[i]
+      if (!patientData.edges || !Array.isArray(patientData.edges)) continue
 
       let genderValue: string | null = null
       let ageGroupValue: string | null = null
       const attributeSet = new Map<string, string>() // container|node -> container
 
       // First pass: find gender and age group
-      patientData.edges.forEach((edge: any) => {
+      for (let j = 0; j < patientData.edges.length; j++) {
+        const edge = patientData.edges[j]
         if (edge.container === 'Gender') {
           genderValue = edge.node
         } else if (edge.container === 'Age_Group') {
           ageGroupValue = edge.node
         }
-      })
+      }
 
-      if (!genderValue) return
+      if (!genderValue) continue
 
       // Second pass: collect attributes
-      patientData.edges.forEach((edge: any) => {
+      for (let j = 0; j < patientData.edges.length; j++) {
+        const edge = patientData.edges[j]
         if (edge.container !== 'Gender' && edge.container !== 'Age_Group') {
           attributeSet.set(`${edge.container}|${edge.node}`, edge.container)
         }
-      })
+      }
 
       // Create gender node
       const genderId = `patient-root-${genderValue.toLowerCase()}`
@@ -157,7 +160,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
         // Create attribute nodes and links
         attributeSet.forEach((container, attributeKey) => {
           const [, nodeName] = attributeKey.split('|')
-          const attributeId = `patient-${genderValue.toLowerCase()}-${sanitizeId(ageGroupValue)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
+          const attributeId = `patient-${genderValue!.toLowerCase()}-${sanitizeId(ageGroupValue!)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
 
           if (!nodesMap.has(attributeId)) {
             nodesMap.set(attributeId, {
@@ -180,7 +183,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
           })
         })
       }
-    })
+    }
 
     // Create patient nodes (invisible nodes for edges to point to)
     patientEdges.forEach((patientData: any) => {
