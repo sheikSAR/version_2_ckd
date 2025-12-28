@@ -179,10 +179,39 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
     if (configPath) fetchData()
   }, [configPath])
 
-  const { nodes, edges, totalPatients, visiblePatients } = useMemo(
-    () => generateFlow(patientData, maxPatients),
-    [patientData, maxPatients]
-  )
+  const [debugInfo, setDebugInfo] = useState<any>(null)
+
+  const { nodes, edges, totalPatients, visiblePatients } = useMemo(() => {
+    const result = generateFlow(patientData, maxPatients)
+
+    // Debug: log any data structure issues
+    if (patientData.length > 0) {
+      const samplePatient = patientData[0]
+      const missingFields = []
+
+      const requiredFields = ['gender', 'age', 'DR_OD', 'DR_OS', 'Hypertension',
+                             'Durationofdiabetes', 'HB', 'HBA', 'DR_SEVERITY_OD',
+                             'DR_SEVERITY_OS', 'EGFR']
+
+      requiredFields.forEach(field => {
+        if (!(field in samplePatient)) {
+          missingFields.push(field)
+        }
+      })
+
+      if (missingFields.length > 0) {
+        setDebugInfo({
+          issue: 'Missing data fields',
+          missingFields,
+          samplePatient: Object.keys(samplePatient)
+        })
+      } else {
+        setDebugInfo(null)
+      }
+    }
+
+    return result
+  }, [patientData, maxPatients])
 
   if (loading)
     return <div className="population-graph-loading">Loading Patient Flow Graph...</div>
