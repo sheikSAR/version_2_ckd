@@ -27,6 +27,28 @@ interface GraphLink {
   target: string | GraphNode
 }
 
+// Classify value node types based on container
+function getValueType(container: string): 'binary' | 'ordinal' | 'severity' {
+  const binaryContainers = ['Gender', 'HTN', 'DR', 'EGFR']
+  const severityContainers = ['DR_Severity_OD', 'DR_Severity_OS']
+
+  if (severityContainers.includes(container)) return 'severity'
+  if (binaryContainers.includes(container)) return 'binary'
+  return 'ordinal'
+}
+
+// Get color based on value type
+function getValueColor(valueType: 'binary' | 'ordinal' | 'severity'): string {
+  switch (valueType) {
+    case 'binary':
+      return '#FF6B6B' // Red
+    case 'severity':
+      return '#FF9C6E' // Orange
+    case 'ordinal':
+      return '#52C41A' // Green
+  }
+}
+
 const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   patientEdges,
   selectedPatient,
@@ -36,50 +58,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   const fgRef = useRef<any>(null)
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
   const [connectedNodeIds, setConnectedNodeIds] = useState<Set<string>>(new Set())
+  const [selectedValueNode, setSelectedValueNode] = useState<string | null>(null)
   const [graphData, setGraphData] = useState<{ nodes: GraphNode[]; links: GraphLink[] }>({
     nodes: [],
     links: [],
   })
-
-  const colorPalettes = useMemo(
-    () => [
-      '#FF6B6B', // Coral
-      '#4ECDC4', // Teal
-      '#45B7D1', // Sky
-      '#FFA07A', // Salmon
-      '#98D8C8', // Mint
-      '#F7DC6F', // Gold
-      '#BB8FCE', // Purple
-      '#85C1E9', // Blue
-      '#F8B88B', // Orange
-      '#A3E4D7', // Green
-      '#D7BCCB', // Rose
-      '#B4E7FF', // Cyan
-      '#FFD4A3', // Peach
-      '#C8E6A0', // Lime
-      '#F4A6D3', // Pink
-    ],
-    []
-  )
-
-  const containerToColorMap = useMemo(() => {
-    const map: Record<string, string> = {}
-    const containers = Object.keys(nodeData)
-
-    containers.forEach((container, index) => {
-      map[container] = colorPalettes[index % colorPalettes.length]
-    })
-
-    return map
-  }, [colorPalettes])
-
-  const nodeTypeColors = useMemo(
-    () => ({
-      patient: '#667EEA',
-      variable: '#764BA2',
-    }),
-    []
-  )
 
   // Build adjacency map for hover interactions
   const adjacencyMap = useMemo(() => {
