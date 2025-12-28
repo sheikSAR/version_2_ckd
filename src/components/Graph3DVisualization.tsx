@@ -330,6 +330,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     <div className="graph-3d-container">
       {graphData.nodes.length > 0 ? (
         <>
+          {/* @ts-ignore */}
           <ForceGraph3D
             ref={fgRef}
             graphData={graphData}
