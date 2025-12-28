@@ -1,42 +1,11 @@
-@keyframes nodeSlideIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes nodePopIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes edgeFadeIn {
-  from {
-    opacity: 0;
-    stroke-dashoffset: 100;
-  }
-  to {
-    opacity: 0.25;
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes nodePulse {
-  0%, 100% {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  50% {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 }
 
