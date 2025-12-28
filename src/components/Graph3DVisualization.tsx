@@ -155,11 +155,39 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
   useEffect(() => {
     if (fgRef.current && graphData.nodes.length > 0) {
-      // Configure the force simulation
       const graph = fgRef.current
-      graph.d3Force('charge').strength(-400)
-      graph.d3Force('link').distance(80)
-      
+
+      // Bipartite layout with strong patient repulsion
+      // Custom charge force: patients repel strongly, values repel weakly
+      graph.d3Force('charge').strength((node: GraphNode) => {
+        if (node.type === 'patient') {
+          return -600 // Strong repulsion between patients
+        }
+        return -100 // Weak repulsion between value nodes
+      })
+
+      // Link forces to pull similar patients closer through shared values
+      graph.d3Force('link').distance((link: GraphLink) => {
+        const sourceNode = typeof link.source === 'object' ? link.source : graphData.nodes.find((n) => n.id === link.source)
+        const targetNode = typeof link.target === 'object' ? link.target : graphData.nodes.find((n) => n.id === link.target)
+
+        // Shorter links for patient-value connections
+        if (sourceNode?.type === 'patient' && targetNode?.type === 'value') {
+          return 60
+        }
+        if (sourceNode?.type === 'value' && targetNode?.type === 'patient') {
+          return 60
+        }
+
+        return 100
+      })
+
+      // Stabilize the layout
+      graph.cooldownTime(3000)
+      graph.warmupTicks(100)
+      graph.d3AlphaDecay(0.03)
+      graph.d3VelocityDecay(0.3)
+
       // Fit to screen after a delay
       setTimeout(() => {
         graph.zoomToFit(400, 50)
