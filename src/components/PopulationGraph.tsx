@@ -8,6 +8,7 @@ import {
   MarkerType
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import '../styles/PopulationGraph.css'
 
 const nodeCategories: any = {
   Patient: ['Patient'],
@@ -23,18 +24,18 @@ const nodeCategories: any = {
   EGFR: ['EGFR >= 90', 'EGFR < 90']
 }
 
-const categoryColors: any = {
-  Patient: '#ff7675',
-  Gender: '#00cec9',
-  Age_Group: '#0984e3',
-  DR: '#e17055',
-  HTN: '#55efc4',
-  Duration_of_Diabetes: '#fdcb6e',
-  HB: '#a29bfe',
-  HBA: '#74b9ff',
-  DR_Severity_OD: '#fab1a0',
-  DR_Severity_OS: '#55efc4',
-  EGFR: '#fd79a8'
+const colorPalettes: any = {
+  Patient: { primary: '#FF6B6B', light: '#FFE5E5', dark: '#FF5252' },
+  Gender: { primary: '#4ECDC4', light: '#E0F7F6', dark: '#1BA8A0' },
+  Age_Group: { primary: '#45B7D1', light: '#E3F7FF', dark: '#0D8FB9' },
+  DR: { primary: '#FFA07A', light: '#FFE8DC', dark: '#FF7F50' },
+  HTN: { primary: '#98D8C8', light: '#E8F8F3', dark: '#52B8A0' },
+  Duration_of_Diabetes: { primary: '#F7DC6F', light: '#FFFACD', dark: '#F4C430' },
+  HB: { primary: '#BB8FCE', light: '#F5E6FA', dark: '#9B59B6' },
+  HBA: { primary: '#85C1E9', light: '#E8F4FB', dark: '#3498DB' },
+  DR_Severity_OD: { primary: '#F8B88B', light: '#FFF0E6', dark: '#E67E22' },
+  DR_Severity_OS: { primary: '#A3E4D7', light: '#E8FFF7', dark: '#27AE60' },
+  EGFR: { primary: '#D7BCCB', light: '#FBF2F7', dark: '#C2185B' }
 }
 
 // --- Graph Generation Logic ---
