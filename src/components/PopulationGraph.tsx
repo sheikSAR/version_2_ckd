@@ -45,21 +45,31 @@ const generateFlow = (data: any[]) => {
   const edges: Edge[] = []
   const xSpacing = 280
   const ySpacing = 70
+  let nodeIndex = 0
 
   // 1. Create Static Categorical Nodes
   Object.keys(nodeCategories).forEach((catKey, colIndex) => {
+    const palette = colorPalettes[catKey]
+
     nodes.push({
       id: `header-${catKey}`,
       data: { label: catKey.replace(/_/g, ' ') },
       position: { x: colIndex * xSpacing, y: -60 },
       selectable: false,
       style: {
-        background: categoryColors[catKey],
+        background: palette.dark,
         color: '#fff',
         fontWeight: 'bold',
         width: 140,
         textAlign: 'center',
-        borderRadius: '5px'
+        borderRadius: '8px',
+        fontSize: '13px',
+        letterSpacing: '0.3px',
+        textTransform: 'uppercase',
+        padding: '12px 8px',
+        boxShadow: `0 4px 12px ${palette.primary}40`,
+        border: 'none',
+        animation: `nodeSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${colIndex * 0.1}s both`
       }
     })
 
@@ -69,14 +79,20 @@ const generateFlow = (data: any[]) => {
         data: { label: label },
         position: { x: colIndex * xSpacing, y: rowIndex * ySpacing },
         style: {
-          borderRadius: '50px',
+          borderRadius: '12px',
           width: 140,
           fontSize: '11px',
           textAlign: 'center',
-          background: '#f8f9fa',
-          border: `2px solid ${categoryColors[catKey]}55`
+          background: 'rgba(255, 255, 255, 0.9)',
+          border: `2px solid ${palette.primary}`,
+          padding: '12px 8px',
+          boxShadow: `0 4px 12px rgba(0, 0, 0, 0.08)`,
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          cursor: 'pointer',
+          animation: `nodePopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${(colIndex * 11 + rowIndex) * 0.05}s both`
         }
       })
+      nodeIndex++
     })
   })
 
@@ -102,8 +118,13 @@ const generateFlow = (data: any[]) => {
         source: path[i] as string,
         target: path[i + 1] as string,
         animated: true,
-        style: { stroke: categoryColors.Patient, strokeWidth: 1.5, opacity: 0.3 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: categoryColors.Patient }
+        style: {
+          stroke: colorPalettes.Patient.primary,
+          strokeWidth: 2,
+          opacity: 0.25,
+          animation: `edgeFadeIn 0.8s ease-in-out ${pIdx * 0.05}s both`
+        },
+        markerEnd: { type: MarkerType.ArrowClosed, color: colorPalettes.Patient.primary }
       })
     }
   })
