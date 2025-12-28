@@ -60,7 +60,7 @@ const generateFlow = (data: any[], maxPatients: number = 100) => {
       selectable: false,
       style: {
         background: palette.dark,
-        color: '#fff',
+        color: palette.textColor,
         fontWeight: 'bold',
         width: 140,
         textAlign: 'center',
