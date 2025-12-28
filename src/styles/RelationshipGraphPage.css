@@ -1,9 +1,10 @@
 .relationship-graph-page {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #f8f9fc 0%, #f0f3f8 100%);
+  overflow: hidden;
 }
 
 .relationship-graph-main {
