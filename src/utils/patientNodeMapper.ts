@@ -368,7 +368,7 @@ export function mapPatientDataToHierarchy(
       }
 
       // Create attribute nodes and edges
-      for (const [key, { container, node: nodeName }] of attributeMap) {
+      for (const [, { container, node: nodeName }] of attributeMap) {
         const attributeNodeKey = `${genderValue}|${ageGroupValue}|${container}|${nodeName}`
         let attributeNodeId = attributeNodes.get(attributeNodeKey)
 
