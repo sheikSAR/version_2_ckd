@@ -244,7 +244,7 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
               id="patient-limit"
               type="range"
               min="10"
-              max={Math.min(totalPatients, 500)}
+              max={totalPatients}
               value={maxPatients}
               onChange={(e) => setMaxPatients(parseInt(e.target.value))}
               className="patient-limit-slider"
