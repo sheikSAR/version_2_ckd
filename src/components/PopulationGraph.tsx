@@ -220,6 +220,19 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
 
   return (
     <div className="population-graph-wrapper">
+      {debugInfo && (
+        <div className="population-graph-debug-alert">
+          <strong>⚠️ Data Issue:</strong> {debugInfo.issue}
+          {debugInfo.missingFields && (
+            <div>Missing fields: {debugInfo.missingFields.join(', ')}</div>
+          )}
+          {debugInfo.samplePatient && (
+            <div style={{ fontSize: '11px', marginTop: '4px' }}>
+              Available fields: {debugInfo.samplePatient.join(', ')}
+            </div>
+          )}
+        </div>
+      )}
       <div className="population-graph-header">
         <div className="patient-info">
           Displaying {visiblePatients} of {totalPatients} patients • {edges.length} connections
