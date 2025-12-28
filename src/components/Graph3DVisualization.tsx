@@ -14,16 +14,39 @@ interface Graph3DVisualizationProps {
 interface GraphNode {
   id: string
   name: string
-  type: 'patient' | 'variable'
+  type: 'patient' | 'value'
+  valueType?: 'binary' | 'ordinal' | 'severity'
   container: string
   color: string
   size: number
+  displayLabel: string
 }
 
 interface GraphLink {
   source: string | GraphNode
   target: string | GraphNode
-  isVisible: boolean
+}
+
+// Classify value node types based on container
+function getValueType(container: string): 'binary' | 'ordinal' | 'severity' {
+  const binaryContainers = ['Gender', 'HTN', 'DR', 'EGFR']
+  const severityContainers = ['DR_Severity_OD', 'DR_Severity_OS']
+
+  if (severityContainers.includes(container)) return 'severity'
+  if (binaryContainers.includes(container)) return 'binary'
+  return 'ordinal'
+}
+
+// Get color based on value type
+function getValueColor(valueType: 'binary' | 'ordinal' | 'severity'): string {
+  switch (valueType) {
+    case 'binary':
+      return '#FF6B6B' // Red
+    case 'severity':
+      return '#FF9C6E' // Orange
+    case 'ordinal':
+      return '#52C41A' // Green
+  }
 }
 
 const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
@@ -35,67 +58,38 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   const fgRef = useRef<any>(null)
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null)
   const [connectedNodeIds, setConnectedNodeIds] = useState<Set<string>>(new Set())
+  const [selectedValueNode, setSelectedValueNode] = useState<string | null>(null)
   const [graphData, setGraphData] = useState<{ nodes: GraphNode[]; links: GraphLink[] }>({
     nodes: [],
     links: [],
   })
 
-  const colorPalettes = useMemo(
-    () => [
-      '#FF6B6B', // Coral
-      '#4ECDC4', // Teal
-      '#45B7D1', // Sky
-      '#FFA07A', // Salmon
-      '#98D8C8', // Mint
-      '#F7DC6F', // Gold
-      '#BB8FCE', // Purple
-      '#85C1E9', // Blue
-      '#F8B88B', // Orange
-      '#A3E4D7', // Green
-      '#D7BCCB', // Rose
-      '#B4E7FF', // Cyan
-      '#FFD4A3', // Peach
-      '#C8E6A0', // Lime
-      '#F4A6D3', // Pink
-    ],
-    []
-  )
-
-  const containerToColorMap = useMemo(() => {
-    const map: Record<string, string> = {}
-    const containers = Object.keys(nodeData)
-
-    containers.forEach((container, index) => {
-      map[container] = colorPalettes[index % colorPalettes.length]
-    })
-
-    return map
-  }, [colorPalettes])
-
-  const nodeTypeColors = useMemo(
-    () => ({
-      patient: '#667EEA',
-      variable: '#764BA2',
-    }),
-    []
-  )
-
-  // Build adjacency map for hover interactions
-  const adjacencyMap = useMemo(() => {
-    const map = new Map<string, Set<string>>()
+  // Build adjacency map and patient lookup for interactions
+  const { adjacencyMap, patientValueMap } = useMemo(() => {
+    const adjMap = new Map<string, Set<string>>()
+    const pvMap = new Map<string, Set<string>>() // value node -> connected patients
 
     graphData.links.forEach((link) => {
       const sourceId = typeof link.source === 'string' ? link.source : link.source.id
       const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
-      if (!map.has(sourceId)) map.set(sourceId, new Set())
-      if (!map.has(targetId)) map.set(targetId, new Set())
+      if (!adjMap.has(sourceId)) adjMap.set(sourceId, new Set())
+      if (!adjMap.has(targetId)) adjMap.set(targetId, new Set())
 
-      map.get(sourceId)!.add(targetId)
-      map.get(targetId)!.add(sourceId)
+      adjMap.get(sourceId)!.add(targetId)
+      adjMap.get(targetId)!.add(sourceId)
+
+      // Track which patients are connected to each value node
+      if (sourceId.startsWith('patient-') && targetId.startsWith('value-')) {
+        if (!pvMap.has(targetId)) pvMap.set(targetId, new Set())
+        pvMap.get(targetId)!.add(sourceId)
+      } else if (targetId.startsWith('patient-') && sourceId.startsWith('value-')) {
+        if (!pvMap.has(sourceId)) pvMap.set(sourceId, new Set())
+        pvMap.get(sourceId)!.add(targetId)
+      }
     })
 
-    return map
+    return { adjacencyMap: adjMap, patientValueMap: pvMap }
   }, [graphData.links])
 
   useEffect(() => {
@@ -108,37 +102,37 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     const linksArray: GraphLink[] = []
     const patientNodes = patientEdges.map((pe) => pe.patientId)
 
-    // Add patient nodes
+    // Add patient nodes (Blue, large)
     patientNodes.forEach((patientId) => {
       nodesMap.set(`patient-${patientId}`, {
         id: `patient-${patientId}`,
         name: patientId,
         type: 'patient',
-        container: 'Patient_ID',
-        color: nodeTypeColors.patient,
+        container: 'Patient',
+        color: '#1890FF', // Blue
         size: 8,
+        displayLabel: patientId,
       })
     })
 
-    // Add variable nodes and links
+    // Add value nodes and links
     const processedEdges = new Set<string>()
 
     patientEdges.forEach((patientData) => {
       patientData.edges.forEach((edge) => {
-        const shouldShowEdge =
-          (!selectedPatient || selectedPatient === patientData.patientId) &&
-          (!selectedVariable || selectedVariable === edge.container)
-
-        const nodeId = `variable-${edge.container}-${edge.node}`
+        const nodeId = `value-${edge.container}-${edge.node}`
 
         if (!nodesMap.has(nodeId)) {
+          const valueType = getValueType(edge.container)
           nodesMap.set(nodeId, {
             id: nodeId,
             name: edge.node,
-            type: 'variable',
+            type: 'value',
+            valueType,
             container: edge.container,
-            color: containerToColorMap[edge.container] || '#999999',
+            color: getValueColor(valueType),
             size: 6,
+            displayLabel: edge.node,
           })
         }
 
@@ -147,7 +141,6 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
           linksArray.push({
             source: `patient-${patientData.patientId}`,
             target: nodeId,
-            isVisible: shouldShowEdge,
           })
           processedEdges.add(linkKey)
         }
@@ -158,15 +151,43 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       nodes: Array.from(nodesMap.values()),
       links: linksArray,
     })
-  }, [patientEdges, selectedPatient, selectedVariable, containerToColorMap, nodeTypeColors])
+  }, [patientEdges, selectedPatient, selectedVariable])
 
   useEffect(() => {
     if (fgRef.current && graphData.nodes.length > 0) {
-      // Configure the force simulation
       const graph = fgRef.current
-      graph.d3Force('charge').strength(-400)
-      graph.d3Force('link').distance(80)
-      
+
+      // Bipartite layout with strong patient repulsion
+      // Custom charge force: patients repel strongly, values repel weakly
+      graph.d3Force('charge').strength((node: GraphNode) => {
+        if (node.type === 'patient') {
+          return -600 // Strong repulsion between patients
+        }
+        return -100 // Weak repulsion between value nodes
+      })
+
+      // Link forces to pull similar patients closer through shared values
+      graph.d3Force('link').distance((link: GraphLink) => {
+        const sourceNode = typeof link.source === 'object' ? link.source : graphData.nodes.find((n) => n.id === link.source)
+        const targetNode = typeof link.target === 'object' ? link.target : graphData.nodes.find((n) => n.id === link.target)
+
+        // Shorter links for patient-value connections
+        if (sourceNode?.type === 'patient' && targetNode?.type === 'value') {
+          return 60
+        }
+        if (sourceNode?.type === 'value' && targetNode?.type === 'patient') {
+          return 60
+        }
+
+        return 100
+      })
+
+      // Stabilize the layout
+      graph.cooldownTime(3000)
+      graph.warmupTicks(100)
+      graph.d3AlphaDecay(0.03)
+      graph.d3VelocityDecay(0.3)
+
       // Fit to screen after a delay
       setTimeout(() => {
         graph.zoomToFit(400, 50)
@@ -190,19 +211,50 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     if (node.type === 'patient') {
       const patientId = node.name
       onPatientSelect?.(patientId === selectedPatient ? null : patientId)
+      setSelectedValueNode(null)
+    } else if (node.type === 'value') {
+      // Click value node: highlight all patients sharing that value
+      setSelectedValueNode(node.id === selectedValueNode ? null : node.id)
+      onPatientSelect?.(null)
     }
   }
 
+  const getConnectedPatients = (nodeId: string): Set<string> => {
+    if (selectedValueNode) {
+      return patientValueMap.get(selectedValueNode) || new Set()
+    }
+    return new Set()
+  }
+
   const nodeColor = (node: GraphNode) => {
-    if (node.type === 'patient') {
-      if (selectedPatient === node.name) {
-        return '#FFD700'
-      }
-      return node.color
+    // Hovered node gets bright highlight
+    if (hoveredNodeId === node.id) {
+      return '#FFD700'
     }
 
-    // For variable nodes
-    if (hoveredNodeId === node.id) {
+    // Selected patient node gets highlight
+    if (node.type === 'patient' && selectedPatient === node.name) {
+      return '#FFD700'
+    }
+
+    // If a value node is selected, dim patients not connected to it
+    if (selectedValueNode) {
+      const connectedPatients = getConnectedPatients(selectedValueNode)
+      if (node.type === 'patient' && !connectedPatients.has(node.id)) {
+        return 'rgba(24, 144, 255, 0.2)' // Dim unrelated patients
+      }
+    }
+
+    // If a patient is selected, dim unrelated value nodes
+    if (selectedPatient) {
+      if (node.type === 'value' && !connectedNodeIds.has(node.id)) {
+        const dimColor = node.color
+        return dimColor.replace(')', ', 0.2)').replace('rgb', 'rgba')
+      }
+    }
+
+    // Connected nodes during hover
+    if (connectedNodeIds.has(node.id) && hoveredNodeId !== node.id) {
       return node.color
     }
 
@@ -210,52 +262,82 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   }
 
   const nodeSize = (node: GraphNode) => {
+    // Hovered node gets bigger
     if (hoveredNodeId === node.id) {
       return node.size * 2.5
     }
 
+    // Selected patient node
+    if (node.type === 'patient' && selectedPatient === node.name) {
+      return node.size * 2.2
+    }
+
+    // Connected nodes during hover
     if (connectedNodeIds.has(node.id)) {
       return node.size * 1.8
     }
 
-    if (node.type === 'patient' && selectedPatient === node.name) {
-      return node.size * 2
+    // If value node is selected, increase size of connected patient nodes
+    if (selectedValueNode) {
+      const connectedPatients = getConnectedPatients(selectedValueNode)
+      if (node.type === 'patient' && connectedPatients.has(node.id)) {
+        return node.size * 1.5
+      }
     }
 
     return node.size
   }
 
-  const linkOpacity = (link: GraphLink): number => {
+  const getLinkOpacity = (link: GraphLink): number => {
     const sourceId = typeof link.source === 'string' ? link.source : link.source.id
     const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
-    if (!link.isVisible) {
+    // Hovered link
+    if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
+      return 0.8
+    }
+
+    // Selected patient links
+    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
+      return 0.5
+    }
+
+    // Selected value node links
+    if (selectedValueNode && targetId === selectedValueNode) {
+      return 0.6
+    }
+
+    // If value is selected, dim links not connected to it
+    if (selectedValueNode && targetId !== selectedValueNode) {
       return 0.05
     }
 
-    // Highlight links connected to hovered node
-    if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
-      return 0.9
+    // If patient is selected, dim links not connected to it
+    if (selectedPatient && sourceId !== `patient-${selectedPatient}`) {
+      return 0.08
     }
 
-    // Highlight links connected to selected patient
-    if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
-      return 0.4
-    }
-
+    // Default opacity
     return 0.15
   }
 
-  const linkWidth = (link: GraphLink): number => {
+  const getLinkWidth = (link: GraphLink): number => {
     const sourceId = typeof link.source === 'string' ? link.source : link.source.id
     const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
+    // Hovered link
     if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
-      return 4
+      return 3
     }
 
+    // Selected patient links
     if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
       return 2.5
+    }
+
+    // Selected value node links
+    if (selectedValueNode && targetId === selectedValueNode) {
+      return 2
     }
 
     return 1.5
@@ -264,16 +346,25 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   const getLinkColor = (link: GraphLink): string => {
     const sourceId = typeof link.source === 'string' ? link.source : link.source.id
     const targetId = typeof link.target === 'string' ? link.target : link.target.id
-    const opacity = linkOpacity(link)
+    const opacity = getLinkOpacity(link)
 
-    // Use brighter color for hovered edges
+    // Hovered edges get bright color
     if (hoveredNodeId === sourceId || hoveredNodeId === targetId) {
-      return `rgba(255, 200, 0, ${opacity})`
+      return `rgba(255, 215, 0, ${opacity})`
     }
 
-    // Use gradient-like color based on selected patient
+    // Selected value node links highlight in its color
+    if (selectedValueNode && targetId === selectedValueNode) {
+      const valueNode = graphData.nodes.find((n) => n.id === selectedValueNode)
+      const rgb = valueNode?.color || '#1890FF'
+      return `${rgb}${Math.round(opacity * 255)
+        .toString(16)
+        .padStart(2, '0')}`
+    }
+
+    // Selected patient links
     if (selectedPatient && sourceId === `patient-${selectedPatient}`) {
-      return `rgba(102, 200, 234, ${opacity})`
+      return `rgba(24, 144, 255, ${opacity})`
     }
 
     return `rgba(102, 126, 234, ${opacity})`
@@ -287,17 +378,26 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
             ref={fgRef}
             graphData={graphData}
             nodeLabel={(node: any) => {
-              const label = `${node.name}`
               if (node.type === 'patient') {
-                return `Patient: ${label}`
+                return `👤 Patient: ${node.name}`
               }
-              return `${node.container}: ${label}`
+
+              let typeLabel = ''
+              if (node.valueType === 'binary') {
+                typeLabel = '🔲 Binary'
+              } else if (node.valueType === 'ordinal') {
+                typeLabel = '📊 Ordinal'
+              } else if (node.valueType === 'severity') {
+                typeLabel = '⚠️ Severity'
+              }
+
+              return `${typeLabel} [${node.container}]: ${node.name}`
             }}
             nodeColor={(node: any) => nodeColor(node)}
             nodeSize={(node: any) => nodeSize(node)}
             linkColor={(link: any) => getLinkColor(link)}
-            linkWidth={(link: any) => linkWidth(link)}
-            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 4 : 0)}
+            linkWidth={(link: any) => getLinkWidth(link)}
+            linkOpacity={(link: any) => getLinkOpacity(link)}
             linkCurvature={0.25}
             onNodeHover={handleNodeHover}
             onNodeClick={handleNodeClick}
@@ -312,8 +412,16 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
           <div className="graph-info-panel">
             <div className="info-header">Graph Stats</div>
             <div className="info-stat">
-              <span className="info-label">Nodes:</span>
-              <span className="info-value">{graphData.nodes.length}</span>
+              <span className="info-label">Patients:</span>
+              <span className="info-value">
+                {graphData.nodes.filter((n) => n.type === 'patient').length}
+              </span>
+            </div>
+            <div className="info-stat">
+              <span className="info-label">Values:</span>
+              <span className="info-value">
+                {graphData.nodes.filter((n) => n.type === 'value').length}
+              </span>
             </div>
             <div className="info-stat">
               <span className="info-label">Edges:</span>
@@ -324,6 +432,20 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
                 <span className="info-label">Hovering:</span>
                 <span className="info-value">
                   {graphData.nodes.find((n) => n.id === hoveredNodeId)?.name}
+                </span>
+              </div>
+            )}
+            {selectedPatient && (
+              <div className="info-stat selected-info">
+                <span className="info-label">Selected Patient:</span>
+                <span className="info-value">{selectedPatient}</span>
+              </div>
+            )}
+            {selectedValueNode && (
+              <div className="info-stat selected-info">
+                <span className="info-label">Selected Value:</span>
+                <span className="info-value">
+                  {graphData.nodes.find((n) => n.id === selectedValueNode)?.name}
                 </span>
               </div>
             )}
