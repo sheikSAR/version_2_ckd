@@ -13,6 +13,24 @@ export interface PatientEdges {
   edges: Edge[]
 }
 
+export interface ChainNode {
+  id: string
+  label: string
+  type: 'root' | 'attribute'
+}
+
+export interface ChainEdge {
+  source: string
+  target: string
+  relationship: string
+  patientId: string
+}
+
+export interface PatientChainGraph {
+  nodes: ChainNode[]
+  edges: ChainEdge[]
+}
+
 type NodeDataType = Record<string, string[]>
 
 const mappingRules: Record<string, (value: string) => string | null> = {
@@ -313,4 +331,130 @@ export function mapPatientDataToNodes(
   }
 
   return allEdges
+}
+
+// Chain-based graph mapper: Creates a single Patient root node with edge chains per patient
+export function mapPatientDataToChainGraph(
+  patients: Record<string, Record<string, string | number>> | Array<Record<string, string | number>>
+): PatientChainGraph {
+  const nodes: ChainNode[] = []
+  const edges: ChainEdge[] = []
+  const nodesSet = new Set<string>()
+  const patientIndexMap = new Map<number, string>() // Map index to patient ID
+
+  // Add single root Patient node
+  const rootId = 'PATIENT_ROOT'
+  nodes.push({
+    id: rootId,
+    label: 'Patient',
+    type: 'root',
+  })
+  nodesSet.add(rootId)
+
+  // Define the fixed chain order
+  const chainOrder = [
+    { attribute: 'gender', container: 'Gender' },
+    { attribute: 'age', container: 'Age_Group' },
+    { attribute: 'Durationofdiabetes', container: 'Duration_of_Diabetes' },
+    { attribute: 'HBA', container: 'HBA' },
+    { attribute: 'HB', container: 'HB' },
+    { attribute: 'EGFR', container: 'EGFR' },
+  ]
+
+  // Convert array format to dict if needed
+  const patientDict: Record<string, Record<string, string | number>> = Array.isArray(patients)
+    ? patients.reduce(
+        (acc, patient, index) => {
+          const patientId = (patient.ID as string) || `Patient_${index}`
+          acc[patientId] = patient
+          return acc
+        },
+        {} as Record<string, Record<string, string | number>>
+      )
+    : patients
+
+  // Process each patient
+  let patientIndex = 0
+  for (const [patientId, patientData] of Object.entries(patientDict)) {
+    patientIndexMap.set(patientIndex, patientId)
+    let previousNodeId = rootId
+    let previousNodeLabel = 'Patient'
+
+    // Build the chain for this patient
+    for (let chainStep = 0; chainStep < chainOrder.length; chainStep++) {
+      const { attribute, container } = chainOrder[chainStep]
+      const rawValue = patientData[attribute]
+
+      if (rawValue === undefined || rawValue === null || rawValue === '') {
+        continue
+      }
+
+      const stringValue = String(rawValue).trim()
+      if (!stringValue) {
+        continue
+      }
+
+      // Map the value to a node label
+      const mapperFunction = mappingRules[attribute]
+      if (!mapperFunction) {
+        continue
+      }
+
+      const mappedNode = mapperFunction(stringValue)
+      if (!mappedNode) {
+        continue
+      }
+
+      // Verify the mapped node exists in node.json
+      const nodeDataDict = nodeData as NodeDataType
+      const containerNodes = nodeDataDict[container] || []
+      if (!containerNodes.includes(mappedNode)) {
+        continue
+      }
+
+      // Create unique node ID for this patient's chain step
+      // Format: CONTAINER_nodeValue_patientId_PpatientIndex
+      const sanitizedPatientId = String(patientId).replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20)
+      const currentNodeId = `${container.toUpperCase()}_${mappedNode.replace(/\s+/g, '_')}_${sanitizedPatientId}_P${patientIndex}`
+      const currentNodeLabel = mappedNode
+
+      // Add node if not already added
+      if (!nodesSet.has(currentNodeId)) {
+        nodes.push({
+          id: currentNodeId,
+          label: currentNodeLabel,
+          type: 'attribute',
+        })
+        nodesSet.add(currentNodeId)
+      }
+
+      // Add edge from previous node to current node
+      const relationshipTypes: Record<string, string> = {
+        gender: 'PATIENT_HAS_GENDER',
+        age: 'GENDER_TO_AGE',
+        Durationofdiabetes: 'AGE_TO_DURATION',
+        HBA: 'DURATION_TO_HBA',
+        HB: 'HBA_TO_HB',
+        EGFR: 'HB_TO_EGFR',
+      }
+
+      edges.push({
+        source: previousNodeId,
+        target: currentNodeId,
+        relationship: relationshipTypes[attribute] || `${container.toUpperCase()}_EDGE`,
+        patientId,
+      })
+
+      // Update previous node for next iteration
+      previousNodeId = currentNodeId
+      previousNodeLabel = currentNodeLabel
+    }
+
+    patientIndex++
+  }
+
+  return {
+    nodes,
+    edges,
+  }
 }
