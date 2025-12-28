@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ConfiguratorNavbar from '../components/ConfiguratorNavbar'
-import HierarchicalPatientVisualization from '../components/HierarchicalPatientVisualization'
+import Graph3DVisualization from '../components/Graph3DVisualization'
+import GraphFiltersBar from '../components/GraphFiltersBar'
 import { mapPatientDataToNodes } from '../utils/patientNodeMapper'
 import { useConfigurator } from '../context/ConfiguratorContext'
 import type { PatientEdges } from '../utils/patientNodeMapper'
@@ -11,6 +12,8 @@ const RelationshipGraphPage = () => {
   const navigate = useNavigate()
   const { configPath } = useConfigurator()
   const [patientEdges, setPatientEdges] = useState<PatientEdges[]>([])
+  const [selectedPatient, setSelectedPatient] = useState<string | null>(null)
+  const [selectedVariable, setSelectedVariable] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -33,6 +36,8 @@ const RelationshipGraphPage = () => {
         const parsedData: Record<string, Record<string, string>> = await response.json()
         const edges = mapPatientDataToNodes(parsedData)
         setPatientEdges(edges)
+        setSelectedPatient(null)
+        setSelectedVariable(null)
         setError('')
       } catch (err) {
         setError('Configuration input file not found. Please restart configurator setup.')
@@ -47,6 +52,8 @@ const RelationshipGraphPage = () => {
 
   const handleClearData = () => {
     setPatientEdges([])
+    setSelectedPatient(null)
+    setSelectedVariable(null)
     setError('')
   }
 
@@ -107,9 +114,24 @@ const RelationshipGraphPage = () => {
   return (
     <div className="relationship-graph-page">
       <ConfiguratorNavbar />
+      <GraphFiltersBar
+        patientEdges={patientEdges}
+        selectedPatient={selectedPatient}
+        selectedVariable={selectedVariable}
+        onPatientChange={setSelectedPatient}
+        onVariableChange={setSelectedVariable}
+        onClearData={handleClearData}
+        isLoading={loading}
+      />
+
       <div className="relationship-graph-main">
         <div className="graph-wrapper">
-          <HierarchicalPatientVisualization patientEdges={patientEdges} />
+          <Graph3DVisualization
+            patientEdges={patientEdges}
+            selectedPatient={selectedPatient || undefined}
+            selectedVariable={selectedVariable || undefined}
+            onPatientSelect={setSelectedPatient}
+          />
         </div>
       </div>
     </div>
