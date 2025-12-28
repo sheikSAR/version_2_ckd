@@ -1,22 +1,16 @@
 import nodeData from '../data/node.json'
 
-export interface HierarchicalNode {
-  id: string
-  name: string
-  type: 'root' | 'gender' | 'age_group' | 'attribute'
-  parent: string | null
-  container?: string
-}
-
-export interface PatientEdge {
-  source: string // attribute node id
-  target: string // patient id
+export interface Edge {
   patientId: string
+  container: string
+  node: string
+  relationshipType: string
+  value: string
 }
 
-export interface HierarchicalGraph {
-  nodes: HierarchicalNode[]
-  edges: PatientEdge[]
+export interface PatientEdges {
+  patientId: string
+  edges: Edge[]
 }
 
 type NodeDataType = Record<string, string[]>
@@ -268,154 +262,6 @@ function getContainerForAttribute(attribute: string): string {
   return containerMap[attribute] || ''
 }
 
-export function mapPatientDataToHierarchy(
-  patients: Record<string, Record<string, string | number>>
-): HierarchicalGraph {
-  const nodes: HierarchicalNode[] = []
-  const edges: PatientEdge[] = []
-  const nodeIdSet = new Set<string>()
-
-  // Create root node
-  const rootId = 'patient-root'
-  nodes.push({
-    id: rootId,
-    name: 'Patient',
-    type: 'root',
-    parent: null,
-  })
-  nodeIdSet.add(rootId)
-
-  // Track hierarchy for deduplication
-  const genderNodes = new Map<string, string>() // gender name -> id
-  const ageGroupNodes = new Map<string, string>() // "gender|ageGroup" -> id
-  const attributeNodes = new Map<string, string>() // "gender|ageGroup|container|node" -> id
-
-  for (const [patientId, patientData] of Object.entries(patients)) {
-    let genderValue: string | null = null
-    let ageGroupValue: string | null = null
-    const attributeMap = new Map<string, { container: string; node: string }>()
-
-    // First pass: extract gender and age group
-    for (const [attribute, value] of Object.entries(patientData)) {
-      const stringValue = String(value).trim()
-      if (!stringValue) continue
-
-      if (attribute.toLowerCase() === 'gender') {
-        genderValue = mappingRules.gender(stringValue)
-      } else if (attribute.toLowerCase() === 'age') {
-        ageGroupValue = mappingRules.age(stringValue)
-      }
-    }
-
-    // Ensure we have gender and age group
-    if (!genderValue) continue
-
-    // Create or get gender node
-    let genderId = genderNodes.get(genderValue)
-    if (!genderId) {
-      genderId = `patient-root-${genderValue.toLowerCase()}`
-      nodes.push({
-        id: genderId,
-        name: genderValue,
-        type: 'gender',
-        parent: rootId,
-      })
-      nodeIdSet.add(genderId)
-      genderNodes.set(genderValue, genderId)
-    }
-
-    // Create or get age group node
-    if (ageGroupValue) {
-      const ageGroupKey = `${genderValue}|${ageGroupValue}`
-      let ageGroupId = ageGroupNodes.get(ageGroupKey)
-      if (!ageGroupId) {
-        ageGroupId = `patient-${genderValue.toLowerCase()}-${sanitizeId(ageGroupValue)}`
-        nodes.push({
-          id: ageGroupId,
-          name: ageGroupValue,
-          type: 'age_group',
-          parent: genderId,
-        })
-        nodeIdSet.add(ageGroupId)
-        ageGroupNodes.set(ageGroupKey, ageGroupId)
-      }
-
-      // Second pass: extract all attributes
-      for (const [attribute, value] of Object.entries(patientData)) {
-        const stringValue = String(value).trim()
-        if (!stringValue) continue
-
-        // Skip gender and age as they're already processed
-        if (attribute.toLowerCase() === 'gender' || attribute.toLowerCase() === 'age') {
-          continue
-        }
-
-        const mapperFunction = mappingRules[attribute]
-        if (!mapperFunction) continue
-
-        const mappedNode = mapperFunction(stringValue)
-        if (!mappedNode) continue
-
-        const container = getContainerForAttribute(attribute)
-        if (!container) continue
-
-        const nodeDataDict = nodeData as NodeDataType
-        const containerNodes = nodeDataDict[container] || []
-
-        if (containerNodes.includes(mappedNode)) {
-          attributeMap.set(`${container}|${mappedNode}`, { container, node: mappedNode })
-        }
-      }
-
-      // Create attribute nodes and edges
-      for (const [, { container, node: nodeName }] of attributeMap) {
-        const attributeNodeKey = `${genderValue}|${ageGroupValue}|${container}|${nodeName}`
-        let attributeNodeId = attributeNodes.get(attributeNodeKey)
-
-        if (!attributeNodeId) {
-          attributeNodeId = `patient-${sanitizeId(genderValue)}-${sanitizeId(ageGroupValue)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
-          nodes.push({
-            id: attributeNodeId,
-            name: nodeName,
-            type: 'attribute',
-            parent: ageGroupId,
-            container,
-          })
-          nodeIdSet.add(attributeNodeId)
-          attributeNodes.set(attributeNodeKey, attributeNodeId)
-        }
-
-        // Create edge from attribute to patient
-        edges.push({
-          source: attributeNodeId,
-          target: patientId,
-          patientId,
-        })
-      }
-    }
-  }
-
-  return { nodes, edges }
-}
-
-function sanitizeId(str: string): string {
-  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-}
-
-// Legacy interface for backward compatibility
-export interface Edge {
-  patientId: string
-  container: string
-  node: string
-  relationshipType: string
-  value: string
-}
-
-export interface PatientEdges {
-  patientId: string
-  edges: Edge[]
-}
-
 export function mapPatientDataToNodes(
   patients: Record<string, Record<string, string | number>>
 ): PatientEdges[] {
@@ -425,6 +271,7 @@ export function mapPatientDataToNodes(
     const edges: Edge[] = []
 
     for (const [attribute, value] of Object.entries(patientData)) {
+      // Convert value to string and check if empty
       const stringValue = String(value).trim()
       if (!stringValue) {
         continue
