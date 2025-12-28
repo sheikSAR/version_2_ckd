@@ -65,20 +65,6 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     return map
   }, [])
 
-  // Extract patients data from prop to trigger hierarchy update
-  useEffect(() => {
-    // Create a pseudo patient data from the patientEdges if available
-    if (patientEdges && patientEdges.length > 0 && typeof patientEdges[0] === 'object') {
-      // The patientEdges prop contains the legacy format, we need raw data
-      // For now, we'll work with what we have
-      const patientMap: Record<string, Record<string, string | number>> = {}
-      
-      // This is a placeholder - in real usage, the page should pass raw patient data
-      // For now, we'll just update the graph
-      setRawPatients(patientMap)
-    }
-  }, [patientEdges])
-
   // Build adjacency map for hover interactions
   const adjacencyMap = useMemo(() => {
     const map = new Map<string, Set<string>>()
