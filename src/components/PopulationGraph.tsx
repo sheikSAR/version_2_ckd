@@ -168,14 +168,14 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
   const { nodes, edges } = useMemo(() => generateFlow(patientData), [patientData])
 
   if (loading)
-    return <div style={{ padding: '20px' }}>Loading Patient Flow Graph...</div>
+    return <div className="population-graph-loading">Loading Patient Flow Graph...</div>
   if (error)
-    return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>
+    return <div className="population-graph-error">Error: {error}</div>
 
   return (
-    <div style={{ width: '100%', height: '100%', background: '#fcfcfc' }}>
+    <div className="population-graph-wrapper">
       <ReactFlow nodes={nodes} edges={edges} fitView>
-        <Background color="#eee" gap={20} />
+        <Background color="#e8f4fb" gap={20} />
         <Controls />
       </ReactFlow>
     </div>
