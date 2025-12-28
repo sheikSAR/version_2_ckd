@@ -29,7 +29,6 @@ interface GraphLink {
 const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
   patientEdges,
   selectedPatient,
-  selectedVariable,
   onPatientSelect,
 }) => {
   const fgRef = useRef<any>(null)
@@ -39,7 +38,6 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     nodes: [],
     links: [],
   })
-  const [rawPatients, setRawPatients] = useState<Record<string, Record<string, string | number>>>({})
 
   const colorPalette = useMemo(
     () => ({
