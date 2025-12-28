@@ -102,39 +102,23 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       size: 12,
     })
 
-    // Extract unique genders and age groups from patient edges
-    const genderSet = new Set<string>()
-    const ageGroupMap = new Map<string, Set<string>>() // gender -> Set of age groups
-
-    // Track attribute nodes
-    const attributeNodeMap = new Map<string, { node: GraphNode; count: number }>()
-
     patientEdges.forEach((patientData: any) => {
       if (!patientData.edges || !Array.isArray(patientData.edges)) return
 
-      let gender: string | null = null
-      let ageGroup: string | null = null
+      let genderValue: string | null = null
+      let ageGroupValue: string | null = null
       const attributeSet = new Map<string, string>() // container|node -> container
 
       // First pass: find gender and age group
       patientData.edges.forEach((edge: any) => {
         if (edge.container === 'Gender') {
-          gender = edge.node
-          genderSet.add(gender)
+          genderValue = edge.node
         } else if (edge.container === 'Age_Group') {
-          ageGroup = edge.node
+          ageGroupValue = edge.node
         }
       })
 
-      if (!gender) return
-
-      // Add age group to map
-      if (ageGroup) {
-        if (!ageGroupMap.has(gender)) {
-          ageGroupMap.set(gender, new Set())
-        }
-        ageGroupMap.get(gender)!.add(ageGroup)
-      }
+      if (!genderValue) return
 
       // Second pass: collect attributes
       patientData.edges.forEach((edge: any) => {
@@ -144,11 +128,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       })
 
       // Create gender node
-      const genderId = `patient-root-${gender.toLowerCase()}`
+      const genderId = `patient-root-${genderValue.toLowerCase()}`
       if (!nodesMap.has(genderId)) {
         nodesMap.set(genderId, {
           id: genderId,
-          name: gender,
+          name: genderValue,
           type: 'gender',
           parentId: 'patient-root',
           color: colorPalette.gender,
@@ -157,12 +141,12 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       }
 
       // Create age group node
-      if (ageGroup) {
-        const ageGroupId = `patient-${gender.toLowerCase()}-${sanitizeId(ageGroup)}`
+      if (ageGroupValue) {
+        const ageGroupId = `patient-${genderValue.toLowerCase()}-${sanitizeId(ageGroupValue)}`
         if (!nodesMap.has(ageGroupId)) {
           nodesMap.set(ageGroupId, {
             id: ageGroupId,
-            name: ageGroup,
+            name: ageGroupValue,
             type: 'age_group',
             parentId: genderId,
             color: colorPalette.ageGroup,
@@ -173,7 +157,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
         // Create attribute nodes and links
         attributeSet.forEach((container, attributeKey) => {
           const [, nodeName] = attributeKey.split('|')
-          const attributeId = `patient-${gender.toLowerCase()}-${sanitizeId(ageGroup)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
+          const attributeId = `patient-${genderValue.toLowerCase()}-${sanitizeId(ageGroupValue)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
 
           if (!nodesMap.has(attributeId)) {
             nodesMap.set(attributeId, {
