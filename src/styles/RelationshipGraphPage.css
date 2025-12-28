@@ -6,86 +6,17 @@
   background: linear-gradient(135deg, #f8f9fc 0%, #f0f3f8 100%);
 }
 
-.relationship-graph-header {
-  position: absolute;
-  top: 80px;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 2px solid #e6f0ff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 24px;
-  gap: 24px;
-  z-index: 40;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.header-info {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-.info-item {
-  font-size: 14px;
-  color: #4a5568;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.info-item strong {
-  color: #2d3748;
-  font-weight: 700;
-}
-
-.header-controls {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.clear-selection-btn,
-.clear-data-btn {
-  padding: 8px 16px;
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
-  border: 1px solid #667eea;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.clear-selection-btn:hover,
-.clear-data-btn:hover {
-  background: #667eea;
-  color: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
-}
-
-.clear-selection-btn:active,
-.clear-data-btn:active {
-  transform: scale(0.98);
-}
-
 .relationship-graph-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 140px;
+  margin-top: 80px;
   overflow: hidden;
   position: relative;
 }
 
 .relationship-graph-main.with-filters {
-  margin-top: 140px;
+  margin-top: 160px;
 }
 
 .relationship-back-button {
@@ -344,34 +275,11 @@
 
 @media (max-width: 1024px) {
   .relationship-graph-main {
-    margin-top: 140px;
-  }
-
-  .relationship-graph-header {
-    padding: 0 16px;
-    gap: 16px;
-  }
-
-  .header-info {
-    gap: 16px;
-  }
-
-  .info-item {
-    font-size: 13px;
-  }
-
-  .header-controls {
-    gap: 8px;
-  }
-
-  .clear-selection-btn,
-  .clear-data-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+    margin-top: 80px;
   }
 
   .relationship-back-button {
-    top: 150px;
+    top: 120px;
     left: 16px;
     padding: 10px 16px;
     font-size: 13px;
@@ -410,43 +318,12 @@
 
 @media (max-width: 768px) {
   .relationship-graph-main {
-    margin-top: 140px;
+    margin-top: 80px;
     padding: 0;
   }
 
-  .relationship-graph-header {
-    padding: 0 12px;
-    gap: 12px;
-    flex-direction: column;
-    height: auto;
-    min-height: 60px;
-  }
-
-  .header-info {
-    gap: 12px;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .info-item {
-    font-size: 12px;
-  }
-
-  .header-controls {
-    gap: 8px;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .clear-selection-btn,
-  .clear-data-btn {
-    padding: 6px 10px;
-    font-size: 11px;
-  }
-
   .relationship-back-button {
-    top: 140px;
+    top: 100px;
     left: 12px;
     padding: 10px 12px;
     font-size: 12px;
@@ -510,40 +387,11 @@
 
 @media (max-width: 480px) {
   .relationship-graph-main {
-    margin-top: 140px;
-  }
-
-  .relationship-graph-header {
-    padding: 8px;
-    gap: 8px;
-    height: auto;
-    min-height: auto;
-  }
-
-  .header-info {
-    gap: 8px;
-    font-size: 11px;
-  }
-
-  .info-item {
-    font-size: 11px;
-  }
-
-  .header-controls {
-    gap: 6px;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .clear-selection-btn,
-  .clear-data-btn {
-    padding: 6px 8px;
-    font-size: 10px;
-    width: 100%;
+    margin-top: 80px;
   }
 
   .relationship-back-button {
-    top: 140px;
+    top: 90px;
     left: 8px;
     padding: 8px 10px;
     font-size: 11px;
