@@ -171,8 +171,8 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
         }
 
         // Create attribute nodes and links
-        attributeSet.forEach((container, key) => {
-          const [, nodeName] = key.split('|')
+        attributeSet.forEach((container, attributeKey) => {
+          const [, nodeName] = attributeKey.split('|')
           const attributeId = `patient-${gender.toLowerCase()}-${sanitizeId(ageGroup)}-${sanitizeId(container)}-${sanitizeId(nodeName)}`
 
           if (!nodesMap.has(attributeId)) {
