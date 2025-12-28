@@ -181,17 +181,6 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
 
         return 100
       })
-
-      // Stabilize the layout
-      graph.cooldownTime(3000)
-      graph.warmupTicks(100)
-      graph.d3AlphaDecay(0.03)
-      graph.d3VelocityDecay(0.3)
-
-      // Fit to screen after a delay
-      setTimeout(() => {
-        graph.zoomToFit(400, 50)
-      }, 100)
     }
   }, [graphData])
 
