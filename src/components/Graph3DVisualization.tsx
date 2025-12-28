@@ -102,37 +102,37 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     const linksArray: GraphLink[] = []
     const patientNodes = patientEdges.map((pe) => pe.patientId)
 
-    // Add patient nodes
+    // Add patient nodes (Blue, large)
     patientNodes.forEach((patientId) => {
       nodesMap.set(`patient-${patientId}`, {
         id: `patient-${patientId}`,
         name: patientId,
         type: 'patient',
-        container: 'Patient_ID',
-        color: nodeTypeColors.patient,
+        container: 'Patient',
+        color: '#1890FF', // Blue
         size: 8,
+        displayLabel: patientId,
       })
     })
 
-    // Add variable nodes and links
+    // Add value nodes and links
     const processedEdges = new Set<string>()
 
     patientEdges.forEach((patientData) => {
       patientData.edges.forEach((edge) => {
-        const shouldShowEdge =
-          (!selectedPatient || selectedPatient === patientData.patientId) &&
-          (!selectedVariable || selectedVariable === edge.container)
-
-        const nodeId = `variable-${edge.container}-${edge.node}`
+        const nodeId = `value-${edge.container}-${edge.node}`
 
         if (!nodesMap.has(nodeId)) {
+          const valueType = getValueType(edge.container)
           nodesMap.set(nodeId, {
             id: nodeId,
             name: edge.node,
-            type: 'variable',
+            type: 'value',
+            valueType,
             container: edge.container,
-            color: containerToColorMap[edge.container] || '#999999',
+            color: getValueColor(valueType),
             size: 6,
+            displayLabel: edge.node,
           })
         }
 
@@ -141,7 +141,6 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
           linksArray.push({
             source: `patient-${patientData.patientId}`,
             target: nodeId,
-            isVisible: shouldShowEdge,
           })
           processedEdges.add(linkKey)
         }
@@ -152,7 +151,7 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
       nodes: Array.from(nodesMap.values()),
       links: linksArray,
     })
-  }, [patientEdges, selectedPatient, selectedVariable, containerToColorMap, nodeTypeColors])
+  }, [patientEdges, selectedPatient, selectedVariable])
 
   useEffect(() => {
     if (fgRef.current && graphData.nodes.length > 0) {
