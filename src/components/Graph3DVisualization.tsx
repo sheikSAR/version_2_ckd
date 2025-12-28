@@ -211,6 +211,11 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     if (node.type === 'patient') {
       const patientId = node.name
       onPatientSelect?.(patientId === selectedPatient ? null : patientId)
+      setSelectedValueNode(null)
+    } else if (node.type === 'value') {
+      // Click value node: highlight all patients sharing that value
+      setSelectedValueNode(node.id === selectedValueNode ? null : node.id)
+      onPatientSelect?.(null)
     }
   }
 
