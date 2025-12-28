@@ -150,6 +150,7 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
   const [patientData, setPatientData] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [maxPatients, setMaxPatients] = useState(100)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,6 +165,9 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
         }
 
         const data = await response.json()
+        if (!Array.isArray(data)) {
+          throw new Error('Patient data is not an array')
+        }
         setPatientData(data)
       } catch (err: any) {
         setError(err.message)
@@ -175,7 +179,10 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
     if (configPath) fetchData()
   }, [configPath])
 
-  const { nodes, edges } = useMemo(() => generateFlow(patientData), [patientData])
+  const { nodes, edges, totalPatients, visiblePatients } = useMemo(
+    () => generateFlow(patientData, maxPatients),
+    [patientData, maxPatients]
+  )
 
   if (loading)
     return <div className="population-graph-loading">Loading Patient Flow Graph...</div>
@@ -184,6 +191,26 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
 
   return (
     <div className="population-graph-wrapper">
+      <div className="population-graph-header">
+        <div className="patient-info">
+          Displaying {visiblePatients} of {totalPatients} patients • {edges.length} connections
+        </div>
+        {totalPatients > 50 && (
+          <div className="patient-limit-control">
+            <label htmlFor="patient-limit">Limit patients to:</label>
+            <input
+              id="patient-limit"
+              type="range"
+              min="10"
+              max={Math.min(totalPatients, 500)}
+              value={maxPatients}
+              onChange={(e) => setMaxPatients(parseInt(e.target.value))}
+              className="patient-limit-slider"
+            />
+            <span className="limit-value">{maxPatients}</span>
+          </div>
+        )}
+      </div>
       <ReactFlow nodes={nodes} edges={edges} fitView>
         <Background color="#e8f4fb" gap={20} />
         <Controls />
