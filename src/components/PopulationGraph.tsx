@@ -8,12 +8,14 @@ import {
   MarkerType
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import '../styles/PopulationGraph.css'
 
 const nodeCategories: any = {
   Patient: ['Patient'],
   Gender: ['Male', 'Female'],
   Age_Group: ['Age < 40', 'Age == 40', '40 < Age <= 45', '45 < Age <= 50', '50 < Age <= 55', '55 < Age <= 60', '60 < Age <= 65', '65 < Age <= 70', '70 < Age <= 75', '75 < Age <= 78', 'Age > 78'],
-  DR: ['Non DR_OD', 'DR_OD', 'Non DR_OS', 'DR_OS'],
+  DR_OD: ['Non DR_OD', 'DR_OD'],
+  DR_OS: ['Non DR_OS', 'DR_OS'],
   HTN: ['No HTN', 'HTN'],
   Duration_of_Diabetes: ['DD <= 5', '5 < DD <= 10', '10 < DD <= 15', '15 < DD <= 20', '20 < DD <= 25', '25 < DD <= 30', '30 < DD <= 35', '35 < DD <= 40', 'DD > 40'],
   HB: ['HB <= 9', '9 < HB <= 12', '12 < HB <= 15', '15 < HB <= 18', 'HB > 18'],
@@ -23,18 +25,19 @@ const nodeCategories: any = {
   EGFR: ['EGFR >= 90', 'EGFR < 90']
 }
 
-const categoryColors: any = {
-  Patient: '#ff7675',
-  Gender: '#00cec9',
-  Age_Group: '#0984e3',
-  DR: '#e17055',
-  HTN: '#55efc4',
-  Duration_of_Diabetes: '#fdcb6e',
-  HB: '#a29bfe',
-  HBA: '#74b9ff',
-  DR_Severity_OD: '#fab1a0',
-  DR_Severity_OS: '#55efc4',
-  EGFR: '#fd79a8'
+const colorPalettes: any = {
+  Patient: { primary: '#FF6B6B', light: '#FFE5E5', dark: '#FF5252' },
+  Gender: { primary: '#4ECDC4', light: '#E0F7F6', dark: '#1BA8A0' },
+  Age_Group: { primary: '#45B7D1', light: '#E3F7FF', dark: '#0D8FB9' },
+  DR_OD: { primary: '#FFA07A', light: '#FFE8DC', dark: '#FF7F50' },
+  DR_OS: { primary: '#E17055', light: '#FFCCC2', dark: '#D63031' },
+  HTN: { primary: '#98D8C8', light: '#E8F8F3', dark: '#52B8A0' },
+  Duration_of_Diabetes: { primary: '#F7DC6F', light: '#FFFACD', dark: '#F4C430' },
+  HB: { primary: '#BB8FCE', light: '#F5E6FA', dark: '#9B59B6' },
+  HBA: { primary: '#85C1E9', light: '#E8F4FB', dark: '#3498DB' },
+  DR_Severity_OD: { primary: '#F8B88B', light: '#FFF0E6', dark: '#E67E22' },
+  DR_Severity_OS: { primary: '#A3E4D7', light: '#E8FFF7', dark: '#27AE60' },
+  EGFR: { primary: '#D7BCCB', light: '#FBF2F7', dark: '#C2185B' }
 }
 
 // --- Graph Generation Logic ---
@@ -44,21 +47,31 @@ const generateFlow = (data: any[]) => {
   const edges: Edge[] = []
   const xSpacing = 280
   const ySpacing = 70
+  let nodeIndex = 0
 
   // 1. Create Static Categorical Nodes
   Object.keys(nodeCategories).forEach((catKey, colIndex) => {
+    const palette = colorPalettes[catKey]
+
     nodes.push({
       id: `header-${catKey}`,
       data: { label: catKey.replace(/_/g, ' ') },
       position: { x: colIndex * xSpacing, y: -60 },
       selectable: false,
       style: {
-        background: categoryColors[catKey],
+        background: palette.dark,
         color: '#fff',
         fontWeight: 'bold',
         width: 140,
         textAlign: 'center',
-        borderRadius: '5px'
+        borderRadius: '8px',
+        fontSize: '13px',
+        letterSpacing: '0.3px',
+        textTransform: 'uppercase',
+        padding: '12px 8px',
+        boxShadow: `0 4px 12px ${palette.primary}40`,
+        border: 'none',
+        animation: `nodeSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${colIndex * 0.1}s both`
       }
     })
 
@@ -68,14 +81,20 @@ const generateFlow = (data: any[]) => {
         data: { label: label },
         position: { x: colIndex * xSpacing, y: rowIndex * ySpacing },
         style: {
-          borderRadius: '50px',
+          borderRadius: '12px',
           width: 140,
           fontSize: '11px',
           textAlign: 'center',
-          background: '#f8f9fa',
-          border: `2px solid ${categoryColors[catKey]}55`
+          background: 'rgba(255, 255, 255, 0.9)',
+          border: `2px solid ${palette.primary}`,
+          padding: '12px 8px',
+          boxShadow: `0 4px 12px rgba(0, 0, 0, 0.08)`,
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          cursor: 'pointer',
+          animation: `nodePopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${(colIndex * 11 + rowIndex) * 0.05}s both`
         }
       })
+      nodeIndex++
     })
   })
 
@@ -85,7 +104,8 @@ const generateFlow = (data: any[]) => {
       `Patient-0`,
       `Gender-${patient.gender}`,
       `Age_Group-${patient.age}`,
-      patient.DR_OD === 1 ? `DR-1` : `DR-0`,
+      `DR_OD-${patient.DR_OD}`,
+      `DR_OS-${patient.DR_OS}`,
       `HTN-${patient.Hypertension}`,
       `Duration_of_Diabetes-${patient.Durationofdiabetes - 1}`,
       `HB-${patient.HB - 1}`,
@@ -101,8 +121,13 @@ const generateFlow = (data: any[]) => {
         source: path[i] as string,
         target: path[i + 1] as string,
         animated: true,
-        style: { stroke: categoryColors.Patient, strokeWidth: 1.5, opacity: 0.3 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: categoryColors.Patient }
+        style: {
+          stroke: colorPalettes.Patient.primary,
+          strokeWidth: 2,
+          opacity: 0.25,
+          animation: `edgeFadeIn 0.8s ease-in-out ${pIdx * 0.05}s both`
+        },
+        markerEnd: { type: MarkerType.ArrowClosed, color: colorPalettes.Patient.primary }
       })
     }
   })
@@ -146,14 +171,14 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
   const { nodes, edges } = useMemo(() => generateFlow(patientData), [patientData])
 
   if (loading)
-    return <div style={{ padding: '20px' }}>Loading Patient Flow Graph...</div>
+    return <div className="population-graph-loading">Loading Patient Flow Graph...</div>
   if (error)
-    return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>
+    return <div className="population-graph-error">Error: {error}</div>
 
   return (
-    <div style={{ width: '100%', height: '100%', background: '#fcfcfc' }}>
+    <div className="population-graph-wrapper">
       <ReactFlow nodes={nodes} edges={edges} fitView>
-        <Background color="#eee" gap={20} />
+        <Background color="#e8f4fb" gap={20} />
         <Controls />
       </ReactFlow>
     </div>
