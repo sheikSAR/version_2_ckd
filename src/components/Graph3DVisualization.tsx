@@ -64,22 +64,32 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     links: [],
   })
 
-  // Build adjacency map for hover interactions
-  const adjacencyMap = useMemo(() => {
-    const map = new Map<string, Set<string>>()
+  // Build adjacency map and patient lookup for interactions
+  const { adjacencyMap, patientValueMap } = useMemo(() => {
+    const adjMap = new Map<string, Set<string>>()
+    const pvMap = new Map<string, Set<string>>() // value node -> connected patients
 
     graphData.links.forEach((link) => {
       const sourceId = typeof link.source === 'string' ? link.source : link.source.id
       const targetId = typeof link.target === 'string' ? link.target : link.target.id
 
-      if (!map.has(sourceId)) map.set(sourceId, new Set())
-      if (!map.has(targetId)) map.set(targetId, new Set())
+      if (!adjMap.has(sourceId)) adjMap.set(sourceId, new Set())
+      if (!adjMap.has(targetId)) adjMap.set(targetId, new Set())
 
-      map.get(sourceId)!.add(targetId)
-      map.get(targetId)!.add(sourceId)
+      adjMap.get(sourceId)!.add(targetId)
+      adjMap.get(targetId)!.add(sourceId)
+
+      // Track which patients are connected to each value node
+      if (sourceId.startsWith('patient-') && targetId.startsWith('value-')) {
+        if (!pvMap.has(targetId)) pvMap.set(targetId, new Set())
+        pvMap.get(targetId)!.add(sourceId)
+      } else if (targetId.startsWith('patient-') && sourceId.startsWith('value-')) {
+        if (!pvMap.has(sourceId)) pvMap.set(sourceId, new Set())
+        pvMap.get(sourceId)!.add(targetId)
+      }
     })
 
-    return map
+    return { adjacencyMap: adjMap, patientValueMap: pvMap }
   }, [graphData.links])
 
   useEffect(() => {
