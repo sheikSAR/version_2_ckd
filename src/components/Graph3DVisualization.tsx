@@ -330,10 +330,10 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
     <div className="graph-3d-container">
       {graphData.nodes.length > 0 ? (
         <>
-          <ForceGraph3D as any
-            ref={fgRef}
-            graphData={graphData}
-            nodeLabel={(node: any) => {
+          {React.createElement(ForceGraph3D as any, {
+            ref: fgRef,
+            graphData: graphData,
+            nodeLabel: (node: any) => {
               if (node.type === 'root') {
                 return `${node.name}`
               }
@@ -348,23 +348,23 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
               }
               // Patient node
               return `Patient: ${node.name}`
-            }}
-            nodeColor={(node: any) => nodeColor(node)}
-            nodeSize={(node: any) => nodeSize(node)}
-            linkColor={(link: any) => getLinkColor(link)}
-            linkWidth={(link: any) => linkWidth(link)}
-            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 4 : 0)}
-            linkCurvature={0.25}
-            onNodeHover={handleNodeHover}
-            onNodeClick={handleNodeClick}
-            backgroundColor="#0F1419"
-            cooldownTime={3000}
-            warmupTicks={100}
-            d3AlphaDecay={0.03}
-            d3VelocityDecay={0.3}
-            width={typeof window !== 'undefined' ? window.innerWidth : 1024}
-            height={typeof window !== 'undefined' ? window.innerHeight - 300 : 768}
-          />
+            },
+            nodeColor: (node: any) => nodeColor(node),
+            nodeSize: (node: any) => nodeSize(node),
+            linkColor: (link: any) => getLinkColor(link),
+            linkWidth: (link: any) => linkWidth(link),
+            linkDirectionalArrowLength: (link: any) => (link.isVisible ? 4 : 0),
+            linkCurvature: 0.25,
+            onNodeHover: handleNodeHover,
+            onNodeClick: handleNodeClick,
+            backgroundColor: '#0F1419',
+            cooldownTime: 3000,
+            warmupTicks: 100,
+            d3AlphaDecay: 0.03,
+            d3VelocityDecay: 0.3,
+            width: typeof window !== 'undefined' ? window.innerWidth : 1024,
+            height: typeof window !== 'undefined' ? window.innerHeight - 300 : 768,
+          })}
           <div className="graph-info-panel">
             <div className="info-header">Graph Stats</div>
             <div className="info-stat">
