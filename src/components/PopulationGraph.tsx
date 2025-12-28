@@ -26,18 +26,18 @@ const nodeCategories: any = {
 }
 
 const colorPalettes: any = {
-  Patient: { primary: '#FF6B6B', light: '#FFE5E5', dark: '#FF5252' },
-  Gender: { primary: '#4ECDC4', light: '#E0F7F6', dark: '#1BA8A0' },
-  Age_Group: { primary: '#45B7D1', light: '#E3F7FF', dark: '#0D8FB9' },
-  DR_OD: { primary: '#FFA07A', light: '#FFE8DC', dark: '#FF7F50' },
-  DR_OS: { primary: '#E17055', light: '#FFCCC2', dark: '#D63031' },
-  HTN: { primary: '#98D8C8', light: '#E8F8F3', dark: '#52B8A0' },
-  Duration_of_Diabetes: { primary: '#F7DC6F', light: '#FFFACD', dark: '#F4C430' },
-  HB: { primary: '#BB8FCE', light: '#F5E6FA', dark: '#9B59B6' },
-  HBA: { primary: '#85C1E9', light: '#E8F4FB', dark: '#3498DB' },
-  DR_Severity_OD: { primary: '#F8B88B', light: '#FFF0E6', dark: '#E67E22' },
-  DR_Severity_OS: { primary: '#A3E4D7', light: '#E8FFF7', dark: '#27AE60' },
-  EGFR: { primary: '#D7BCCB', light: '#FBF2F7', dark: '#C2185B' }
+  Patient: { primary: '#FF6B6B', light: '#FFE5E5', dark: '#E63946', textColor: '#ffffff' },
+  Gender: { primary: '#4ECDC4', light: '#E0F7F6', dark: '#06A77D', textColor: '#ffffff' },
+  Age_Group: { primary: '#45B7D1', light: '#E3F7FF', dark: '#0077B6', textColor: '#ffffff' },
+  DR_OD: { primary: '#FFA07A', light: '#FFE8DC', dark: '#D85030', textColor: '#ffffff' },
+  DR_OS: { primary: '#E17055', light: '#FFCCC2', dark: '#C1121F', textColor: '#ffffff' },
+  HTN: { primary: '#98D8C8', light: '#E8F8F3', dark: '#1BA098', textColor: '#ffffff' },
+  Duration_of_Diabetes: { primary: '#F7DC6F', light: '#FFFACD', dark: '#D4A500', textColor: '#1a1a1a' },
+  HB: { primary: '#BB8FCE', light: '#F5E6FA', dark: '#6A3E7F', textColor: '#ffffff' },
+  HBA: { primary: '#85C1E9', light: '#E8F4FB', dark: '#0B5394', textColor: '#ffffff' },
+  DR_Severity_OD: { primary: '#F8B88B', light: '#FFF0E6', dark: '#C65911', textColor: '#ffffff' },
+  DR_Severity_OS: { primary: '#A3E4D7', light: '#E8FFF7', dark: '#00A884', textColor: '#ffffff' },
+  EGFR: { primary: '#D7BCCB', light: '#FBF2F7', dark: '#7B3FF2', textColor: '#ffffff' }
 }
 
 // --- Graph Generation Logic ---
@@ -60,7 +60,7 @@ const generateFlow = (data: any[], maxPatients: number = 100) => {
       selectable: false,
       style: {
         background: palette.dark,
-        color: '#fff',
+        color: palette.textColor,
         fontWeight: 'bold',
         width: 140,
         textAlign: 'center',
@@ -244,7 +244,7 @@ export default function PopulationGraph({ configPath }: PopulationGraphProps) {
               id="patient-limit"
               type="range"
               min="10"
-              max={Math.min(totalPatients, 500)}
+              max={totalPatients}
               value={maxPatients}
               onChange={(e) => setMaxPatients(parseInt(e.target.value))}
               className="patient-limit-slider"
