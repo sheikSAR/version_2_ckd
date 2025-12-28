@@ -78,27 +78,22 @@ def encode_clinical_features(df):
 def preprocess_excel_data(df):
     """
     Process Excel data and return as list of records.
-
-    Args:
-        df: Pandas DataFrame from Excel file
-
-    Returns:
-        List of dictionaries representing processed rows
-
-    Raises:
-        ValueError: If required columns are missing
     """
-    # Check required columns
+
+    # Validate required columns
     missing_columns = [col for col in required_columns if col not in df.columns]
     if missing_columns:
         raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
 
-    # Reindex to required columns
+    # Reindex to required schema
     df = df.reindex(columns=required_columns)
 
-    # Apply feature encoding
+    # Encode clinical features
     df = encode_clinical_features(df)
 
-    # Convert to records
+    # INSERT CONSTANT ENTITY COLUMN AFTER ID
+    df.insert(loc=df.columns.get_loc("ID") + 1, column="NAME", value="patient")
+
+    # Convert to list of dictionaries
     rows = df.to_dict(orient="records")
     return rows
