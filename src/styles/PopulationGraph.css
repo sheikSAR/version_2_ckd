@@ -1,42 +1,11 @@
-@keyframes nodeSlideIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes nodePopIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes edgeFadeIn {
-  from {
-    opacity: 0;
-    stroke-dashoffset: 100;
-  }
-  to {
-    opacity: 0.25;
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes nodePulse {
-  0%, 100% {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  50% {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -47,6 +16,93 @@
   overflow: hidden;
   position: relative;
   border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.population-graph-header {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #4a5568;
+}
+
+.patient-info {
+  font-weight: 500;
+  color: #2d3748;
+  white-space: nowrap;
+}
+
+.patient-limit-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.patient-limit-control label {
+  font-weight: 500;
+  color: #4a5568;
+  white-space: nowrap;
+}
+
+.patient-limit-slider {
+  width: 120px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.patient-limit-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+  transition: all 0.2s ease;
+}
+
+.patient-limit-slider::-webkit-slider-thumb:hover {
+  background: #764ba2;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: scale(1.15);
+}
+
+.patient-limit-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+  transition: all 0.2s ease;
+}
+
+.patient-limit-slider::-moz-range-thumb:hover {
+  background: #764ba2;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: scale(1.15);
+}
+
+.limit-value {
+  min-width: 40px;
+  text-align: right;
+  font-weight: 600;
+  color: #667eea;
 }
 
 .population-graph-loading {
@@ -75,6 +131,16 @@
   font-weight: 500;
   background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
   animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.population-graph-debug-alert {
+  padding: 10px 16px;
+  background: #fff5e6;
+  border-left: 4px solid #f59e0b;
+  color: #92400e;
+  font-size: 12px;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 @keyframes fadeInUp {
@@ -134,6 +200,12 @@
 /* React Flow background */
 .react-flow__background {
   background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%) !important;
+}
+
+/* React Flow container to fill remaining space */
+.react-flow {
+  flex: 1;
+  width: 100%;
 }
 
 /* Responsive adjustments */
