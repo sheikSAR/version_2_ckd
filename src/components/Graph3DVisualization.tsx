@@ -378,17 +378,26 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
             ref={fgRef}
             graphData={graphData}
             nodeLabel={(node: any) => {
-              const label = `${node.name}`
               if (node.type === 'patient') {
-                return `Patient: ${label}`
+                return `👤 Patient: ${node.name}`
               }
-              return `${node.container}: ${label}`
+
+              let typeLabel = ''
+              if (node.valueType === 'binary') {
+                typeLabel = '🔲 Binary'
+              } else if (node.valueType === 'ordinal') {
+                typeLabel = '📊 Ordinal'
+              } else if (node.valueType === 'severity') {
+                typeLabel = '⚠️ Severity'
+              }
+
+              return `${typeLabel} [${node.container}]: ${node.name}`
             }}
             nodeColor={(node: any) => nodeColor(node)}
             nodeSize={(node: any) => nodeSize(node)}
             linkColor={(link: any) => getLinkColor(link)}
-            linkWidth={(link: any) => linkWidth(link)}
-            linkDirectionalArrowLength={(link: any) => (link.isVisible ? 4 : 0)}
+            linkWidth={(link: any) => getLinkWidth(link)}
+            linkOpacity={(link: any) => getLinkOpacity(link)}
             linkCurvature={0.25}
             onNodeHover={handleNodeHover}
             onNodeClick={handleNodeClick}
@@ -403,8 +412,16 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
           <div className="graph-info-panel">
             <div className="info-header">Graph Stats</div>
             <div className="info-stat">
-              <span className="info-label">Nodes:</span>
-              <span className="info-value">{graphData.nodes.length}</span>
+              <span className="info-label">Patients:</span>
+              <span className="info-value">
+                {graphData.nodes.filter((n) => n.type === 'patient').length}
+              </span>
+            </div>
+            <div className="info-stat">
+              <span className="info-label">Values:</span>
+              <span className="info-value">
+                {graphData.nodes.filter((n) => n.type === 'value').length}
+              </span>
             </div>
             <div className="info-stat">
               <span className="info-label">Edges:</span>
@@ -415,6 +432,20 @@ const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
                 <span className="info-label">Hovering:</span>
                 <span className="info-value">
                   {graphData.nodes.find((n) => n.id === hoveredNodeId)?.name}
+                </span>
+              </div>
+            )}
+            {selectedPatient && (
+              <div className="info-stat selected-info">
+                <span className="info-label">Selected Patient:</span>
+                <span className="info-value">{selectedPatient}</span>
+              </div>
+            )}
+            {selectedValueNode && (
+              <div className="info-stat selected-info">
+                <span className="info-label">Selected Value:</span>
+                <span className="info-value">
+                  {graphData.nodes.find((n) => n.id === selectedValueNode)?.name}
                 </span>
               </div>
             )}
