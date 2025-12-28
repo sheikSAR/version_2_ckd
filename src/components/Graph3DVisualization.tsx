@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import ForceGraph3D from 'react-force-graph-3d'
-import { mapPatientDataToHierarchy } from '../utils/patientNodeMapper'
-import type { HierarchicalNode, PatientEdge, HierarchicalGraph } from '../utils/patientNodeMapper'
-import nodeData from '../data/node.json'
 import '../styles/Graph3DVisualization.css'
 
 interface Graph3DVisualizationProps {
