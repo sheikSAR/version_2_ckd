@@ -14,16 +14,17 @@ interface Graph3DVisualizationProps {
 interface GraphNode {
   id: string
   name: string
-  type: 'patient' | 'variable'
+  type: 'patient' | 'value'
+  valueType?: 'binary' | 'ordinal' | 'severity'
   container: string
   color: string
   size: number
+  displayLabel: string
 }
 
 interface GraphLink {
   source: string | GraphNode
   target: string | GraphNode
-  isVisible: boolean
 }
 
 const Graph3DVisualization: React.FC<Graph3DVisualizationProps> = ({
