@@ -192,6 +192,12 @@
   background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%) !important;
 }
 
+/* React Flow container to fill remaining space */
+.react-flow {
+  flex: 1;
+  width: 100%;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .population-graph-wrapper {
