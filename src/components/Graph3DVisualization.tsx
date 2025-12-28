@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import ForceGraph3D from 'react-force-graph-3d'
 import '../styles/Graph3DVisualization.css'
 
